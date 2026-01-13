@@ -26,7 +26,7 @@ export async function POST(request: Request) {
         }
 
         // 3. Calculate Splits
-        const subBatches = [];
+        const subBatches: { units: number; label: string }[] = [];
         const parts = Math.ceil(block.units / BATCH_LIMIT);
 
         for (let i = 1; i <= parts; i++) {
