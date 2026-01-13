@@ -2,12 +2,10 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
-import { PrismaClient } from '@prisma/client';
+// import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-// Separate Prisma Client instance for Auth to avoid conflicts?
-// Using global or importing from lib would be better, but for now instantiation here.
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/db/prisma';
 
 async function getUser(username: string) {
     try {
@@ -16,8 +14,8 @@ async function getUser(username: string) {
         });
         return user;
     } catch (error) {
-        console.error('Failed to fetch user:', error);
-        throw new Error('Failed to fetch user.');
+        console.error('Failed to fetch user in auth.ts:', error);
+        throw new Error(`DB Error: ${(error as Error).message}`);
     }
 }
 
