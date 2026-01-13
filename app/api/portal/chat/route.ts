@@ -93,7 +93,11 @@ export async function POST(req: Request) {
         }
 
         // --- BUILD CONVERSATION HISTORY ---
-        let contents = [
+        // Explicitly type contents to allow function calls
+        type Part = { text?: string; functionCall?: any; functionResponse?: any };
+        type Content = { role: string; parts: Part[] };
+
+        let contents: Content[] = [
             {
                 role: "user",
                 parts: [{ text: `System: You are the virtual assistant for the client '${clientName}'. You have access to their real data via tools. Answer concisely. If they ask about orders/projects, call the tool. If they are angry or ask for a person, call human_handoff.` }]
