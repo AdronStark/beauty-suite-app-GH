@@ -1,4 +1,4 @@
-import { useFieldArray, Control, UseFormRegister } from 'react-hook-form';
+import { useFieldArray, Control, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import styles from './tabs.module.css';
 import ExtrasTable from './ExtrasTable';
 
@@ -7,7 +7,7 @@ interface TabExtrasProps {
     register: UseFormRegister<any>;
     watch: any;
     config: any;
-    setValue: (name: string, value: any) => void;
+    setValue: UseFormSetValue<any>;
 }
 
 export default function TabExtras({ control, watch, config, setValue }: TabExtrasProps) {

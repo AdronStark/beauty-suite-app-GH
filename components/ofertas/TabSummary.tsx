@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Control } from 'react-hook-form';
+import { Control, UseFormSetValue } from 'react-hook-form';
 import styles from './tabs.module.css';
 import { calculateOfferCosts } from '@/lib/offerCalculations';
 import { Plus, Trash2, ArrowRight, Table as TableIcon, Settings, X, Save } from 'lucide-react';
@@ -9,7 +9,7 @@ interface TabSummaryProps {
     control: Control<any>;
     register: any;
     watch: any;
-    setValue: any;
+    setValue: UseFormSetValue<any>;
     config: any;
     calculatedUnits: number;
     offerCosts: any;
