@@ -22,6 +22,16 @@ if (process.env.VERCEL) {
     console.log('📤 Pushing DB Schema to Neon...');
     execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
 
+    // 4. Seed Database (Safe because seed.ts uses upsert)
+    console.log('🌱 Seeding Database...');
+    try {
+        execSync('npx prisma db seed', { stdio: 'inherit' });
+        console.log('✅ Seeding completed.');
+    } catch (err) {
+        console.error('⚠️ Seeding failed (non-fatal):', err.message);
+        // Don't fail the build if seeding fails, just log it.
+    }
+
 } else {
     console.log('💻 Local environment detected. Skipping Postgres setup.');
     // Standard generation for local SQLite
