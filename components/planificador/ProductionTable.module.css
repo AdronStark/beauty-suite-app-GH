@@ -1,0 +1,123 @@
+.container {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #334155;
+}
+
+.filters {
+    display: flex;
+    gap: 0.5rem;
+    background: #e2e8f0;
+    padding: 4px;
+    border-radius: 6px;
+}
+
+.filterBtn {
+    padding: 6px 12px;
+    border: none;
+    background: transparent;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.filterBtn[data-active="true"] {
+    background: white;
+    color: #3b82f6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.navBtn {
+    border: none;
+    background: transparent;
+    padding: 4px;
+    border-radius: 4px;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.navBtn:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.tableContainer {
+    overflow: auto;
+    flex: 1;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.table th {
+    background: #f1f5f9;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #475569;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    vertical-align: middle;
+}
+
+.row:hover td {
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+.tag {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+}
+
+.realData {
+    font-weight: 600;
+    color: #10b981;
+}
+
+.missingData {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.8rem;
+}

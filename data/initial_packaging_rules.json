@@ -1,0 +1,6658 @@
+{
+  "rules": [
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.8855000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado Rollon",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.4025000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado Rollon",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.6279000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado con interior",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.3409411764705883
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado Rollon",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2415
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.16100000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.32200000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado Rollon",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.253
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.28980000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.07245
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.07245
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.20125000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.140875
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 15001,
+      "scaleMax": 999999,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.16905
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.5313000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado Rollon",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.18112500000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado Rollon",
+      "scaleMin": 15001,
+      "scaleMax": 999999,
+      "unitCost": 0.14758333333333334
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.14758333333333334
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado con interior",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.2898
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2415
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.16100000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.20490909090909096
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.41670588235294126
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado con interior",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2634545454545455
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.05366666666666666
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.05366666666666666
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08944444444444445
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08944444444444445
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.20700000000000005
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.39355555555555555
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.1502666666666667
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.196
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado con interior",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.252
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado con interior",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.2415
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.18112500000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.13258823529411765
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.3542
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.18032
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 0,
+      "capacityMax": 25,
+      "operation": "Estuchado con interior",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.23184000000000005
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.8855000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado con interior",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.07245
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.07245
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.20125000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.16905
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.5313000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado con interior",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.2898
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2254
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.3409411764705883
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.32200000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.16100000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2504444444444444
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.154
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.28980000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.44275
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado con interior",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.32200000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.05366666666666666
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.05366666666666666
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08944444444444445
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08944444444444445
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.1502666666666667
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.23726315789473687
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2415
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.41670588235294126
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado con interior",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.3050526315789474
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.2254
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado con interior",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.28980000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.207
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.13258823529411765
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.07430769230769231
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.07430769230769231
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.07430769230769231
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.39355555555555555
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.21466666666666673
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 26,
+      "capacityMax": 60,
+      "operation": "Estuchado con interior",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.276
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.12384615384615386
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.12384615384615386
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.12384615384615386
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.4508000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado con interior",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5796
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.8855000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.20125000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.20125000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.16905
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.20490909090909096
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.20490909090909096
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.20490909090909096
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.61985
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado con interior",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.16696296296296298
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.3005333333333334
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.32200000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.5903333333333334
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.50715
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado con interior",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.3864
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2504444444444444
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.20490909090909096
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.4458461538461539
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.4140000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.1733846153846154
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.16100000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.15544827586206897
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.0644
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.0644
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.0644
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.28175000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2634545454545455
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.544923076923077
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado con interior",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.2651764705882353
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado con interior",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.3409411764705883
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 15000,
+      "unitCost": 0.1454193548387097
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado sin interior",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.25044444444444447
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 61,
+      "capacityMax": 150,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.22292307692307692
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.5366666666666666
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.10733333333333335
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.10733333333333335
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.10733333333333335
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Frascos Agrafados",
+      "capacityMin": 61,
+      "capacityMax": 100,
+      "operation": "Estuchado con interior",
+      "scaleMin": 10001,
+      "scaleMax": 999999,
+      "unitCost": 0.32200000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.22540000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.16905
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.16696296296296298
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.3409411764705883
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.060375
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08944444444444445
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.15544827586206897
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.28175000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.28980000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2651764705882353
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2254
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.276
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2146666666666667
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.18032
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.04390909090909092
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.28980000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.0483
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.20490909090909093
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.07318181818181818
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.28980000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.14541935483870969
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.23184000000000005
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1932
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1932
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.322
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.322
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.28175000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.12075000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2254
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.20125000000000004
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.28175
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.20490909090909093
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.0966
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.16100000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.20490909090909096
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08050000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.13416666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.18783333333333335
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.3409411764705883
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.06037500000000001
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.06037500000000001
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.06037500000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.28175000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2651764705882353
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.25044444444444447
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.05366666666666668
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.06037500000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.08944444444444445
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.1733846153846154
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.32200000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1932
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.1932
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.322
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.322
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.4508000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.7245000000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.1449
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.16905
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.24150000000000002
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.28175
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.28175
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.43470000000000003
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.08781818181818182
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.10733333333333332
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.1463636363636364
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.1788888888888889
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.2504444444444444
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.3864
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.07430769230769231
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.08781818181818182
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.1733846153846154
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.1733846153846154
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.1733846153846154
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.12384615384615386
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.1463636363636364
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2254
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.36225000000000007
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico plastico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.06037500000000001
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano plástico",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.069
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado cilíndrico vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.100625
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 151,
+      "capacityMax": 300,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.2634545454545455
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Etiquetado plano vidrio",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.11500000000000002
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.28175000000000006
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 0,
+      "scaleMax": 500,
+      "unitCost": 0.5635
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 301,
+      "capacityMax": 500,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.2634545454545455
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.20490909090909093
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 501,
+      "scaleMax": 1000,
+      "unitCost": 0.3381
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 1001,
+      "scaleMax": 2500,
+      "unitCost": 0.3005333333333334
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.28175000000000006
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 2501,
+      "scaleMax": 5000,
+      "unitCost": 0.2254
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.34094117647058825
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado + estuchado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.2634545454545455
+    },
+    {
+      "container": "Frascos",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.2651764705882353
+    },
+    {
+      "container": "Tarros",
+      "subtype": "Estándar",
+      "capacityMin": 501,
+      "capacityMax": 1000,
+      "operation": "Envasado",
+      "scaleMin": 5001,
+      "scaleMax": 25000,
+      "unitCost": 0.20490909090909093
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.218
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.21
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.156
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.146
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.127
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.112
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.207
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.153
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.132
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.117
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.107
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.096
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.089
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.204
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.149
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.127
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.115
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.102
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.199
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.145
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.12
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.111
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.098
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.091
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.084
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.193
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.14
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.116
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.105
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.094
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.087
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.08
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.193
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.14
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.116
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.105
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.094
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.087
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.08
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.188
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.137
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.112
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.098
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.089
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.081
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.076
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.188
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.137
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.112
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.098
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.089
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.081
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.076
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.4033
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.3885
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.2886
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.2701
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.23495000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.20720000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.38295000000000007
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.28305
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.24420000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.21645
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.19795000000000001
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.17760000000000004
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.16465000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.3774
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.27565000000000006
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.23495000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.21275
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1887
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.36815000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.26825
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.222
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.20535000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.18130000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.16835
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1554
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.35705000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.259
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.2146
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.19425
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.1739
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.16095
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.148
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.35705000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.259
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.2146
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.19425
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.1739
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.16095
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.148
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.3478
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.25345
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.20720000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.18130000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.16465000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.14984999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1406
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.3478
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.25345
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.20720000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.18130000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.16465000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.14984999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1406
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.4033
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.3885
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.2886
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.2701
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.23495000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.20720000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.38295000000000007
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.28305
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.24420000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.21645
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.19795000000000001
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.17760000000000004
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.16465000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.3774
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.27565000000000006
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.23495000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.21275
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.1887
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.36815000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.26825
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.222
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.20535000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.18130000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.16835
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.1554
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.35705000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.259
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.2146
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.19425
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.1739
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.16095
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.148
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.35705000000000003
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.259
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.2146
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.19425
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.1739
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.16095
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.148
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.3478
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.25345
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.20720000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.18130000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.16465000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.14984999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.1406
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.69375
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.3478
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.25345
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.20720000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.18130000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.16465000000000002
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.14984999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.1406
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.30519999999999997
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.294
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.21839999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.20439999999999997
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.17779999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.1568
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.28979999999999995
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.2142
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1848
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.16379999999999997
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.1498
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.13439999999999996
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.12459999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.28559999999999997
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.2086
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.17779999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.161
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.14279999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.27859999999999996
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.203
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.168
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.15539999999999998
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1372
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.12739999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.1176
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.2702
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 20001,
+      "scaleMax": 50000,
+      "unitCost": 0.196
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 50001,
+      "scaleMax": 999999,
+      "unitCost": 0.1624
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.147
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1316
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.12179999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.112
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.2702
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.196
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1624
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.147
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.1316
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.12179999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.112
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.2632
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.19179999999999997
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.1568
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.1372
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.12459999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 0,
+      "scaleMax": 1000,
+      "unitCost": 0.11339999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 1001,
+      "scaleMax": 2000,
+      "unitCost": 0.1064
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2001,
+      "scaleMax": 2500,
+      "unitCost": 0.525
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 3001,
+      "scaleMax": 5000,
+      "unitCost": 0.2632
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 5001,
+      "scaleMax": 10000,
+      "unitCost": 0.19179999999999997
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 10001,
+      "scaleMax": 20000,
+      "unitCost": 0.1568
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Elípticos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2501,
+      "scaleMax": 3000,
+      "unitCost": 0.1372
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Estándar",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2501,
+      "scaleMax": 3000,
+      "unitCost": 0.12459999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Metálicos (+85%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2501,
+      "scaleMax": 3000,
+      "unitCost": 0.11339999999999999
+    },
+    {
+      "container": "Tubos",
+      "subtype": "Ovalado (+40%)",
+      "capacityMin": 0,
+      "capacityMax": 0,
+      "operation": "Envasado Tubos",
+      "scaleMin": 2501,
+      "scaleMax": 3000,
+      "unitCost": 0.1064
+    }
+  ],
+  "meta": {
+    "extractedAt": "2025-12-24T10:36:28.511Z",
+    "sourceFile": "C:/Users/aibarrap/Documents/AIP/Proyectos AG/Beauty App Suite/Beauty App Suite/P5 - Ofertas Beauty/BBDD Ofertas.rev1.xlsx"
+  }
+}

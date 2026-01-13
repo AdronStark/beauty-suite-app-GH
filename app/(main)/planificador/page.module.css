@@ -1,0 +1,106 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 100px);
+    gap: 1rem;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: 0;
+}
+
+.tab {
+    padding: 0.5rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    margin-bottom: -2px;
+    /* Overlap border */
+    transition: all 0.2s;
+}
+
+.tab:hover {
+    color: var(--color-primary);
+}
+
+.tab[data-active="true"] {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.content {
+    flex: 1;
+    overflow: hidden;
+    /* Grid for the specific planner view */
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    /* Critical for nested scroll */
+}
+
+/* Specific view styles */
+.plannerGrid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 1.5rem;
+    height: 100%;
+    overflow: hidden;
+    min-height: 0;
+    /* Critical for nested scroll */
+}
+
+.sidebar {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Explicit height */
+    min-height: 0;
+}
+
+.main {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: auto;
+    /* Enable internal scrolling */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+/* Stats Styles */
+.statsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.statPanel {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+}
+
+/* Config Styles */
+.configContainer {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}

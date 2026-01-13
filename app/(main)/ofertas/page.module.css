@@ -1,0 +1,233 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    color: var(--color-text);
+}
+
+.newButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.newButton:hover {
+    background-color: var(--color-primary-dark);
+}
+
+.statsRow {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.statCard {
+    flex: 1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.statCard h3 {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.statCard p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.tableCard {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: visible;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    text-align: left;
+    padding: 1rem;
+    background: var(--color-divider);
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.table td {
+    padding: 1rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.95rem;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.badge[data-status="Aprobada"] {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge[data-status="Enviada"] {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.linkAction {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.linkAction:hover {
+    text-decoration: underline;
+}
+
+.empty {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+/* Filter Styles */
+.filterContainer {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.filterButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.filterButton:hover,
+.filterButtonActive {
+    background: var(--color-surface-hover);
+    color: var(--color-primary);
+}
+
+.filterDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem;
+    z-index: 50;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.filterItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+.filterItem:hover {
+    background: var(--color-surface-hover);
+}
+
+.filterInput {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    width: 100%;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Filter Header Layout */
+.filterHeaderContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.clearInputButton {
+    position: absolute;
+    right: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clearInputButton:hover {
+    color: var(--color-error);
+}
+
+.filterClearButton {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-align: left;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid var(--color-border);
+    width: 100%;
+    transition: color 0.2s;
+}
+
+.filterClearButton:hover {
+    color: var(--color-error);
+    font-weight: 600;
+}

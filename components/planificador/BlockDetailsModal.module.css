@@ -1,0 +1,117 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow: hidden;
+    /* Prevent modal itself from scrolling */
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    /* Header stays fixed */
+}
+
+/* ... (omitting intermediate classes) */
+
+.content {
+    padding: 1.5rem;
+    flex: 1;
+    /* Takes available space */
+    overflow-y: auto;
+    /* Scrolls internally */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.metric {
+    text-align: center;
+    background: var(--color-bg);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.metricLabel {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.metricValue {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.infoRow {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.divider {
+    height: 1px;
+    background: var(--color-divider);
+    margin: 1.5rem 0;
+}
+
+.actions {
+    padding: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    background: #f8fafc;
+}
+
+.button {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.secondary {
+    background: white;
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.danger {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+.danger:hover {
+    background: #fee2e2;
+}
+
+.primary {
+    background: var(--color-primary);
+    color: white;
+}

@@ -1,0 +1,10 @@
+Debug Compliance KPI
+Current Time: 2026-01-09T09:55:32.168Z
+Week Interval: 2026-01-04T23:00:00.000Z - 2026-01-11T22:59:59.999Z
+Found 3 blocks with deadline in current week.
+Produced Count: 0
+Compliance Ratio: 0%
+--- Blocks Details ---
+[PENDING] PULCRAL SCRUB (Deadline: 2026-01-08)
+[PENDING] NIP GLOSS APHRODISIA AROUSAL CREAM M0243 (Deadline: 2026-01-09)
+[PENDING] 000131 CBD CREMIGEL FRIO-CALIENTE (Deadline: 2026-01-09)

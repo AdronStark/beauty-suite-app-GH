@@ -1,0 +1,13 @@
+
+// --- P3: CRM & SALES ---
+
+model SalesBudget {
+  id        String   @id @default(cuid())
+  year      Int
+  client    String   // String matching the client name used in Offers/Briefings
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([year, client])
+}

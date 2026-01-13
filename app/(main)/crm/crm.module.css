@@ -1,0 +1,73 @@
+/* CRM Dashboard Styles */
+
+/* SECTION 1: Snapshot / Charts */
+/* Grid Layout: 
+   Desktop: 4 Columns (1 Row)
+   Laptop: 2 Columns (2 Rows) -> Dense, no gaps
+   Tablet: 2 Columns
+   Mobile: 1 Column 
+*/
+.snapshotGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    /* Tight gap */
+    margin-bottom: 2rem;
+}
+
+/* Specific Child Adjustments to fill height */
+.snapshotGrid>div {
+    display: flex;
+    flex-direction: column;
+}
+
+/* SECTION 2: KPIs */
+/* Flex Layout to support "Growth" 
+   Items will wrap and expand to fill the empty space.
+*/
+.kpiFlex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.kpiFlex>div {
+    flex: 1 1 220px;
+    /* Grow, Shrink, Basis */
+    min-width: 220px;
+}
+
+/* Helper for Compact Cards in the dashboard explicitly */
+.dashboardCard {
+    padding: 1rem !important;
+}
+
+/* === RESPONSIVE BREAKPOINTS === */
+
+/* Laptop (Small Desktop) 1024px -> 1500px */
+@media (max-width: 1500px) {
+    .snapshotGrid {
+        grid-template-columns: repeat(2, 1fr);
+        /* Force 2x2 grid */
+    }
+}
+
+/* Tablet < 1024px */
+@media (max-width: 1024px) {
+    .snapshotGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .kpiFlex>div {
+        flex-basis: 180px;
+        /* Allow smaller cards */
+    }
+}
+
+/* Mobile < 768px */
+@media (max-width: 768px) {
+    .snapshotGrid {
+        grid-template-columns: 1fr;
+    }
+}

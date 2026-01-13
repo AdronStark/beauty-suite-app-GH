@@ -1,0 +1,251 @@
+.tabContent {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.sectionTitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.sectionTitle:not(:first-child) {
+    margin-top: 2rem;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.grid3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.field label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.field input,
+.field select {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.field input:focus,
+.field select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.error {
+    font-size: 0.75rem;
+    color: #ef4444;
+}
+
+.infoBox {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+/* Table Styles for Formula/Packaging */
+.tableContainer {
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px 6px 0 0;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.table th {
+    background: #f8fafc;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.table input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+}
+
+.table input:hover,
+.table input:focus {
+    background: #fff;
+    border-color: #cbd5e1;
+}
+
+.addButton {
+    width: 100%;
+    padding: 0.75rem;
+    background: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    color: #64748b;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 0 0 6px 6px;
+    transition: all 0.2s;
+}
+
+.addButton:hover {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.deleteBtn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #cbd5e1;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteBtn:hover {
+    color: #ef4444;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.metricCard {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.metricLabel {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.metricValue {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.layoutGrid {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.stickySidebar {
+    position: sticky;
+    top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.compactCard {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-align: left;
+}
+
+.compactCard .metricLabel {
+    color: #64748b;
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.compactCard .metricValue {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #334155;
+    line-height: 1.2;
+}
+
+.compactCard p {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+}
+
+/* New Separator & Grouping */
+.separator {
+    height: 1px;
+    background-color: #e2e8f0;
+    margin: 2.5rem 0 2rem 0;
+    width: 100%;
+}
+
+.contentGroup {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 1100px) {
+    .layoutGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .stickySidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
