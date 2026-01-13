@@ -57,10 +57,11 @@ export async function authenticate(
 
         console.error('Login Error:', error);
 
-        // DEBUG: Return raw error message to UI
-        const msg = (error as Error).message;
-        const type = (error as any).type;
-        return `DEBUG ERROR: ${type || 'Unknown'} - ${msg}`;
+        // DEBUG: Return raw error message to UI (Reverted to standard but keeping log)
+        // const msg = (error as Error).message;
+        // const type = (error as any).type;
+        // return `DEBUG ERROR: ${type || 'Unknown'} - ${msg}`;
+        return 'Algo salió mal. Por favor, inténtelo de nuevo.';
     }
 }
 

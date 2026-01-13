@@ -157,7 +157,7 @@ export default function LoginPage() {
                                 </>
                             ) : (
                                 <>
-                                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.5rem' }}>Gestión Interna (Debug V2)</h1>
+                                    <h1 style={{ fontSize: '1.75rem', fontWeight: 800, marginBottom: '0.5rem' }}>Gestión Interna</h1>
                                     <p style={{ color: textColor, fontSize: '0.95rem' }}>Identifícate con tu usuario corporativo</p>
                                 </>
                             )}
