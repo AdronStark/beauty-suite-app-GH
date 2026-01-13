@@ -55,15 +55,12 @@ export async function authenticate(
             throw error;
         }
 
-        if (error instanceof AuthError) {
-            switch (error.type) {
-                case 'CredentialsSignin':
-                    return 'Credenciales Inválidas.';
-                default:
-                    return 'Algo salió mal.';
-            }
-        }
-        throw error;
+        console.error('Login Error:', error);
+
+        // DEBUG: Return raw error message to UI
+        const msg = (error as Error).message;
+        const type = (error as any).type;
+        return `DEBUG ERROR: ${type || 'Unknown'} - ${msg}`;
     }
 }
 
