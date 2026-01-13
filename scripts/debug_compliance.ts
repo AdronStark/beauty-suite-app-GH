@@ -1,4 +1,4 @@
-
+export { };
 import { PrismaClient } from '@prisma/client';
 import { startOfWeek, endOfWeek, format } from 'date-fns';
 
@@ -11,7 +11,7 @@ async function main() {
 
     const fs = require('fs');
     let output = '';
-    const log = (msg) => { output += msg + '\n'; console.log(msg); };
+    const log = (msg: any) => { output += msg + '\n'; console.log(msg); };
 
     log(`Debug Compliance KPI`);
     log(`Current Time: ${now.toISOString()}`);

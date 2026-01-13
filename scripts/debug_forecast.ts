@@ -1,4 +1,4 @@
-
+export { };
 import { prisma } from '@/lib/db/prisma';
 import { startOfMonth, endOfMonth, startOfDay } from 'date-fns';
 
@@ -28,11 +28,11 @@ async function main() {
     const producedUnits = produced.reduce((acc, b) => acc + b.units, 0);
     const producedReal = produced.reduce((acc, b) => acc + (b.realKg || 0), 0);
 
-    const future = blocks.filter(b => b.plannedDate >= todayStart && b.status !== 'PRODUCED' && b.status !== 'FINALIZED');
+    const future = blocks.filter(b => b.plannedDate && b.plannedDate >= todayStart && b.status !== 'PRODUCED' && b.status !== 'FINALIZED');
     const futureUnits = future.reduce((acc, b) => acc + b.units, 0);
 
     // THE GAP: Pending blocks in the past
-    const overdue = blocks.filter(b => b.plannedDate < todayStart && b.status !== 'PRODUCED' && b.status !== 'FINALIZED');
+    const overdue = blocks.filter(b => b.plannedDate && b.plannedDate < todayStart && b.status !== 'PRODUCED' && b.status !== 'FINALIZED');
     const overdueUnits = overdue.reduce((acc, b) => acc + b.units, 0);
 
     console.log(`\n--- Breakdown ---`);

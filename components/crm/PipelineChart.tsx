@@ -40,7 +40,7 @@ export default function PipelineChart({ data }: PipelineChartProps) {
                     <Tooltip
                         cursor={{ fill: '#f1f5f9' }}
                         contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
-                        formatter={(value: number) => [`${value.toLocaleString()} €`, 'Valor']}
+                        formatter={(value: any) => [`${value?.toLocaleString()} €`, 'Valor']}
                     />
                     <Bar
                         dataKey="value"
