@@ -206,7 +206,7 @@ export default function PlannerLayout({ initialBlocks, holidays, maintenance, re
             });
             setBlocks(updated);
             setSelectedBlockId(null);
-            setConfirmConfig(prev => ({ ...prev, isOpen: false })); // Close modal
+            setConfirmConfig((prev: any) => ({ ...prev, isOpen: false })); // Close modal
 
             // Fix Timezone Issue: Normalize to Noon to ensure it stays in same day relative to UTC
             const normalizedDate = new Date(date);
@@ -281,7 +281,7 @@ export default function PlannerLayout({ initialBlocks, holidays, maintenance, re
             });
             setBlocks(updated);
             setViewBlock(null);
-            setConfirmConfig(prev => ({ ...prev, isOpen: false })); // Close modal
+            setConfirmConfig((prev: any) => ({ ...prev, isOpen: false })); // Close modal
 
             if (reselect) {
                 setSelectedBlockId(blockId);
