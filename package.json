@@ -6,8 +6,8 @@
     "dev": "npx tsx scripts/backup_db.ts && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "postinstall": "prisma generate"
+    "lint": "next lint",
+    "postinstall": "node scripts/prepare-vercel.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

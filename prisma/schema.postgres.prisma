@@ -1,0 +1,286 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+// --- P0: BRIEFINGS ---
+
+model Briefing {
+  id              String   @id @default(cuid())
+  code            String?  // B25xxxx
+  revision        Int      @default(0)
+  clientName      String
+  productName     String
+  category        String?
+  status          String   @default("Borrador")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // NEW: Basic Initial Info
+  responsableComercial String?
+  responsableTecnico   String?
+  targetDate           DateTime?
+  
+  // Storing complex form data as JSON string
+  formData        String   @default("{}")
+  
+  // Storing list of image paths as JSON string
+  imagePaths      String   @default("[]")
+
+  // Relation to Offers
+  offers          Offer[]
+
+  // Relation to Formulas
+  formulas        Formula[]
+
+  // Composite unique on code + revision
+  @@unique([code, revision])
+}
+
+model Formula {
+  id          String   @id @default(cuid())
+  name        String
+  category    String?  // Hair, Skin, Body...
+  description String?
+  ingredients String   @default("[]") // JSON: [{ name, percentage, phase }]
+  status      String   @default("Active") // Active, Archived
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relation to Briefing
+  briefingId  String?
+  briefing    Briefing? @relation(fields: [briefingId], references: [id], onDelete: SetNull)
+
+  // Versioning
+  code        String?   // F001 (Optional for existing, required for new)
+  revision    Int       @default(0)
+  
+  @@unique([code, revision])
+
+  // Relations for new features
+  stabilityTests StabilityTest[]
+  samples        Sample[]
+  
+  // Ownership & Client Association
+  ownership   String   @default("PROPIA") // "CLIENTE" | "PROPIA"
+  clients     Client[]
+}
+
+model StabilityTest {
+  id          String   @id @default(cuid())
+  formulaId   String
+  formula     Formula  @relation(fields: [formulaId], references: [id])
+  date        DateTime @default(now())
+  type        String   // T0, T1M, T3M, Estufa, Nevera
+  temperature String?  // 25C, 40C, 4C
+  ph          String?
+  viscosity   String?
+  appearance  String?
+  aroma       String?
+  notes       String?
+  createdAt   DateTime @default(now())
+}
+
+model Sample {
+  id          String   @id @default(cuid())
+  formulaId   String
+  formula     Formula  @relation(fields: [formulaId], references: [id])
+  recipient   String   // Client Name or Contact
+  dateSent    DateTime @default(now())
+  status      String   // Pending, Approved, Rejected, Changes Required
+  feedback    String?
+  createdAt   DateTime @default(now())
+}
+
+// --- P5: OFERTAS ---
+
+model Offer {
+  id              String   @id @default(cuid())
+  client          String
+  product         String
+  status          String   @default("Borrador")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Complex calculator inputs stored as JSON
+  inputData       String   @default("{}")
+  
+  // Calculated results summary stored as JSON
+  // Calculated results summary stored as JSON
+  resultsSummary  String?  @default("{}")
+
+  // Auto-generated human readable code (YYxxxx)
+  code            String?
+  
+  // Revision number (0, 1, 2...)
+  revision        Int      @default(0)
+
+  // Meta fields
+  responsableComercial String?
+  responsableTecnico   String?
+  fechaEntrega         DateTime?
+
+  // Compound unique constraint: Code + Revision must be unique
+  @@unique([code, revision])
+
+  // Link to Briefing (Optional)
+  briefingId      String?
+  briefing        Briefing? @relation(fields: [briefingId], references: [id], onDelete: SetNull)
+
+  // CRM / Analytics Data
+  probability     Int?      // 0-100
+  expectedCloseDate DateTime?
+  rejectionReason String?
+  competitor      String?
+  feedback        String?
+
+  // Status History Tracking
+  sentAt          DateTime? // When status changed to Enviada
+  wonAt           DateTime? // When status changed to Adjudicada/Aceptada
+  lostAt          DateTime? // When status changed to Rechazada/Perdida
+  statusHistory   String?   @default("[]") // JSON: [{ status, date, user }]
+}
+
+// --- P6: PLANIFICADOR ---
+
+model ProductionBlock {
+  id              String    @id @default(cuid())
+  erpId           String?
+  articleCode     String
+  articleDesc     String
+  clientName      String
+  orderNumber     String?
+  units           Float
+  status          String    // PENDING, PLANNED, PRODUCED
+  deadline        DateTime?
+  orderDate       DateTime?
+  
+  // Planning info
+  plannedDate     DateTime?
+  plannedReactor  String?
+  plannedShift    String?
+  batchLabel      String?
+  
+  // Progress info from ERP
+  unitsOrdered    Float?
+  unitsServed     Float?
+  unitsPending    Float?
+
+  // Performance / Real Data
+  realKg          Float?
+  realDuration    Int?      // Minutes
+  operatorNotes   String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Reactor {
+  id              String   @id @default(cuid())
+  name            String   @unique // R1, R2, R3, R4
+  description     String?  // Reactor 5000L Coper
+  capacity        Float    // Capacity in Liters/Kg (e.g. 5000)
+  dailyTarget     Float    // Theoretical daily production capacity in Kg (e.g. 15000 for 3 batches)
+  plant           String   @default("Coper")
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model ReactorMaintenance {
+  id              String    @id @default(cuid())
+  reactorId       String
+  startDate       DateTime
+  endDate         DateTime
+  reason          String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Holiday {
+  id          String   @id @default(cuid())
+  date        DateTime @unique
+  description String?
+}
+
+model Configuration {
+  key   String @id
+  value String
+}
+
+// --- P56: AUTHENTICATION ---
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // Hashed
+  name      String?
+  firstName String?
+  lastName1 String?
+  lastName2 String?
+  position  String? // Job title/Position
+  isCommercial Boolean @default(false)
+  isTechnical  Boolean @default(false)
+  role      String   @default("VIEWER") // ADMIN, MANAGER, OPERATOR, VIEWER, CLIENT
+  connectedClientName String? // For role: CLIENT, links to specific client data
+  companies String   // JSON string: ["coper", "jumsa"]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --- P3: CRM & SALES ---
+
+model Company {
+  id        String   @id @default(cuid())
+  code      String   @unique // Short code: COPER, JUMSA, TERNUM, COSME
+  name      String            // Display name: Coper, Jumsa, Ternum, Cosmeprint
+  color     String?           // Brand color for UI
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  budgets   SalesBudget[]
+}
+
+model SalesBudget {
+  id        String   @id @default(cuid())
+  year      Int
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id])
+  client    String   // String matching the client name used in Offers/Briefings
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([year, client, companyId])
+}
+
+// --- P57: CLIENT MANAGEMENT ---
+
+model Client {
+  id              String   @id @default(cuid())
+  erpId           String?  @unique // Corresponds to 'CodigoCliente' from ERP
+  name            String   // Corresponds to 'Nombre'
+  businessName    String?  // Corresponds to 'RazonSocial'
+  source          String   @default("MANUAL") // 'ERP' | 'MANUAL'
+  
+  // Future Extensions
+  address         String?
+  contactInfo     String?  // JSON string for contacts
+  notes           String?
+  
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  formulas        Formula[]
+}
