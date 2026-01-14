@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Space_Grotesk } from "next/font/google"; // Premium modern fonts
 import { CompanyProvider } from "@/context/CompanyContext";
 import { AppConfigProvider } from "@/context/AppConfigContext";
+import { AgentChat } from "@/components/agent/AgentChat";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -41,9 +42,10 @@ export default async function RootLayout({
             <AppConfigProvider>
               {children}
             </AppConfigProvider>
+            {/* <AgentChat /> */}
           </CompanyProvider>
         </SessionProvider>
       </body>
-    </html>
+    </html >
   );
 }

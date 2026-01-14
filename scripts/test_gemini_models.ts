@@ -13,11 +13,9 @@ async function main() {
         const data = await response.json();
 
         if (data.models) {
-            console.log("Available 'Flash' Models:");
+            console.log("Available Models:");
             data.models.forEach((m: any) => {
-                if (m.name.includes("flash")) {
-                    console.log(`- ${m.name}`);
-                }
+                console.log(`- ${m.name}`);
             });
         } else {
             console.error("No models found or error:", data);
