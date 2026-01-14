@@ -13,10 +13,13 @@ async function main() {
         const data = await response.json();
 
         if (data.models) {
-            console.log("Available Models:");
-            data.models.forEach((m: any) => {
-                console.log(`- ${m.name}`);
-            });
+            console.log("Checking for 'gemini-1.5-flash'...");
+            const flash = data.models.find((m: any) => m.name.includes("gemini-1.5-flash"));
+            if (flash) {
+                console.log("FOUND:", flash.name);
+            } else {
+                console.log("NOT FOUND in list. Available:", data.models.map((m: any) => m.name).join(", "));
+            }
         } else {
             console.error("No models found or error:", data);
         }
