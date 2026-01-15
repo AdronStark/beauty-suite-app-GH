@@ -8,6 +8,14 @@ if (process.env.VERCEL) {
     try {
         fs.copyFileSync('prisma/schema.postgres.prisma', 'prisma/schema.prisma');
         console.log('✅ Schema swapped to Postgres.');
+
+        // Ensure DATABASE_URL is set, prioritizing Vercel's standard ones if missing
+        if (!process.env.DATABASE_URL) {
+            process.env.DATABASE_URL = process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL;
+            if (process.env.DATABASE_URL) {
+                console.log('🔗 Mapped POSTGRES_URL/POSTGRES_PRISMA_URL to DATABASE_URL');
+            }
+        }
     } catch (err) {
         console.error('❌ Failed to swap schema:', err);
         process.exit(1);
