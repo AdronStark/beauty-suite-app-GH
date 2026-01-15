@@ -30,6 +30,7 @@ export async function updateUserAppRole(targetUserId: string, appId: string, rol
             });
         } else {
             // Upsert the role
+            const safeRole = role || 'NONE'; // Fallback for TypeScript
             await prisma.userAppRole.upsert({
                 where: {
                     userId_appId: {
@@ -38,12 +39,12 @@ export async function updateUserAppRole(targetUserId: string, appId: string, rol
                     }
                 },
                 update: {
-                    role: role
+                    role: safeRole
                 },
                 create: {
                     userId: targetUserId,
                     appId: appId,
-                    role: role
+                    role: safeRole
                 }
             });
         }
