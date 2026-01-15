@@ -291,7 +291,8 @@ export async function POST(request: Request) {
                         }
                     }
                     stats.newClients = createdCount;
-                    console.log(`[Import] Successfully created ${createdCount} new clients (matched by Business Name).`);
+                    stats.newClients = createdCount;
+                    // console.log(`[Import] Successfully created ${createdCount} new clients (matched by Business Name).`);
                 } else {
                     console.log(`[Import] No new clients to create (all exist by Name/BusinessName).`);
                 }

@@ -2,8 +2,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
 
-// Helper to log debug info
-const debugLog = (msg: string, ...args: any[]) => console.log(`[AI-AGENT] ${msg}`, ...args);
+// Helper to log debug info (only name, not args for privacy)
+const debugLog = (msg: string, ...args: any[]) => {
+    // In production, avoid logging args unless necessary for debugging errors
+    if (process.env.NODE_ENV === 'development') {
+        console.log(`[AI-AGENT] ${msg}`, ...args);
+    } else {
+        console.log(`[AI-AGENT] ${msg}`);
+    }
+};
 
 const API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";

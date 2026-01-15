@@ -11,6 +11,7 @@ async function getUser(username: string) {
     try {
         const user = await prisma.user.findUnique({
             where: { username },
+            include: { appRoles: true }
         });
         return user;
     } catch (error) {
@@ -46,7 +47,8 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                             email: user.username,
                             role: user.role,
                             companies: user.companies,
-                            connectedClientName: user.connectedClientName
+                            connectedClientName: user.connectedClientName,
+                            appRoles: user.appRoles // Pass app roles to token
                         } as any;
                     }
                 }

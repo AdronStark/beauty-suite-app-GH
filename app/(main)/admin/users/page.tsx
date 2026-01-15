@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
-    Users, Plus, Edit, Trash2, Search, X, Check, Shield, Briefcase
+    Users, Plus, Edit, Trash2, Search, X, Check, Shield, Briefcase, ArrowUp, ArrowDown, ArrowUpDown
 } from 'lucide-react';
 import Toast, { ToastType } from '@/components/ui/Toast';
 import { COMPANIES } from '@/lib/companies';
@@ -92,6 +92,33 @@ export default function UsersAdminPage() {
         (u.name && u.name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
+    // Sorting Logic
+    const [sortConfig, setSortConfig] = useState<{ key: keyof AppUser | 'name_combined', direction: 'asc' | 'desc' } | null>(null);
+
+    const handleSort = (key: keyof AppUser | 'name_combined') => {
+        let direction: 'asc' | 'desc' = 'asc';
+        if (sortConfig && sortConfig.key === key && sortConfig.direction === 'asc') {
+            direction = 'desc';
+        }
+        setSortConfig({ key, direction });
+    };
+
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+        if (!sortConfig) return 0;
+
+        let aValue: any = a[sortConfig.key as keyof AppUser];
+        let bValue: any = b[sortConfig.key as keyof AppUser];
+
+        if (sortConfig.key === 'name_combined') {
+            aValue = a.username;
+            bValue = b.username;
+        }
+
+        if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+        if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+        return 0;
+    });
+
     return (
         <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem' }}>
@@ -145,9 +172,36 @@ export default function UsersAdminPage() {
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                         <tr>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Usuario / Nombre</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Cargo / Puesto</th>
-                            <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Rol</th>
+                            <th onClick={() => handleSort('name_combined')} style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', userSelect: 'none' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    Usuario / Nombre
+                                    {sortConfig?.key === 'name_combined' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp size={14} color="#334155" /> : <ArrowDown size={14} color="#334155" />
+                                    ) : (
+                                        <ArrowUpDown size={14} color="#cbd5e1" />
+                                    )}
+                                </div>
+                            </th>
+                            <th onClick={() => handleSort('position')} style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', userSelect: 'none' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    Cargo / Puesto
+                                    {sortConfig?.key === 'position' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp size={14} color="#334155" /> : <ArrowDown size={14} color="#334155" />
+                                    ) : (
+                                        <ArrowUpDown size={14} color="#cbd5e1" />
+                                    )}
+                                </div>
+                            </th>
+                            <th onClick={() => handleSort('role')} style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', userSelect: 'none' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    Rol
+                                    {sortConfig?.key === 'role' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp size={14} color="#334155" /> : <ArrowDown size={14} color="#334155" />
+                                    ) : (
+                                        <ArrowUpDown size={14} color="#cbd5e1" />
+                                    )}
+                                </div>
+                            </th>
                             <th style={{ padding: '1rem', textAlign: 'left', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Empresas</th>
                             <th style={{ padding: '1rem', textAlign: 'right', fontSize: '0.85rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Acciones</th>
                         </tr>
@@ -158,7 +212,7 @@ export default function UsersAdminPage() {
                         ) : filteredUsers.length === 0 ? (
                             <tr><td colSpan={4} style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>No se encontraron usuarios.</td></tr>
                         ) : (
-                            filteredUsers.map(user => {
+                            sortedUsers.map(user => {
                                 let userCompanies: string[] = [];
                                 try {
                                     userCompanies = JSON.parse(user.companies);
@@ -179,13 +233,13 @@ export default function UsersAdminPage() {
                                         </td>
                                         <td style={{ padding: '1rem' }}>
                                             <span style={{
-                                                background: user.role === 'ADMIN' ? '#eff6ff' : user.role === 'MANAGER' ? '#f0fdf4' : '#f8fafc',
-                                                color: user.role === 'ADMIN' ? '#1d4ed8' : user.role === 'MANAGER' ? '#15803d' : '#475569',
+                                                background: user.role === 'ADMIN' ? '#eff6ff' : user.role === 'CLIENT' ? '#fff7ed' : '#f8fafc',
+                                                color: user.role === 'ADMIN' ? '#1d4ed8' : user.role === 'CLIENT' ? '#c2410c' : '#475569',
                                                 padding: '4px 8px', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 700,
                                                 border: '1px solid transparent',
-                                                borderColor: user.role === 'ADMIN' ? '#bfdbfe' : user.role === 'MANAGER' ? '#bbf7d0' : '#e2e8f0'
+                                                borderColor: user.role === 'ADMIN' ? '#bfdbfe' : user.role === 'CLIENT' ? '#ffedd5' : '#e2e8f0'
                                             }}>
-                                                {user.role}
+                                                {user.role === 'VIEWER' ? 'STANDARD' : user.role}
                                             </span>
                                             {user.role === 'CLIENT' && user.connectedClientName && (
                                                 <div style={{ fontSize: '0.75rem', marginTop: '4px', color: '#b45309', fontWeight: 600 }}>
@@ -211,6 +265,9 @@ export default function UsersAdminPage() {
                                         </td>
                                         <td style={{ padding: '1rem', textAlign: 'right' }}>
                                             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px' }}>
+                                                <button onClick={() => router.push(`/admin/users/${user.id}/roles`)} style={{ padding: '6px', borderRadius: '6px', border: '1px solid #bfdbfe', background: '#eff6ff', cursor: 'pointer', color: '#1d4ed8' }} title="Gestionar Permisos">
+                                                    <Shield size={16} />
+                                                </button>
                                                 <button onClick={() => handleEdit(user)} style={{ padding: '6px', borderRadius: '6px', border: '1px solid #e2e8f0', background: 'white', cursor: 'pointer', color: '#64748b' }}>
                                                     <Edit size={16} />
                                                 </button>
@@ -266,7 +323,7 @@ function UserModal({ user, initialMode, onClose, onSuccess }: { user: AppUser | 
         isCommercial: user?.isCommercial || false,
         isTechnical: user?.isTechnical || false,
         password: '',
-        role: user?.role || (mode === 'client' ? 'CLIENT' : 'VIEWER'),
+        role: (user?.role && ['ADMIN', 'CLIENT', 'VIEWER'].includes(user.role)) ? user.role : (mode === 'client' ? 'CLIENT' : 'VIEWER'),
         connectedClientName: user?.connectedClientName || '',
         companies: user ? JSON.parse(user.companies) as string[] : [] as string[]
     });
@@ -484,10 +541,8 @@ function UserModal({ user, initialMode, onClose, onSuccess }: { user: AppUser | 
                                 onChange={e => setFormData({ ...formData, role: e.target.value })}
                                 style={{ width: '100%', padding: '0.6rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}
                             >
-                                <option value="VIEWER">VIEWER (Lectura)</option>
-                                <option value="OPERATOR">OPERATOR (Operario)</option>
-                                <option value="MANAGER">MANAGER (Gestor)</option>
-                                <option value="ADMIN">ADMIN (Total)</option>
+                                <option value="VIEWER">STANDARD (Usuario Estándar)</option>
+                                <option value="ADMIN">ADMIN (Sistema Total)</option>
                             </select>
                         )}
                     </div>

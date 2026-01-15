@@ -137,13 +137,13 @@ export const DEFAULT_APP_CONFIG: AppDefinition[] = [
     {
         id: 'stock',
         title: 'Gestión Materias Primas',
-        description: 'Control de stock y trazabilidad de materias.',
-        path: '/stock',
-        iconName: 'FlaskConical',
+        description: 'Seguimiento de pedidos de compra y recepción.',
+        path: '/materias-primas',
+        iconName: 'Package',
         allowedRoles: 'all',
-        allowedCompanies: ['coper', 'jumsa'],
+        allowedCompanies: ['coper'],
         group: 'production',
-        status: 'coming_soon'
+        status: 'active'
     },
     {
         id: 'sheets',

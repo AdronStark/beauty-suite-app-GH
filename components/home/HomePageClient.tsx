@@ -8,7 +8,7 @@ import { User } from 'next-auth';
 import { useAppConfig } from '@/context/AppConfigContext';
 import {
     Calendar, FileText, BarChart2, Tag,
-    Microscope, Users, FlaskConical, LayoutGrid
+    Microscope, Users, FlaskConical, LayoutGrid, Package
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, any> = {
@@ -19,7 +19,8 @@ const ICON_MAP: Record<string, any> = {
     Users,
     Calendar,
     FlaskConical,
-    LayoutGrid
+    LayoutGrid,
+    Package
 };
 
 

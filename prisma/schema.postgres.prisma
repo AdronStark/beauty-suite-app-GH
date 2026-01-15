@@ -234,6 +234,21 @@ model User {
   companies String   // JSON string: ["coper", "jumsa"]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  appRoles  UserAppRole[]
+}
+
+model UserAppRole {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appId     String   // Matches AppDefinition.id (e.g., "crm", "briefings")
+  role      String   // "VIEWER", "EDITOR", "ADMIN"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, appId])
 }
 
 // --- P3: CRM & SALES ---
@@ -283,4 +298,59 @@ model Client {
   updatedAt       DateTime @updatedAt
 
   formulas        Formula[]
+}
+
+// --- P58: RAW MATERIALS ---
+
+model RawMaterialOrder {
+  id              String   @id @default(cuid())
+  
+  // ERP Identity
+  erpId           String   @unique // 'LineasPosicion' - Unique identifier line
+  orderNumber     String   // 'NumeroPedido'
+  orderYear       Int?     // 'EjercicioPedido'
+  
+  // Material Details
+  articleCode     String   // 'CodigoArticulo'
+  articleName     String   // 'DescripcionArticulo'
+  
+  // Quantities
+  unitsOrdered    Float    // 'UnidadesPed'
+  unitsReceived   Float    // 'UnidadesRec'
+  unitsPending    Float    // 'UnidadesPendientes'
+  
+  // Dates
+  orderDate       DateTime? // 'FechaPedido'
+  deliveryDate    DateTime? // 'FechaRecepcion' (Last receipt?)
+  expectedDate    DateTime? // 'FechaNecesaria'
+  estimatedDate   DateTime? // Manual input by user
+  
+  // Status & Provider
+  status          String?   // 'Estado'
+  supplierName    String?   // 'RazonSocial'
+  
+  // Manual Extensions
+  notes           String?
+  associatedOE    String?   // Orden de Elaboracion associated manually
+  manualReceptionDate DateTime? // Manually entered reception date
+  
+  // Logic
+  isCompleted     Boolean  @default(false) // If missing from new open orders import -> true
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model RawMaterialExcludedSupplier {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+}
+
+model RawMaterialExcludedTerm {
+  id        String   @id @default(cuid())
+  term      String
+  field     String   // 'CODE' | 'NAME'
+  matchType String   // 'CONTAINS' | 'EXACT'
+  createdAt DateTime @default(now())
 }

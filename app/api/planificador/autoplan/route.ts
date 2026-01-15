@@ -11,7 +11,19 @@ const { BATCH_LIMIT, MIN_DAYS_AFTER_ORDER, MAX_WINDOW_DAYS, BUFFER_DAYS_BEFORE_D
 // FETCHING INSIDE LOOP IS BAD.
 // We will fetch ALL future blocks once at the start.
 
+import { auth } from '@/auth';
+import { rateLimit } from '@/lib/rate-limit';
+import { headers } from 'next/headers';
+
+const limiter = rateLimit({ uniqueTokenPerInterval: 50, interval: 60000 });
+
 export async function POST(request: Request) {
+    const session = await auth();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    // @ts-ignore
+    const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    if (limiter.check(NextResponse.next(), 5, ip)) return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
     try {
         const body = await request.json().catch(() => ({})); // Handle empty body safely
         const { targetIds } = body;

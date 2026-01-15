@@ -52,7 +52,8 @@ export default function Header() {
         {
             category: "Gestión Producción",
             items: [
-                { label: "Planificador", href: "/planificador" }
+                { label: "Planificador", href: "/planificador" },
+                { label: "Materias Primas", href: "/materias-primas" }
             ]
         }
     ];
@@ -247,7 +248,9 @@ export default function Header() {
                                         <div className={styles.userInfo}>
                                             <div className={styles.userName}>{user.name}</div>
                                             {/* @ts-ignore */}
-                                            <div className={styles.userRole}>{user.role || 'Usuario'}</div>
+                                            {user.role && user.role !== 'VIEWER' && (
+                                                <div className={styles.userRole}>{user.role}</div>
+                                            )}
                                         </div>
                                         <button className={styles.dropdownItem} onClick={() => console.log('Profile')}>
                                             <UserIcon size={16} /> Mi Perfil

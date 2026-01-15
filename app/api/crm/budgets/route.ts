@@ -1,8 +1,33 @@
 import { NextResponse } from 'next/server';
+import { headers } from 'next/headers';
 import { prisma } from '@/lib/db/prisma';
+import { auth } from '@/auth';
+
+import { rateLimit } from '@/lib/rate-limit';
+import { SalesBudgetSchema } from '@/lib/schemas';
+
+const limiter = rateLimit({
+    interval: 60 * 1000, // 60 seconds
+    uniqueTokenPerInterval: 500, // Max 500 users per second
+});
 
 export async function GET(req: Request) {
+    const session = await auth();
+    if (!session) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(req.url);
+
+    // Rate Limit Check
+    // @ts-ignore
+    const ip = req.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    const isRateLimited = limiter.check(NextResponse.next(), 20, ip); // 20 requests per minute per IP
+
+    if (isRateLimited) {
+        return NextResponse.json({ error: 'Rate limit exceeded' }, { status: 429 });
+    }
+
     const year = parseInt(searchParams.get('year') || new Date().getFullYear().toString());
     const companyId = searchParams.get('companyId');
 
@@ -21,24 +46,39 @@ export async function GET(req: Request) {
     }
 }
 
+
+
 export async function POST(req: Request) {
+    const session = await auth();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     try {
         const body = await req.json();
-        const { year, companyId, client, amount, id } = body;
 
-        if (!year || !client || !companyId) {
-            return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+        // VALIDATION STEP (The "Torno")
+        // safeParse returns success (boolean) and data/error
+        const result = SalesBudgetSchema.safeParse(body);
+
+        if (!result.success) {
+            // Return detailed errors from Zod
+            return NextResponse.json({
+                error: 'Validation failed',
+                details: result.error.flatten()
+            }, { status: 400 });
         }
+
+        // Use CLEAN data from Zod
+        const { year, companyId, client, amount, id } = result.data;
 
         // If ID provided, it's an EDIT
         if (id) {
             const budget = await prisma.salesBudget.update({
                 where: { id },
                 data: {
-                    year: parseInt(year),
+                    year,
                     companyId,
                     client,
-                    amount: parseFloat(amount)
+                    amount
                 }
             });
             return NextResponse.json(budget);
@@ -48,17 +88,17 @@ export async function POST(req: Request) {
         const budget = await prisma.salesBudget.upsert({
             where: {
                 year_client_companyId: {
-                    year: parseInt(year),
+                    year,
                     client,
                     companyId
                 }
             },
-            update: { amount: parseFloat(amount) },
+            update: { amount },
             create: {
-                year: parseInt(year),
+                year,
                 companyId,
                 client,
-                amount: parseFloat(amount)
+                amount
             }
         });
 
@@ -70,6 +110,9 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE(req: Request) {
+    const session = await auth();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     try {
         const { searchParams } = new URL(req.url);
         const id = searchParams.get('id');

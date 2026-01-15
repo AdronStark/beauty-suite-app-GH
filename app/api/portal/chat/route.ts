@@ -3,7 +3,7 @@ import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-const API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || "AIzaSyD3zsn92Xxflzroa2sF0ZXLEg7jGDX3dII";
+const API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
 // --- HELPER FUNCTIONS (REAL DB) ---
 async function getOrders(clientName: string) {
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { message, history } = body;
 
-        console.log(`[Chat REST] Request from ${clientName}. Target Model: gemini-2.5-flash`);
+        // console.log(`[Chat REST] Request from ${clientName}. Target Model: gemini-2.5-flash`);
 
         // --- FALLBACK IF NO API KEY ---
         if (!API_KEY) {

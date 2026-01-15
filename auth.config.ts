@@ -14,12 +14,13 @@ export const authConfig = {
                 // @ts-ignore
                 session.user.companies = token.companies;
                 // @ts-ignore
-                // @ts-ignore
                 session.user.connectedClientName = token.connectedClientName;
                 // @ts-ignore
                 session.user.firstName = token.firstName;
                 // @ts-ignore
                 session.user.lastName1 = token.lastName1;
+                // @ts-ignore
+                session.user.appRoles = token.appRoles;
             }
             return session;
         },
@@ -28,12 +29,13 @@ export const authConfig = {
                 token.role = user.role; // @ts-ignore
                 token.companies = user.companies; // @ts-ignore
                 token.connectedClientName = (user as any).connectedClientName;
-                token.connectedClientName = (user as any).connectedClientName;
                 token.name = user.name;
                 // @ts-ignore
                 token.firstName = (user as any).firstName;
                 // @ts-ignore
                 token.lastName1 = (user as any).lastName1;
+                // @ts-ignore
+                token.appRoles = (user as any).appRoles;
             }
             return token;
         },

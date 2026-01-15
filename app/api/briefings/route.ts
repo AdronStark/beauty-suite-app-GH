@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
+import { auth } from '@/auth';
 
 export async function GET() {
+    const session = await auth();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
     try {
         const items = await prisma.briefing.findMany({
             orderBy: { updatedAt: 'desc' }
@@ -13,6 +17,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+    const session = await auth();
+    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     try {
         const body = await request.json();
 

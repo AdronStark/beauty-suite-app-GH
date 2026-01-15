@@ -2,9 +2,17 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
 import bcrypt from 'bcryptjs';
 
+import { auth } from '@/auth';
+
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    const session = await auth();
+    // @ts-ignore
+    if (session?.user?.role !== 'ADMIN') {
+        return new NextResponse("Unauthorized", { status: 403 });
+    }
+
     try {
         const users = await prisma.user.findMany({
             select: {
@@ -44,10 +52,31 @@ export async function GET() {
 
 // ... GET
 
+import { UserCreateSchema } from '@/lib/schemas';
+
+// ... (GET code)
+
 export async function POST(request: Request) {
+    const session = await auth();
+    // @ts-ignore
+    if (session?.user?.role !== 'ADMIN') {
+        return new NextResponse("Unauthorized", { status: 403 });
+    }
+
     try {
         const body = await request.json();
-        const { username, password, name, role, companies, firstName, lastName1, lastName2, position, isCommercial, isTechnical, connectedClientName } = body;
+
+        // VALIDATION STEP
+        const result = UserCreateSchema.safeParse(body);
+
+        if (!result.success) {
+            return NextResponse.json({
+                error: 'Validation failed',
+                details: result.error.flatten()
+            }, { status: 400 });
+        }
+
+        const { username, password, name, role, companies, firstName, lastName1, lastName2, position, isCommercial, isTechnical, connectedClientName } = result.data;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -71,7 +100,7 @@ export async function POST(request: Request) {
                 role,
                 // @ts-ignore
                 connectedClientName,
-                companies: JSON.stringify(companies),
+                companies: companies ? JSON.stringify(companies) : '[]',
             }
         });
 

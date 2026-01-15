@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const API_KEY = process.env.GOOGLE_API_KEY || "AIzaSyD3zsn92Xxflzroa2sF0ZXLEg7jGDX3dII";
+const API_KEY = process.env.GOOGLE_API_KEY;
 
 export async function POST(req: Request) {
     try {
@@ -8,8 +8,11 @@ export async function POST(req: Request) {
         const { image, context } = body;
 
         if (!API_KEY) {
-            return NextResponse.json({ error: 'API Key not configured' }, { status: 500 });
+            console.error("Missing GOOGLE_API_KEY env var");
+            return NextResponse.json({ error: 'Server misconfiguration: No API Key' }, { status: 500 });
         }
+        // ...
+        // console.log("AI Raw Response:", generatedText.substring(0, 500) + "..."); // Log first 500 chars for debug
 
         // Construct prompt for Cosmetic Briefing
         const systemPrompt = `
@@ -120,7 +123,7 @@ export async function POST(req: Request) {
             throw new Error("No content generated");
         }
 
-        console.log("AI Raw Response:", generatedText.substring(0, 500) + "..."); // Log first 500 chars for debug
+        // console.log("AI Raw Response:", generatedText.substring(0, 500) + "..."); // Log first 500 chars for debug
 
         // Clean markdown if present: extract JSON component
 
