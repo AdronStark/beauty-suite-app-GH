@@ -1,13 +1,17 @@
 
 import Link from 'next/link';
 import { prisma } from '@/lib/db/prisma';
-import { Plus } from 'lucide-react';
+import { auth } from '@/auth';
+import { Plus, Settings } from 'lucide-react';
 import styles from './page.module.css';
 import OfferTable from '@/components/ofertas/OfferTable';
 
 export const dynamic = 'force-dynamic';
 
 export default async function OfertasPage() {
+    const session = await auth();
+    const isAdmin = session?.user?.role === 'ADMIN';
+
     const offers = await prisma.offer.findMany({
         orderBy: { createdAt: 'desc' },
         include: {
@@ -44,10 +48,18 @@ export default async function OfertasPage() {
         <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
             <div className={styles.header}>
                 <h1 className={styles.title}>Ofertas Beauty</h1>
-                <Link href="/ofertas/new" className={styles.newButton}>
-                    <Plus size={20} />
-                    Nueva Oferta
-                </Link>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    {isAdmin && (
+                        <Link href="/ofertas/config" className={styles.newButton} style={{ background: 'white', color: '#64748b', border: '1px solid #cbd5e1' }}>
+                            <Settings size={20} />
+                            Configuración
+                        </Link>
+                    )}
+                    <Link href="/ofertas/new" className={styles.newButton}>
+                        <Plus size={20} />
+                        Nueva Oferta
+                    </Link>
+                </div>
             </div>
 
             <div className={styles.statsRow}>

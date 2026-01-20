@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { Trash2 } from 'lucide-react';
 
 export default function OfferActions({ id }: { id: string }) {
@@ -23,6 +24,13 @@ export default function OfferActions({ id }: { id: string }) {
             alert('Error al borrar');
         }
     };
+
+    const { data: session } = useSession();
+    // @ts-ignore
+    const role = session?.user?.role;
+    const canDelete = role === 'ADMIN' || role === 'MANAGER';
+
+    if (!canDelete) return null;
 
     return (
         <button

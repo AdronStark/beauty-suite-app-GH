@@ -14,18 +14,39 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
         const body = await req.json();
 
         // Whitelist fields efficiently
-        const { manualReceptionDate, notes, associatedOE, estimatedDate } = body;
+        const { manualReceptionDate, notes, associatedOE, estimatedDate, unitsShipped, isHighRotation } = body;
         const dataToUpdate: any = {};
 
-        if (manualReceptionDate !== undefined) {
-            // If null/empty string passed, set to null, otherwise parse date
-            dataToUpdate.manualReceptionDate = manualReceptionDate ? new Date(manualReceptionDate) : null;
+        // Security Check: If user is CLIENT, only allow estimatedDate
+        const isClient = session.user.role === 'CLIENT';
+
+        if (isClient) {
+            // Clients can ONLY update estimatedDate
+            if (estimatedDate !== undefined) {
+                dataToUpdate.estimatedDate = estimatedDate ? new Date(estimatedDate) : null;
+            }
+            if (unitsShipped !== undefined) {
+                const num = parseFloat(unitsShipped);
+                dataToUpdate.unitsShipped = isNaN(num) ? null : num;
+            }
+            // Ignore other fields for clients to prevent unauthorized updates
+        } else {
+            // Admins/Internal users can update everything
+            if (manualReceptionDate !== undefined) {
+                // If null/empty string passed, set to null, otherwise parse date
+                dataToUpdate.manualReceptionDate = manualReceptionDate ? new Date(manualReceptionDate) : null;
+            }
+            if (estimatedDate !== undefined) {
+                dataToUpdate.estimatedDate = estimatedDate ? new Date(estimatedDate) : null;
+            }
+            if (unitsShipped !== undefined) {
+                const num = parseFloat(unitsShipped);
+                dataToUpdate.unitsShipped = isNaN(num) ? null : num;
+            }
+            if (notes !== undefined) dataToUpdate.notes = notes;
+            if (associatedOE !== undefined) dataToUpdate.associatedOE = associatedOE;
+            if (isHighRotation !== undefined) dataToUpdate.isHighRotation = isHighRotation;
         }
-        if (estimatedDate !== undefined) {
-            dataToUpdate.estimatedDate = estimatedDate ? new Date(estimatedDate) : null;
-        }
-        if (notes !== undefined) dataToUpdate.notes = notes;
-        if (associatedOE !== undefined) dataToUpdate.associatedOE = associatedOE;
 
         const updated = await prisma.rawMaterialOrder.update({
             where: { id },

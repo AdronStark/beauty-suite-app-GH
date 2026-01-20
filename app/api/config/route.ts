@@ -1,8 +1,8 @@
-
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
+import { withAuth, handleApiError } from '@/lib/api-auth';
 
-export async function GET(req: Request) {
+export const GET = withAuth(async (req, ctx, session) => {
     const { searchParams } = new URL(req.url);
     const key = searchParams.get('key');
 
@@ -13,12 +13,15 @@ export async function GET(req: Request) {
     });
 
     return NextResponse.json(config || { key, value: null });
-}
+});
 
-export async function POST(req: Request) {
+// Only ADMIN can modify configuration
+export const POST = withAuth(async (req, ctx, session) => {
     try {
         const body = await req.json();
         const { key, value } = body;
+
+        if (!key) return NextResponse.json({ error: 'Key required' }, { status: 400 });
 
         const config = await prisma.configuration.upsert({
             where: { key },
@@ -26,8 +29,10 @@ export async function POST(req: Request) {
             create: { key, value }
         });
 
+        console.log(`[AUDIT] Config ${key} updated by user: ${session.user?.name || 'unknown'}`);
         return NextResponse.json(config);
     } catch (e) {
-        return NextResponse.json({ error: 'Error saving config' }, { status: 500 });
+        return handleApiError(e, 'Save Config');
     }
-}
+}, { roles: ['ADMIN'] });
+

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown } from 'lucide-react';
+import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown, Box } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -11,6 +11,7 @@ interface RawMaterialsTableProps {
 export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [showCompleted, setShowCompleted] = useState(false);
+    const [hideRotation, setHideRotation] = useState(false);
     const [sortConfig, setSortConfig] = useState<{ key: string, direction: 'asc' | 'desc' } | null>({ key: 'estimatedDate', direction: 'asc' });
     const router = useRouter();
 
@@ -29,6 +30,9 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
         // Completion Filter
         const isCompleted = item.status === 'COMPLETADO (100% ERP)' || (item.unitsOrdered > 0 && item.unitsReceived >= item.unitsOrdered);
         if (!showCompleted && isCompleted) return false;
+
+        // Rotation Filter
+        if (hideRotation && item.isHighRotation) return false;
 
         return true;
     });
@@ -149,6 +153,16 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
                         <span>Mostrar completados</span>
                     </label>
                     <div style={{ width: '1px', height: '20px', background: '#cbd5e1' }} />
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer', userSelect: 'none' }}>
+                        <input
+                            type="checkbox"
+                            checked={hideRotation}
+                            onChange={(e) => setHideRotation(e.target.checked)}
+                            style={{ width: '16px', height: '16px', accentColor: '#0f172a', cursor: 'pointer' }}
+                        />
+                        <span>Ocultar Rotación</span>
+                    </label>
+                    <div style={{ width: '1px', height: '20px', background: '#cbd5e1' }} />
                     <span>Mostrando <strong>{filteredData.length}</strong> pedidos</span>
                 </div>
             </div>
@@ -171,24 +185,50 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
                     <tbody>
                         {sortedData.map((row) => (
                             <tr key={row.id} style={{ borderBottom: '1px solid #e2e8f0', background: getStatusColor(row.status || '', row.expectedDate) }}>
-                                {/* OF Editable */}
+                                {/* OF Editable / High Rotation Toggle */}
                                 <td style={{ padding: '12px 16px', width: '100px' }}>
-                                    <input
-                                        type="text"
-                                        defaultValue={row.associatedOE || ''}
-                                        onBlur={(e) => {
-                                            if (e.target.value !== row.associatedOE) handleUpdate(row.id, 'associatedOE', e.target.value);
-                                        }}
-                                        onKeyDown={(e) => {
-                                            if (e.key === 'Enter') e.currentTarget.blur();
-                                        }}
-                                        placeholder="OF..."
-                                        style={{
-                                            width: '100%', padding: '4px', border: '1px solid transparent',
-                                            background: 'transparent', borderRadius: '4px', fontWeight: 600
-                                        }}
-                                        className="hover:border-slate-300 hover:bg-white focus:border-blue-500 focus:bg-white"
-                                    />
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        {!row.isHighRotation ? (
+                                            <input
+                                                type="text"
+                                                defaultValue={row.associatedOE || ''}
+                                                onBlur={(e) => {
+                                                    if (e.target.value !== row.associatedOE) handleUpdate(row.id, 'associatedOE', e.target.value);
+                                                }}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') e.currentTarget.blur();
+                                                }}
+                                                placeholder="OF..."
+                                                style={{
+                                                    width: '100%', padding: '4px', border: '1px solid transparent',
+                                                    background: 'transparent', borderRadius: '4px', fontWeight: 600,
+                                                    fontSize: '0.85rem'
+                                                }}
+                                                className="hover:border-slate-300 hover:bg-white focus:border-blue-500 focus:bg-white"
+                                            />
+                                        ) : (
+                                            <div style={{
+                                                fontSize: '0.7rem', fontWeight: 700, color: '#059669',
+                                                background: '#d1fae5', padding: '2px 6px', borderRadius: '4px',
+                                                whiteSpace: 'nowrap', border: '1px solid #10b981'
+                                            }}>
+                                                ROTACIÓN
+                                            </div>
+                                        )}
+
+                                        <button
+                                            onClick={() => handleUpdate(row.id, 'isHighRotation', !row.isHighRotation)}
+                                            style={{
+                                                background: 'transparent', border: 'none', cursor: 'pointer',
+                                                color: row.isHighRotation ? '#059669' : '#94a3b8',
+                                                padding: '2px', display: 'flex', alignItems: 'center'
+                                            }}
+                                            title={row.isHighRotation ? "Cambiar a OF específica" : "Marcar como Alta Rotación (Stock)"}
+                                            className="hover:text-blue-600 hover:bg-slate-100 rounded"
+                                        >
+                                            <Box size={14} />
+                                        </button>
+                                    </div>
                                 </td>
                                 <td style={{ padding: '12px 16px' }}>
                                     <div style={{ fontWeight: 600, color: '#334155' }}>{row.orderNumber}</div>

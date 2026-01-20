@@ -1,20 +1,33 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
+import { withAuth, handleApiError } from '@/lib/api-auth';
+import { OfferCreateSchema } from '@/lib/schemas';
 
-export async function GET() {
+export const GET = withAuth(async (req, ctx, session) => {
     try {
         const items = await prisma.offer.findMany({
+            include: { items: { orderBy: { order: 'asc' } } },
             orderBy: { updatedAt: 'desc' }
         });
         return NextResponse.json(items);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch offers' }, { status: 500 });
+        return handleApiError(error, 'Fetch Offers');
     }
-}
+});
 
-export async function POST(request: Request) {
+export const POST = withAuth(async (req, ctx, session) => {
     try {
-        const body = await request.json();
+        const rawBody = await req.json();
+
+        // Validate input
+        const parseResult = OfferCreateSchema.safeParse(rawBody);
+        if (!parseResult.success) {
+            return NextResponse.json({
+                error: 'Validation failed',
+                details: parseResult.error.flatten()
+            }, { status: 400 });
+        }
+        const body = parseResult.data;
 
         // Generate Auto Code (Q + YY + xxxx)
         const year = new Date().getFullYear().toString().slice(-2); // "25"
@@ -42,19 +55,31 @@ export async function POST(request: Request) {
             data: {
                 code: newCode,
                 client: body.client || 'Cliente Sin Nombre',
-                product: body.product || 'Nuevo Producto',
+                description: body.description || 'Nueva Oferta',
                 status: 'Borrador',
-                inputData: typeof body.inputData === 'string' ? body.inputData : JSON.stringify(body.inputData || {}),
-                resultsSummary: typeof body.resultsSummary === 'string' ? body.resultsSummary : JSON.stringify(body.resultsSummary || {}),
+                inputData: '{}', // Legacy: Empty
+                resultsSummary: '{}', // Legacy: Empty
                 responsableComercial: body.responsableComercial,
                 responsableTecnico: body.responsableTecnico,
                 fechaEntrega: body.fechaEntrega ? new Date(body.fechaEntrega) : null,
-                briefingId: body.briefingId
-            }
+                briefingId: body.briefingId,
+                // Create the first item
+                items: {
+                    create: {
+                        productName: 'Producto 1', // Default for first item
+                        inputData: typeof body.inputData === 'string' ? body.inputData : JSON.stringify(body.inputData || {}),
+                        resultsSummary: typeof body.resultsSummary === 'string' ? body.resultsSummary : JSON.stringify(body.resultsSummary || {}),
+                        order: 0
+                    }
+                }
+            },
+            include: { items: true }
         });
+
+        console.log(`[AUDIT] Offer ${newCode} created by user: ${session.user?.name || 'unknown'}`);
         return NextResponse.json(item);
-    } catch (error: any) {
-        console.error("Create Offer Error:", error);
-        return NextResponse.json({ error: 'Failed to create offer', details: error.message }, { status: 500 });
+    } catch (error) {
+        return handleApiError(error, 'Create Offer');
     }
-}
+});
+

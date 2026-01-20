@@ -1,9 +1,6 @@
-
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/db/prisma';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,7 +29,7 @@ export async function GET() {
             select: {
                 id: true,
                 client: true,
-                product: true,
+                description: true,
                 code: true,
                 revision: true,
                 status: true,
@@ -42,7 +39,7 @@ export async function GET() {
         const notifications = pendingProbabilityOffers.map(offer => ({
             type: 'missing_probability',
             title: 'Falta Probabilidad',
-            message: `${offer.client} - ${offer.product} (${offer.code || 'Sin Código'})`,
+            message: `${offer.client} - ${offer.description} (${offer.code || 'Sin Código'})`,
             link: `/crm/pipeline?highlight=${offer.id}`, // navigate to pipeline
             id: offer.id
         }));

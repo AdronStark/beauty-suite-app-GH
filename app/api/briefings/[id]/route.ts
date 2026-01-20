@@ -100,15 +100,26 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await auth();
-    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    // Role check - only ADMIN or MANAGER can delete
+    // @ts-ignore
+    const userRole = session.user.role;
+    if (!['ADMIN', 'MANAGER'].includes(userRole)) {
+        return NextResponse.json({ error: 'Forbidden: Only ADMIN or MANAGER can delete briefings' }, { status: 403 });
+    }
 
     try {
         const { id } = await params;
+
+        // Get briefing info for audit log
+        const briefing = await prisma.briefing.findUnique({ where: { id }, select: { code: true, productName: true } });
 
         await prisma.briefing.delete({
             where: { id }
         });
 
+        console.log(`[AUDIT] Briefing ${briefing?.code || briefing?.productName || id} deleted by user: ${session.user.name}`);
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Delete Briefing Error:", error);

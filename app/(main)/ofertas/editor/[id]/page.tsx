@@ -12,7 +12,8 @@ export default async function EditorPage({ params }: { params: Promise<{ id: str
 
     if (id !== 'new') {
         const offer = await prisma.offer.findUnique({
-            where: { id }
+            where: { id },
+            include: { items: { orderBy: { order: 'asc' } } }
         });
 
         if (!offer) {

@@ -17,7 +17,7 @@ export default async function PipelinePage() {
             id: true,
             code: true,
             client: true,
-            product: true,
+            description: true,
             status: true,
             updatedAt: true,
             createdAt: true, // Need for Aging
@@ -47,6 +47,7 @@ export default async function PipelinePage() {
             {/* Client Component for filtering/sorting */}
             <PipelineTable offers={offers.map(offer => ({
                 ...offer,
+                product: offer.description,
                 updatedAt: offer.updatedAt.toISOString(),
                 createdAt: offer.createdAt.toISOString(),
             }))} />

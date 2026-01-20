@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Save, ArrowLeft, FlaskConical, Package, BarChart3, Settings, FileText, Puzzle, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Save, Plus, Trash2, Printer, FlaskConical, Package, Puzzle, BarChart3, Settings, FileText, ChevronDown, Check, X, Calculator, Percent, Lock, Unlock, Copy } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
 import styles from './editor.module.css';
 
@@ -20,11 +20,23 @@ import TabSummary from '@/components/ofertas/TabSummary';
 import { calculateOfferCosts } from '@/lib/offerCalculations';
 import { generateOfferDocument } from '@/lib/generateOfferDoc';
 import DocumentConfigModal from '@/components/ofertas/DocumentConfigModal';
+import OfferSummaryGlobal from '@/components/ofertas/OfferSummaryGlobal'; // New Global Summary Component
 
 import { getStatusColor } from '@/lib/statusColors';
-
+import { getNextPossibleStatuses } from '@/lib/statusWorkflow';
 import { useRecentActivity } from '@/hooks/useRecentActivity';
 import { useSession } from 'next-auth/react';
+
+// Type for our Items (Frontend Representation)
+interface EditorItem {
+    id: string; // Real ID or "temp_..."
+    productName: string;
+    inputData: any; // Parsed JSON
+    resultsSummary: any; // Parsed JSON
+    order: number;
+    // UI state
+    isDirty?: boolean;
+}
 
 export default function OfferEditor({ initialData, offerId, config }: { initialData: any, offerId: string | null, config: any }) {
     const { data: session } = useSession();
@@ -35,195 +47,315 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
 
     // Read-Only Calculation
     const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : new URLSearchParams();
-    // Admin can override readonly mode if triggered via link, but usually readonly is for specific views
     const isReadOnly = searchParams.get('mode') === 'readonly';
 
     const { trackActivity } = useRecentActivity();
     const [activeTab, setActiveTab] = useState('bulk');
     const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
 
-    // Parse initial data
-    const parsedInput = initialData ? JSON.parse(initialData.inputData || '{}') : {};
+    // --- MULTI-PRODUCT STATE ---
 
-    // Prepare Document Defaults from Client Data
-    const clientDetails = initialData?.clientDetails;
-    const defaultDocumentConfig = {
-        clientName: clientDetails?.businessName || clientDetails?.name || '',
-        clientAddress: clientDetails?.address || '',
-        // clientVat: clientDetails?.vat || '', // Field not in Client model yet?
-        ...parsedInput.documentConfig
+    // Initialize Items from initialData
+    const initItems = (): EditorItem[] => {
+        if (initialData?.items && initialData.items.length > 0) {
+            return initialData.items.map((i: any) => ({
+                id: i.id,
+                productName: i.productName,
+                inputData: typeof i.inputData === 'string' ? JSON.parse(i.inputData) : i.inputData,
+                resultsSummary: typeof i.resultsSummary === 'string' ? JSON.parse(i.resultsSummary) : i.resultsSummary,
+                order: i.order
+            }));
+        } else {
+            // Legacy / Fallback: Create one item from the offer root fields
+            const parsedInput = initialData ? JSON.parse(initialData.inputData || '{}') : {};
+            return [{
+                id: 'temp_' + Date.now(),
+                productName: initialData?.product || 'Nuevo Producto',
+                inputData: parsedInput,
+                resultsSummary: {},
+                order: 0
+            }];
+        }
     };
 
-    // Prepare default values
-    const defaultValues = {
-        client: initialData?.client || '',
-        product: initialData?.product || '',
+    const [items, setItems] = useState<EditorItem[]>(initItems);
+    const [activeItemId, setActiveItemId] = useState<string>(items[0]?.id);
 
-        // Input logic changed: User enters Total Batch Kg
-        // Defaults removed to ensure user input
-        totalBatchKg: parsedInput.totalBatchKg,
-        unitSize: parsedInput.unitSize,
-        density: parsedInput.density,
+    // Identify the active item object
+    const activeItem = items.find(i => i.id === activeItemId) || items[0];
 
-        // This is now derived but we keep it in form for compatibility (will be updated on submit/calc)
-        units: parsedInput.units || 0,
+    // --- GLOBAL FIELDS STATE ---
+    // Client is global to the Offer, not per item.
+    const [client, setClient] = useState(initialData?.client || '');
+    // Offer Description is global
+    const [offerDescription, setOfferDescription] = useState(initialData?.description || '');
 
-        // Bulk
-        bulkCostMode: parsedInput.bulkCostMode || 'formula', // 'manual' or 'formula'
-        manualBulkCost: parsedInput.manualBulkCost || 0,
-        formula: parsedInput.formula || [],
-        manufacturingTime: parsedInput.manufacturingTime, // Defaults to empty to force input
+    // Prepare default values for the FORM based on ACTIVE ITEM
+    const getDefaultValues = (item: EditorItem) => {
+        const parsedInput = item.inputData || {};
 
-        // Packaging
-        packaging: parsedInput.packaging || [],
-        fillingSpeed: parsedInput.fillingSpeed || 1500,
-        fillingPeople: parsedInput.fillingPeople || 1,
-        containerType: parsedInput.containerType || '',
-        subtype: parsedInput.subtype || '',
-        capacity: parsedInput.capacity || '',
-        selectedOperations: parsedInput.selectedOperations || [],
+        return {
+            product: item.productName || '',
 
-        // Extras
-        extras: parsedInput.extras || [], // Selected extras IDs
+            // Re-use logic from previous editor
+            totalBatchKg: parsedInput.totalBatchKg,
+            unitSize: parsedInput.unitSize,
+            density: parsedInput.density,
+            units: parsedInput.units || 0,
 
-        marginPercent: parsedInput.marginPercent ?? 30,
-        discountPercent: parsedInput.discountPercent || 0,
-        scenarios: parsedInput.scenarios || [],
+            // Bulk
+            bulkCostMode: parsedInput.bulkCostMode || 'formula',
+            manualBulkCost: parsedInput.manualBulkCost || 0,
+            formula: parsedInput.formula || [],
+            manufacturingTime: parsedInput.manufacturingTime,
+
+            // Packaging
+            packaging: parsedInput.packaging || [],
+            fillingSpeed: parsedInput.fillingSpeed || 1500,
+            fillingPeople: parsedInput.fillingPeople || 1,
+            containerType: parsedInput.containerType || '',
+            subtype: parsedInput.subtype || '',
+            capacity: parsedInput.capacity || '',
+            selectedOperations: parsedInput.selectedOperations || [],
+
+            // Extras
+            extras: parsedInput.extras || [],
+            marginPercent: parsedInput.marginPercent ?? 30,
+            discountPercent: parsedInput.discountPercent || 0,
+            scenarios: parsedInput.scenarios || [],
+
+            // Snapshot
+            snapshotConfig: parsedInput.snapshotConfig
+        };
     };
 
-
-    // Determine effective configuration (Frozen vs Live)
-    // If status is NOT 'Borrador', we attempt to use the snapshotConfig stored in inputData.
-    // If no snapshot exists (legacy data), we fall back to live 'config', but ideally we should warn.
-    // ADMIN OVERRIDE: Admin can edit "frozen" offers. BUT we still want to use the snapshot config by default unless they change it?
-    // Actually, "Frozen" here mainly controls the "Save" button disabling and the "Locked" banner.
-    // We want Admin to be able to Save.
-    const isLockedStatus = initialData?.status && initialData.status !== 'Borrador';
-    const isFrozen = isLockedStatus && !isAdmin;
-
-    const savedConfig = parsedInput.snapshotConfig;
-
-    // Effective config to use for calculations
-    // even if Admin edits, we start with saved config if available.
-    const effectiveConfig = (isLockedStatus && savedConfig) ? savedConfig : config;
-
-    const [docModalOpen, setDocModalOpen] = useState(false);
-
-    const { register, handleSubmit, control, watch, setValue, getValues, formState: { errors, isValid } } = useForm({
-        defaultValues,
-        mode: 'onChange' // Ensure validation updates real-time
+    const { register, handleSubmit, control, watch, setValue, getValues, reset, formState: { errors, isValid } } = useForm({
+        defaultValues: getDefaultValues(activeItem),
+        mode: 'onChange'
     });
 
-    const handleDocAction = async (modalConfig: any, format: 'pdf' | 'docx' | 'save_only') => {
-        const currentFormData = getValues();
-        // Merge the modal config into the form data AND include the effective config for calculations
-        const finalData = {
-            ...initialData, // Include server-side fields (id, code, revision, etc.)
-            ...currentFormData, // Override with current form values
-            documentConfig: modalConfig,
-            snapshotConfig: effectiveConfig
-        };
+    // --- SYNC FORM TO STATE ON SWITCH ---
+    const prevItemIdRef = useRef<string>(activeItemId);
 
-        // 1. SAVE (If not read-only for current user)
-        if (!isFrozen) {
-            // We use the existing onSubmit logic but force the new data
-            // We need to act as if the form was submitted with this extra field
-            // But main form input doesn't have 'documentConfig' registered? 
-            // It's okay, onSubmit takes 'data' and puts it into inputData JSON.
-            // We'll call onSubmit manually, but we need to be careful about state.
-            // Safer: Update 'inputData' via API directly or rely on onSubmit logic?
-            // Let's piggyback on onSubmit.
-            await onSubmit(finalData);
+    // Watch for product name changes to update sidebar in real-time
+    const currentProductName = watch('product');
+
+    useEffect(() => {
+        setItems(prev => prev.map(i => {
+            if (i.id === activeItemId) {
+                return { ...i, productName: currentProductName || 'Sin Nombre' };
+            }
+            return i;
+        }));
+    }, [currentProductName, activeItemId]);
+
+    // When activeItemId changes, save prev form state to `items` and load new
+    useEffect(() => {
+        if (prevItemIdRef.current !== activeItemId) {
+            // This Effect runs AFTER render, so `activeItemId` is new.
+            // But we need to save the OLD form values to the OLD item id.
+            // However, `getValues()` gives current form values.
+            // We should sync "on change" or rely on a "saveCurrent" function called BEFORE switching.
+        }
+    }, [activeItemId]);
+
+    // Rename state
+    const [isRenaming, setIsRenaming] = useState(false);
+
+    const handleSwitchItem = (newItemId: string) => {
+        if (newItemId === activeItemId) return;
+
+        setIsRenaming(false); // Reset rename mode
+
+        // 1. Save current form values to current item in state
+        const currentFormValues = getValues();
+        setItems(prev => prev.map(i => {
+            if (i.id === activeItemId) {
+                return {
+                    ...i,
+                    productName: currentFormValues.product,
+                    inputData: { ...currentFormValues, product: undefined }, // strip flatten fields if needed? No, store everything.
+                };
+            }
+            return i;
+        }));
+
+        // 2. Find new item
+        // 2. Find new item
+        const newItem = items.find(i => i.id === newItemId);
+
+        // 3. Reset form logic
+        if (newItem) {
+            reset(getDefaultValues(newItem));
+            setActiveItemId(newItemId);
+            prevItemIdRef.current = newItemId;
+        } else if (newItemId === 'SUMMARY') {
+            setActiveItemId('SUMMARY');
+            prevItemIdRef.current = 'SUMMARY';
+            // No form to reset here, or maybe reset to empty/safe values?
+            // Since we unmount the form (conditionally), reset might not matter as much, but safer to keep state.
+        }
+    };
+
+    const handleAddItem = () => {
+        const currentFormValues = getValues();
+
+        // If we are currently on SUMMARY, we don't have form values to save to "activeItemId".
+        // But if we are on a product, we save it.
+        if (activeItemId !== 'SUMMARY') {
+            setItems(prev => prev.map(i => {
+                if (i.id === activeItemId) {
+                    return { ...i, inputData: currentFormValues, productName: currentFormValues.product };
+                }
+                return i;
+            }));
         }
 
-        if (format === 'save_only') {
-            setDocModalOpen(false);
+        const newId = 'temp_' + Date.now();
+        const newItem: EditorItem = {
+            id: newId,
+            productName: 'Nuevo Producto',
+            inputData: {},
+            resultsSummary: {},
+            order: items.length
+        };
+
+        setItems(prev => [...prev, newItem]);
+        // Switch to it
+        reset(getDefaultValues(newItem));
+        setActiveItemId(newId);
+        prevItemIdRef.current = newId;
+    };
+
+    const handleRemoveItem = (itemId: string, e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (items.length <= 1) {
+            setToast({ message: "La oferta debe tener al menos un producto.", type: 'error' });
             return;
         }
 
-        // 2. GENERATE
-        // Recalculate to ensure fresh results
-        const results = calculateOfferCosts(finalData, effectiveConfig);
+        if (confirm('¿Seguro que quieres eliminar este producto de la oferta?')) {
+            const newItems = items.filter(i => i.id !== itemId);
+            setItems(newItems);
 
-        try {
-            let blob;
-            let filename = `Oferta_${finalData.product || 'SinProducto'}_${finalData.client || 'SinCliente'}`;
-
-            if (format === 'docx') {
-                blob = await generateOfferDocument(finalData, results);
-                filename += '.docx';
-            } else {
-                const { generateOfferPDF } = await import('@/lib/generateOfferPDF');
-                blob = await generateOfferPDF(finalData, results);
-                filename += '.pdf';
+            // If we removed the active one, switch to first
+            if (activeItemId === itemId) {
+                const next = newItems[0];
+                reset(getDefaultValues(next));
+                setActiveItemId(next.id);
+                prevItemIdRef.current = next.id;
             }
-
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.click();
-            window.URL.revokeObjectURL(url);
-
-            setDocModalOpen(false);
-            setToast({ message: "Documento generado correctamente.", type: 'success' });
-
-        } catch (e: any) {
-            console.error("Error generating doc:", e);
-            setToast({ message: "Error al generar el documento: " + e.message, type: 'error' });
         }
     };
 
-    // Real-time calculation of units for display
+    const handleDuplicateItem = (itemId: string, e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        // 1. Get the item to copy
+        // If it's the active item, we should take the CURRENT form values to be safe/up-to-date
+        // If it's another item, take its stored state
+        const itemToCopy = items.find(i => i.id === itemId);
+        if (!itemToCopy) return;
+
+        let dataToCopy = itemToCopy.inputData;
+        let nameToCopy = itemToCopy.productName;
+
+        if (activeItemId === itemId) {
+            const currentForm = getValues();
+            dataToCopy = { ...currentForm, product: undefined }; // store clean config
+            nameToCopy = currentForm.product;
+        }
+
+        const newId = 'temp_' + Date.now();
+        const newItem: EditorItem = {
+            id: newId,
+            productName: `${nameToCopy} (Copia)`,
+            inputData: JSON.parse(JSON.stringify(dataToCopy)), // Deep copy
+            resultsSummary: { ...itemToCopy.resultsSummary }, // Copy last known results
+            order: items.length
+        };
+
+        setItems(prev => [...prev, newItem]);
+        setToast({ message: "Producto duplicado correctamente.", type: 'success' });
+
+        // Optional: switch to new item? Let's say yes for better UX
+        // But we need to save current first if we were editing something else?
+        // Actually, let's just add it. The user can switch if they want.
+        // Wait, if we duplicate the ACTIVE item, we just took its values.
+        // If we duplicate another item, we don't disturb the active one.
+    };
+
+    // --- CALCULATION LOGIC (Same as before) ---
+    // Prepare defaults
+    const ParsedInputForConfig = activeItem.inputData; // Initial loaded
+    const savedConfig = ParsedInputForConfig.snapshotConfig;
+    const isLockedStatus = initialData?.status && initialData.status !== 'Borrador';
+    const isFrozen = isLockedStatus && !isAdmin;
+    const effectiveConfig = (isLockedStatus && savedConfig) ? savedConfig : config;
+
+    // Real-time calculation vars
     const currentBatchKg = parseFloat(watch('totalBatchKg') || 0);
     const currentSize = parseFloat(watch('unitSize') || 50);
     const currentDensity = parseFloat(watch('density') || 1);
-
-    // Units = (Kg * 1000) / (ml * density)
     const derivedUnits = (currentSize > 0 && currentDensity > 0)
         ? (currentBatchKg * 1000) / (currentSize * currentDensity)
         : 0;
 
-    // Live Calculation for Sidebar Display
-    // We recalculate on every render to ensure the sidebar is always up to date
     const liveValues = { ...watch(), units: derivedUnits };
     const liveResults = calculateOfferCosts(liveValues, effectiveConfig);
 
-    const onSubmit = async (data: any) => {
-        // Enforce derived units into data package
-        // Also Snapshot the configuration if we are saving.
-        let configToSave = config; // Default to live
-        if (isLockedStatus && savedConfig) {
-            configToSave = savedConfig; // Keep existing snapshot if already frozen (unless admin wants to force update? For now keep snapshot)
-        }
+    // --- SAVE LOGIC ---
+    const onSubmit = async (currentFormData: any, overrides?: any) => {
+        // 1. Update current item in items array with form data
+        const updatedItems = items.map(i => {
+            if (i.id === activeItemId) {
+                // Merge current Document Config if not provided in overrides
+                const existingDocConfig = (i.inputData as any)?.documentConfig || {};
+                const docConfigToSave = overrides?.documentConfig || existingDocConfig;
 
-        const finalData = {
-            ...data,
-            units: derivedUnits,
-            snapshotConfig: configToSave // Save the config used
-        };
+                return {
+                    ...i,
+                    productName: currentFormData.product,
+                    inputData: {
+                        ...currentFormData,
+                        units: derivedUnits,
+                        snapshotConfig: effectiveConfig,
+                        documentConfig: docConfigToSave, // PERSIST HERE
+                        ...(overrides || {})
+                    },
+                    resultsSummary: {
+                        total_cost_unit: liveResults.salePrice,
+                        directCost: liveResults.directCost,
+                        salePrice: liveResults.salePrice,
+                        profit: liveResults.profit,
+                        units: derivedUnits,
+                        totalValue: liveResults.salePrice * derivedUnits
+                    }
+                };
+            }
+            return i;
+        });
+
+        setItems(updatedItems); // Optimistic UI update
 
         const method = offerId ? 'PUT' : 'POST';
         const url = offerId ? `/api/ofertas/${offerId}` : '/api/ofertas';
 
-
-        // Calculate final results for DB storage
-        const results = calculateOfferCosts(finalData, configToSave);
-
         const payload = {
-            ...finalData,
-            client: data.client,
-            product: data.product,
-            status: data.status || initialData?.status || 'Borrador',
-            inputData: JSON.stringify(finalData),
-            resultsSummary: JSON.stringify({
-                total_cost_unit: results.salePrice, // Saving PVP as the main "price" for now
-                directCost: results.directCost,
-                salePrice: results.salePrice,
-                profit: results.profit,
-                units: results.derivedUnits,
-                totalValue: results.salePrice * results.derivedUnits
-            })
+            id: offerId, // for PUT
+            client: client,
+            // Offer Description (Main Name)
+            description: offerDescription || 'Nueva Oferta',
+            status: currentStatus,
+
+            // Send ALL items
+            items: updatedItems.map((i, idx) => ({
+                id: i.id,
+                productName: i.productName,
+                inputData: i.inputData,
+                resultsSummary: i.resultsSummary,
+                order: idx
+            }))
         };
 
         try {
@@ -232,492 +364,608 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
+
             if (res.ok) {
-                const savedItem = await res.json();
+                const savedOffer = await res.json();
 
-                // Track modification
-                trackActivity('offer', savedItem.id, savedItem.product || 'Oferta sin nombre', savedItem.code);
-
+                // Track activity
+                trackActivity('offer', savedOffer.id, savedOffer.description, savedOffer.code);
                 setToast({ message: 'Oferta guardada correctamente.', type: 'success' });
 
+                // CRITICAL: Update local items with the REAL IDs returned from DB.
+                // Otherwise, subsequent saves will send 'temp_' IDs again, causing the backend 
+                // to delete the actual items (since they aren't in the "incomingIds" allowlist).
+                if (savedOffer.items && Array.isArray(savedOffer.items)) {
+                    // We need to map the server items to our EditorItem structure
+                    const newEditorItems: EditorItem[] = savedOffer.items.map((srvItem: any) => ({
+                        id: srvItem.id,
+                        productName: srvItem.productName,
+                        inputData: typeof srvItem.inputData === 'string' ? JSON.parse(srvItem.inputData) : srvItem.inputData,
+                        resultsSummary: typeof srvItem.resultsSummary === 'string' ? JSON.parse(srvItem.resultsSummary) : srvItem.resultsSummary,
+                        order: srvItem.order
+                    }));
+
+                    // We need to preserve the "active" selection.
+                    // Since specific IDs might have changed (temp_ -> real), we rely on INDEX.
+                    // Find the index of the currently active item.
+                    const activeIndex = items.findIndex(i => i.id === activeItemId);
+                    const newActiveIndex = activeIndex >= 0 ? activeIndex : 0;
+
+                    setItems(newEditorItems);
+
+                    // Update active ID to the new real ID
+                    if (newEditorItems[newActiveIndex]) {
+                        const newActiveId = newEditorItems[newActiveIndex].id;
+                        setActiveItemId(newActiveId);
+                        prevItemIdRef.current = newActiveId; // Sync ref !
+
+                        // Also reset the form with the new "clean" values from server to avoid dirty states mismatch
+                        reset(getDefaultValues(newEditorItems[newActiveIndex]));
+                    }
+                }
+
                 if (!offerId) {
-                    setTimeout(() => {
-                        router.replace(`/ofertas/editor/${savedItem.id}`);
-                    }, 1500);
+                    // If it was a CREATE, we redirect to URL with ID
+                    setTimeout(() => router.replace(`/ofertas/editor/${savedOffer.id}`), 500);
                 } else {
                     router.refresh();
                 }
             } else {
                 const err = await res.text();
-                setToast({ message: `Error del Servidor (${res.status}): ${err}`, type: 'error' });
+                setToast({ message: `Error (${res.status}): ${err}`, type: 'error' });
             }
         } catch (e: any) {
-            console.error(e);
-            setToast({ message: `Error de Conexión: ${e.message}`, type: 'error' });
+            setToast({ message: `Error de conexión: ${e.message}`, type: 'error' });
         }
     };
 
-    // Prevent implicit submit on Enter
-    const checkKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') e.preventDefault();
+    // --- DOCUMENT LOGIC ---
+    const [docModalOpen, setDocModalOpen] = useState(false);
+    const clientDetails = initialData?.clientDetails;
+    const defaultDocumentConfig = {
+        clientName: clientDetails?.businessName || clientDetails?.name || '',
+        clientAddress: clientDetails?.address || '',
+        ...activeItem.inputData.documentConfig
     };
 
+    const handleDocAction = async (modalConfig: any, format: 'pdf' | 'docx' | 'save_only') => {
+        // Prepare final data
+        const currentFormData = getValues();
+        const finalData = {
+            ...initialData,
+            ...currentFormData,
+            documentConfig: modalConfig,
+            snapshotConfig: effectiveConfig,
+            client: client
+        };
+
+        // 1. Save Config to Offer (Persistence)
+        if (!isFrozen) {
+            await onSubmit(currentFormData, { documentConfig: modalConfig });
+        }
+
+        if (format === 'save_only') {
+            setToast({ message: 'Configuración guardada correctamente', type: 'success' });
+            // Do NOT close modal
+            return;
+        }
+
+        // Generate flow...
+        setToast({ message: 'Generando documento...', type: 'success' });
+
+        // Generate
+        // Prepare items for generation (Update active item with current form data)
+        const currentItems = items.map(item => {
+            if (item.id === activeItemId) {
+                return {
+                    ...item,
+                    productName: currentFormData.product,
+                    inputData: {
+                        ...item.inputData,
+                        ...currentFormData,
+                        snapshotConfig: effectiveConfig,
+                        // Ensure scenarios are passed if they are in form data
+                        scenarios: currentFormData.scenarios || item.inputData.scenarios
+                    }
+                };
+            }
+            return item;
+        });
+
+        try {
+            let blob;
+            let filename = `Oferta_${finalData.description || offerId || 'Doc'}`;
+
+            if (format === 'docx') {
+                blob = await generateOfferDocument(finalData, currentItems);
+                filename += '.docx';
+            } else {
+                // PDF Generator might need refactor too. For now, we pass result of MAIN active item?
+                // Or disable PDF? Let's try to keeping it working for active item or refactor later.
+                // Revert to single item behavior for PDF for now or TODO.
+                const { generateOfferPDF } = await import('@/lib/generateOfferPDF');
+                // Updated for multi-product support
+                blob = await generateOfferPDF(finalData, currentItems);
+                filename += '.pdf';
+            }
+
+            // ... download blob ...
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+
+            setDocModalOpen(false);
+        } catch (e: any) {
+            console.error(e);
+            setToast({ message: "Error generando documento: " + e.message, type: 'error' });
+        }
+    };
+
+    // --- TEMPLATE LOGIC REMOVED ---
+
+    // prevent enter submit
+    const checkKeyDown = (e: React.KeyboardEvent) => { if (e.key === 'Enter') e.preventDefault(); };
+
+    // Tabs List
     const tabs = [
         { id: 'bulk', label: '1. Bulk', icon: FlaskConical },
         { id: 'packaging', label: '2. Envasado', icon: Package },
         { id: 'extras', label: '3. Extras', icon: Puzzle },
-        { id: 'summary', label: '4. Resumen y Análisis', icon: BarChart3 },
+        { id: 'summary', label: '4. Resumen', icon: BarChart3 },
     ];
 
-    const onError = (errors: any) => {
-        console.error("Validation Errors:", errors);
-        setToast({ message: "Hay errores en el formulario. Por favor revisa los campos requeridos.", type: 'error' });
-    };
 
-    // Frozen Status Warning
-    const StatusBanner = () => {
-        if (!isLockedStatus) return null;
+
+    // --- TAB COST SUMMARY WIDGET ---
+    const TabCostWidget = ({ tab, result, units }: { tab: string, result: any, units: number }) => {
+        if (!result) return null;
+        const details = result.details || {};
+
+        // Define what to show per tab
+        let content = null;
+        switch (tab) {
+            case 'bulk':
+                const surplusCost = details.totalImputedSurplus || 0;
+                content = (
+                    <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.75rem', lineHeight: 1.2, color: '#64748b', minWidth: '120px', textAlign: 'right' }}>
+                        <div style={{ fontWeight: 600, color: '#334155' }}>Total Granel: {formatCurrency(result.bulkCostUnit, 3)} €</div>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
+                            <span>Mat: {formatCurrency(details.totalMaterialCost / (units || 1), 3)} €</span>
+                            <span>Ops: {formatCurrency(details.mfgCost / (units || 1), 3)} €</span>
+                        </div>
+                        {surplusCost > 0 && (
+                            <div style={{ color: '#d97706' }}>+ Sobrante: {formatCurrency(surplusCost / (units || 1), 3)} €</div>
+                        )}
+                    </div>
+                );
+                break;
+            case 'packaging':
+                content = (
+                    <div style={{ display: 'flex', flexDirection: 'column', fontSize: '0.75rem', lineHeight: 1.2, color: '#64748b', minWidth: '120px', textAlign: 'right' }}>
+                        <div style={{ fontWeight: 600, color: '#334155' }}>Total Envasado: {formatCurrency(result.packingCostUnit + result.processCostUnit, 3)} €</div>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '6px' }}>
+                            <span>Mat: {formatCurrency(result.packingCostUnit, 3)} €</span>
+                            <span>Llenado: {formatCurrency(result.processCostUnit, 3)} €</span>
+                        </div>
+                    </div>
+                );
+                break;
+            case 'extras':
+                return null;
+            case 'summary':
+                return null;
+        }
+
+        if (!content) return null;
+
         return (
             <div style={{
-                background: '#eff6ff',
-                border: '1px solid #bfdbfe',
-                color: '#1e40af',
-                padding: '0.2rem 0.5rem',
-                borderRadius: '4px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                fontSize: '0.8rem',
-                marginRight: '0.5rem'
-            }} title="Los precios están congelados con las tarifas del momento de cierre.">
-                <span>
-                    {isFrozen ? '🔒' : '🔓'} Oferta {initialData.status} - Tarifas Snapshot
-                </span>
+                background: '#f8fafc',
+                border: '1px solid #e2e8f0',
+                borderRadius: '6px',
+                padding: '4px 8px',
+                marginLeft: '1rem',
+                borderLeft: '3px solid var(--color-primary)'
+            }}>
+                {content}
             </div>
-        )
-    }
-
-    // Status State Machine
-    const currentStatus = initialData?.status || 'Borrador';
-    const availableTransitions: Record<string, string[]> = {
-        'Borrador': ['Pendiente de validar', 'Validada'],
-        'Pendiente de validar': ['Validada', 'Borrador'],
-        'Validada': ['Enviada', 'Borrador'],
-        'Enviada': ['Adjudicada', 'Rechazada'],
-        'Adjudicada': isAdmin ? ['Enviada', 'Borrador'] : [], // Admin Override
-        'Rechazada': isAdmin ? ['Enviada', 'Borrador'] : []   // Admin Override
+        );
     };
 
-    const nextStates = availableTransitions[currentStatus] || [];
+    // Config Modal
+    const [modalConfig, setModalConfig] = useState<any>({ isOpen: false });
 
-    const [modalConfig, setModalConfig] = useState<{
-        isOpen: boolean;
-        title: string;
-        message: string;
-        isDangerous?: boolean;
-        onConfirm: () => void;
-    }>({ isOpen: false, title: '', message: '', onConfirm: () => { } });
+    // Status Logic helpers
+    const [currentStatus, setCurrentStatus] = useState(initialData?.status || 'Borrador');
 
     const handleStatusChange = (newStatus: string) => {
-        setModalConfig({
-            isOpen: true,
-            title: 'Cambiar Estado',
-            message: `¿Estás seguro de cambiar el estado de la oferta a "${newStatus}"?`,
-            onConfirm: async () => {
-                setModalConfig(prev => ({ ...prev, isOpen: false }));
-                await onSubmit({ ...getValues(), status: newStatus });
-            }
-        });
+        setCurrentStatus(newStatus);
     };
-
-    const handleNewRevision = () => {
-        setModalConfig({
-            isOpen: true,
-            title: 'Crear Nueva Revisión',
-            message: 'Se creará una NUEVA REVISIÓN (Borrador) copia de esta oferta. ¿Deseas continuar?',
-            isDangerous: false, // Creating revision is safe/standard
-            onConfirm: async () => {
-                setModalConfig(prev => ({ ...prev, isOpen: false }));
-                try {
-                    const res = await fetch('/api/ofertas/revision', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ sourceOfferId: offerId })
-                    });
-
-                    if (res.ok) {
-                        const newOffer = await res.json();
-                        setToast({ message: "Nueva revisión creada. Se aplicarán las tarifas actuales.", type: 'success' });
-                        setTimeout(() => router.push(`/ofertas/editor/${newOffer.id}`), 1000);
-                    } else {
-                        setToast({ message: "Error al crear revisión: " + await res.text(), type: 'error' });
-                    }
-                } catch (e: any) {
-                    setToast({ message: "Error: " + e.message, type: 'error' });
-                }
-            }
-        });
-    };
-
 
     return (
-        <form onSubmit={handleSubmit(onSubmit, onError)} onKeyDown={checkKeyDown} className={styles.container} style={{ height: 'calc(100vh - var(--header-height))', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-            <fieldset disabled={isReadOnly} style={{ border: 'none', padding: 0, margin: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <div className={styles.container} style={{ height: 'calc(100vh - var(--header-height))', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
-                {/* Header Section (Fixed) */}
-                <div style={{ flexShrink: 0, background: '#f8fafc', zIndex: 30, borderBottom: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
-                    <div style={{ maxWidth: '100%', margin: '0 auto' }}>
-                        {/* Top Toolbar */}
-                        <div className={styles.topBar} style={{ borderBottom: '1px solid #e2e8f0' }}>
-                            {/* Left Section: Code, Status */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <button type="button" onClick={() => router.back()} className={styles.backButton}>
-                                    <ArrowLeft size={20} />
-                                </button>
+            {/* TOP HEADER */}
+            <div style={{ flexShrink: 0, background: '#fff', borderBottom: '1px solid #e2e8f0', padding: '0.5rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', zIndex: 40 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <button onClick={() => router.back()} className={styles.backButton}><ArrowLeft size={20} /></button>
 
-                                {/* Code Badge */}
-                                {initialData?.code && (
-                                    <div style={{ background: 'var(--color-primary-light)', color: 'white', padding: '0.25rem 0.8rem', borderRadius: '20px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 600 }}>
-                                        #{initialData.code}
-                                        {(initialData.revision !== undefined && initialData.revision !== null) && <span style={{ fontSize: '0.75em', opacity: 0.85 }}>(Rev {initialData.revision})</span>}
+                    {/* 1. CODE (Rev) */}
+                    {initialData?.code && (
+                        <div style={{ background: '#f1f5f9', padding: '0.2rem 0.6rem', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 600 }}>
+                            {initialData.code} <span style={{ opacity: 0.6 }}>(Rev{initialData.revision})</span>
+                        </div>
+                    )}
+
+                    {/* 2. STATUS SELECTOR */}
+                    <div style={{ position: 'relative' }}>
+                        <button
+                            onClick={() => !isReadOnly && setStatusDropdownOpen(!statusDropdownOpen)}
+                            style={{
+                                padding: '0.2rem 0.6rem',
+                                background: getStatusColor(currentStatus),
+                                color: 'white',
+                                borderRadius: '4px',
+                                fontSize: '0.85rem',
+                                fontWeight: 600,
+                                border: 'none',
+                                cursor: isReadOnly ? 'default' : 'pointer',
+                                display: 'flex', alignItems: 'center', gap: '4px'
+                            }}
+                        >
+                            {currentStatus}
+                            {!isReadOnly && <ChevronDown size={14} />}
+                        </button>
+
+                        {statusDropdownOpen && (
+                            <div style={{
+                                position: 'absolute', top: '100%', left: 0, marginTop: '4px',
+                                background: 'white', border: '1px solid #e2e8f0', borderRadius: '6px',
+                                boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+                                zIndex: 50, minWidth: '160px', overflow: 'hidden'
+                            }}>
+                                {getNextPossibleStatuses(currentStatus, isAdmin).map(s => (
+                                    <div
+                                        key={s}
+                                        onClick={() => {
+                                            handleStatusChange(s);
+                                            setStatusDropdownOpen(false);
+                                        }}
+                                        style={{
+                                            padding: '8px 12px', fontSize: '0.85rem', cursor: 'pointer',
+                                            background: currentStatus === s ? '#f1f5f9' : 'white',
+                                            borderBottom: '1px solid #f1f5f9'
+                                        }}
+                                        onMouseEnter={e => e.currentTarget.style.background = '#f8fafc'}
+                                        onMouseLeave={e => e.currentTarget.style.background = currentStatus === s ? '#f1f5f9' : 'white'}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: getStatusColor(s) }} />
+                                            {s}
+                                        </div>
                                     </div>
-                                )}
+                                ))}
+                            </div>
+                        )}
+                    </div>
 
-                                {!isReadOnly && (
-                                    /* Status Badge with Dropdown */
-                                    <div style={{ position: 'relative' }}>
+                    {/* 3. CLIENT */}
+                    <div>
+                        <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>CLIENTE</div>
+                        <ProtectedField value={client} isProtecting={!!offerId}>
+                            <div style={{ width: '200px' }}>
+                                <ClientSelect value={client} onChange={setClient} placeholder="Seleccionar Cliente" disabled={isReadOnly} />
+                            </div>
+                        </ProtectedField>
+                    </div>
+
+                    {/* 4. OFFER NAME (Description) */}
+                    <div>
+                        <div style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 600 }}>NOMBRE DE LA OFERTA</div>
+                        <ProtectedField value={offerDescription} isProtecting={!!offerId}>
+                            <div style={{ width: '300px' }}>
+                                <input
+                                    type="text"
+                                    value={offerDescription}
+                                    onChange={(e) => setOfferDescription(e.target.value)}
+                                    placeholder="Descripción general..."
+                                    disabled={isReadOnly}
+                                    className={styles.inputBordered}
+                                />
+                            </div>
+                        </ProtectedField>
+                    </div>
+
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+
+                    <button
+                        type="button"
+                        onClick={() => handleSwitchItem('SUMMARY')}
+                        style={{
+                            display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem', padding: '6px 12px',
+                            background: activeItemId === 'SUMMARY' ? '#eff6ff' : 'white',
+                            color: activeItemId === 'SUMMARY' ? 'var(--color-primary)' : '#334155',
+                            border: `1px solid ${activeItemId === 'SUMMARY' ? 'var(--color-primary)' : '#cbd5e1'}`,
+                            borderRadius: '6px', cursor: 'pointer', fontWeight: 500
+                        }}
+                    >
+                        <BarChart3 size={16} /> Resumen Global
+                    </button>
+
+                    <button type="button" onClick={() => !isReadOnly && setDocModalOpen(true)} disabled={!isValid || isReadOnly} style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.85rem', padding: '6px 12px', background: 'white', color: '#334155', border: '1px solid #cbd5e1', borderRadius: '6px', cursor: 'pointer', fontWeight: 500 }}>
+                        <FileText size={16} /> Documento
+                    </button>
+
+                    {!isReadOnly && (
+                        <button onClick={handleSubmit(onSubmit)} className={styles.primaryButton}>
+                            <Save size={16} /> Guardar Oferta
+                        </button>
+                    )}
+                </div>
+            </div>
+
+            {/* MAIN CONTENT ROW */}
+            <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+
+                {/* LEFT SIDEBAR: PRODUCTS LIST */}
+                <div style={{ width: '240px', background: '#f8fafc', borderRight: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ padding: '1rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#475569' }}>Productos</span>
+                        {!isReadOnly && (
+                            <button onClick={() => handleAddItem()} style={{ background: 'var(--color-primary)', color: 'white', border: 'none', borderRadius: '4px', padding: '4px', cursor: 'pointer' }} title="Añadir Producto">
+                                <Plus size={16} />
+                            </button>
+                        )}
+                    </div>
+
+                    <div style={{ flex: 1, overflowY: 'auto', padding: '0.5rem' }}>
+                        {items.map((item, idx) => (
+                            <div
+                                key={item.id}
+                                onClick={() => handleSwitchItem(item.id)}
+                                style={{
+                                    padding: '0.75rem', borderRadius: '6px', marginBottom: '0.5rem', cursor: 'pointer',
+                                    background: item.id === activeItemId ? 'white' : 'transparent',
+                                    boxShadow: item.id === activeItemId ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                                    border: item.id === activeItemId ? '1px solid #cbd5e1' : '1px solid transparent',
+                                    position: 'relative',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px'
+                                }}
+                                className="product-list-item"
+                            >
+                                <div style={{ fontSize: '0.85rem', fontWeight: 600, color: item.id === activeItemId ? 'var(--color-primary-dark)' : '#64748b', flex: '1 1 auto', minWidth: 0, overflow: 'hidden', whiteSpace: 'normal', wordBreak: 'break-word', lineHeight: '1.2' }}>
+                                    {item.id === activeItemId ? (
+                                        <>
+                                            <input
+                                                {...register('product', { required: true })}
+                                                placeholder="Nombre del producto..."
+                                                disabled={isReadOnly}
+                                                // autoFocus only works on mount, so we need a ref or focus effect? 
+                                                // Or just key on isRenaming? 
+                                                // Simple: use styling to hide/show.
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        e.preventDefault();
+                                                        setIsRenaming(false);
+                                                    }
+                                                }}
+                                                onBlur={() => setIsRenaming(false)}
+                                                style={{
+                                                    display: isRenaming ? 'block' : 'none',
+                                                    width: '100%',
+                                                    background: 'transparent',
+                                                    border: 'none',
+                                                    borderBottom: '1px dashed #94a3b8',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: 600,
+                                                    color: 'var(--color-primary-dark)',
+                                                    outline: 'none',
+                                                    padding: '2px 0',
+                                                    cursor: 'text'
+                                                }}
+                                            />
+                                            {!isRenaming && (
+                                                <span
+                                                    style={{ whiteSpace: 'normal', wordBreak: 'break-word', cursor: isReadOnly ? 'default' : 'text' }}
+                                                    onDoubleClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (!isReadOnly) {
+                                                            setIsRenaming(true);
+                                                            // setTimeout to focus input? existing input ref integration might be needed.
+                                                            // Since input was 'display:none', it wasn't focused.
+                                                            // We can rely on clicking? No.
+                                                            // Let's rely on user clicking input after it appears? No, should be auto.
+                                                            // Adding Ref to input to focus.
+                                                            setTimeout(() => {
+                                                                const inputs = document.querySelectorAll('input[name="product"]');
+                                                                if (inputs.length > 0) (inputs[0] as HTMLInputElement).focus();
+                                                            }, 50);
+                                                        }
+                                                    }}
+                                                >
+                                                    {/* Use watch to get live value, simplified */}
+                                                    {watch('product') || 'Sin Nombre'}
+                                                </span>
+                                            )}
+                                        </>
+                                    ) : (
+                                        <span title={item.productName || 'Sin Nombre'}>{idx + 1}. {item.productName || 'Sin Nombre'}</span>
+                                    )}
+                                </div>
+                                {item.id === activeItemId && !isReadOnly && (
+                                    <div style={{ display: 'flex', gap: '4px', flexShrink: 0 }}>
                                         <button
-                                            type="button"
-                                            onClick={() => nextStates.length > 0 && setStatusDropdownOpen(!statusDropdownOpen)}
-                                            style={{
-                                                display: 'flex', alignItems: 'center', gap: '4px',
-                                                background: getStatusColor(currentStatus), color: 'white',
-                                                padding: '0.25rem 0.6rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 600,
-                                                border: 'none', cursor: nextStates.length > 0 ? 'pointer' : 'default'
-                                            }}
+                                            onClick={(e) => handleDuplicateItem(item.id, e)}
+                                            style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#64748b', opacity: 0.7 }}
+                                            title="Duplicar"
                                         >
-                                            {currentStatus}
-                                            {nextStates.length > 0 && <ChevronDown size={14} />}
+                                            <Copy size={14} />
                                         </button>
-
-                                        {/* Dropdown Menu */}
-                                        {statusDropdownOpen && nextStates.length > 0 && (
-                                            <div style={{
-                                                position: 'absolute', top: '100%', left: 0, marginTop: '4px',
-                                                background: 'white', border: '1px solid #e2e8f0', borderRadius: '6px',
-                                                boxShadow: '0 4px 12px rgba(0,0,0,0.1)', zIndex: 100, minWidth: '160px', overflow: 'hidden'
-                                            }}>
-                                                {nextStates.map(s => (
-                                                    <button
-                                                        key={s}
-                                                        type="button"
-                                                        onClick={() => { handleStatusChange(s); setStatusDropdownOpen(false); }}
-                                                        style={{
-                                                            display: 'flex', alignItems: 'center', gap: '8px', width: '100%',
-                                                            padding: '0.5rem 0.75rem', background: 'transparent', border: 'none',
-                                                            cursor: 'pointer', fontSize: '0.85rem', textAlign: 'left'
-                                                        }}
-                                                        onMouseEnter={(e) => (e.currentTarget.style.background = '#f1f5f9')}
-                                                        onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                                                    >
-                                                        <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: getStatusColor(s) }}></span>
-                                                        {s}
-                                                    </button>
-                                                ))}
-                                            </div>
+                                        {items.length > 1 && (
+                                            <button
+                                                onClick={(e) => handleRemoveItem(item.id, e)}
+                                                style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', opacity: 0.7 }}
+                                                title="Eliminar"
+                                            >
+                                                <Trash2 size={14} />
+                                            </button>
                                         )}
                                     </div>
                                 )}
-                                {isReadOnly && (
-                                    <span style={{
-                                        padding: '0.25rem 0.6rem',
-                                        borderRadius: '4px',
-                                        fontSize: '0.8rem',
-                                        fontWeight: 600,
-                                        background: getStatusColor(currentStatus),
-                                        color: 'white'
-                                    }}>
-                                        {currentStatus}
-                                    </span>
-                                )}
-
-                                {/* Revision Button */}
-                                {!isReadOnly && (currentStatus === 'Adjudicada' || currentStatus === 'Rechazada') && (
-                                    <button
-                                        type="button"
-                                        onClick={handleNewRevision}
-                                        style={{ background: '#fff', border: '1px solid #cbd5e1', color: '#334155', fontSize: '0.8rem', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' }}
-                                    >
-                                        + Crear Revisión
-                                    </button>
-                                )}
                             </div>
-
-                            {/* Center Section: Client & Product Inputs */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flex: 1, justifyContent: 'center' }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '150px' }}>
-                                    <label style={{ fontSize: '0.65rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8' }}>Cliente</label>
-                                    <ProtectedField
-                                        value={watch('client')}
-                                        isProtecting={!!offerId}
-                                        protectionMessage="El cliente define las condiciones de la oferta. ¿Seguro que quieres cambiarlo?"
-                                    >
-                                        <Controller
-                                            control={control}
-                                            name="client"
-                                            rules={{ required: true }}
-                                            render={({ field }) => (
-                                                <ClientSelect
-                                                    value={field.value}
-                                                    onChange={field.onChange}
-                                                    placeholder="Seleccionar Cliente"
-                                                    disabled={isReadOnly}
-                                                />
-                                            )}
-                                        />
-                                    </ProtectedField>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '200px' }}>
-                                    <label style={{ fontSize: '0.65rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#94a3b8' }}>Producto</label>
-                                    <ProtectedField
-                                        value={watch('product')}
-                                        isProtecting={!!offerId}
-                                        protectionMessage="Cambiar el nombre del producto puede afectar a la documentación generada. ¿Editar?"
-                                    >
-                                        <input
-                                            {...register('product', { required: true })}
-                                            disabled={isReadOnly}
-                                            style={{ border: 'none', borderBottom: `1px solid ${errors.product ? '#ef4444' : '#e2e8f0'}`, padding: '0.25rem 0', fontSize: '0.95rem', fontWeight: 600, color: 'var(--color-primary-dark)', outline: 'none', background: 'transparent', width: '100%' }}
-                                            placeholder="Producto"
-                                        />
-                                    </ProtectedField>
-                                </div>
-                            </div>
-
-                            {/* Right Section: Config & Save */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                <StatusBanner />
-                                {!isReadOnly && (
-                                    <button type="button" onClick={() => router.push('/ofertas/config')} className={styles.iconButton} title="Configuración Global de Costes">
-                                        <Settings size={20} className={styles.icon} />
-                                    </button>
-                                )}
-                                {isReadOnly && (
-                                    <div style={{ padding: '0.5rem 1rem', background: '#f1f5f9', color: '#64748b', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 500 }}>
-                                        Modo Lectura
-                                    </div>
-                                )}
-                                {!isReadOnly && (
-                                    <button type="submit" className={styles.primaryButton} disabled={isFrozen && currentStatus !== 'Borrador'}>
-                                        <Save size={16} /> {isFrozen ? 'Guardar (Sin cambios)' : 'Guardar'}
-                                    </button>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Persistent Header Data - Fabricación & Envase */}
-                        <div className={styles.persistentHeader} style={{ boxShadow: 'none' }}>
-                            <div className={styles.headerField}>
-                                <label className={styles.label}>Fabricación principal <span style={{ color: '#ef4444' }}>*</span></label>
-                                <div className={styles.unitInputs}>
-                                    <div className={styles.unitInputGroup}>
-                                        <input
-                                            type="number"
-                                            step="0.1"
-                                            {...register('totalBatchKg', { required: true, valueAsNumber: true })}
-                                            disabled={isReadOnly}
-                                            className={styles.inputBordered}
-                                            style={{ borderColor: errors.totalBatchKg ? '#ef4444' : undefined }}
-                                            placeholder="Kg"
-                                        />
-                                        <span className={styles.helperText}>Kgs Totales</span>
-                                    </div>
-                                    <div className={styles.unitInputGroup}>
-                                        <div className={styles.readOnlyValue}>{isFinite(derivedUnits) ? formatNumber(derivedUnits, 0) : '-'}</div>
-                                        <span className={styles.helperText}>Uds (Calc)</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles.headerField}>
-                                <label className={styles.label}>Envase <span style={{ color: '#ef4444' }}>*</span></label>
-                                <div className={styles.unitInputs}>
-                                    <div className={styles.unitInputGroup}>
-                                        <input
-                                            type="number"
-                                            {...register('unitSize', { required: true, valueAsNumber: true })}
-                                            disabled={isReadOnly}
-                                            className={styles.inputBordered}
-                                            placeholder="ml"
-                                            style={{ borderColor: errors.unitSize ? '#ef4444' : undefined }}
-                                        />
-                                        <span className={styles.helperText}>Capacidad (ml)</span>
-                                    </div>
-                                    <div className={styles.unitInputGroup}>
-                                        <input
-                                            type="number"
-                                            step="0.01"
-                                            {...register('density', { required: true, valueAsNumber: true })}
-                                            disabled={isReadOnly}
-                                            className={styles.inputBordered}
-                                            placeholder="g/ml"
-                                            style={{ borderColor: errors.density ? '#ef4444' : undefined }}
-                                        />
-                                        <span className={styles.helperText}>Densidad</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
+
                 </div>
+                {/* RIGHT: EDITOR (Only if items exist) */}
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden', background: 'white' }}>
 
-                {/* Main Content (Flex Row) */}
-                <div className={styles.mainLayout} style={{ flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'stretch' }}>
-                    {/* Sidebar (Fixed Height, Scrollable) */}
-                    <div className={styles.sidebar} style={{ overflowY: 'auto' }}>
-                        {tabs.map(tab => {
-                            const Icon = tab.icon;
-                            const isActive = activeTab === tab.id;
-                            return (
-                                <div key={tab.id}>
-                                    <button
-                                        type="button"
-                                        onClick={() => setActiveTab(tab.id)}
-                                        className={`${styles.tabButton} ${isActive ? styles.tabButtonActive : ''} `}
-                                    >
-                                        <Icon size={20} />
-                                        {tab.label}
-                                    </button>
+                    {activeItemId === 'SUMMARY' ? (
+                        <div style={{ flex: 1, overflowY: 'auto', background: '#f8fafc' }}>
+                            <OfferSummaryGlobal items={items} />
+                        </div>
+                    ) : (
+                        items.length === 0 ? (
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#94a3b8' }}>No hay productos. Añade uno.</div>
+                        ) : (
+                            <form onSubmit={(e) => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                                {/* Product Name & Actions Header - SIMPLIFIED */}
+                                <div style={{ padding: '0.75rem 1.5rem', borderBottom: '1px solid #e2e8f0', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', background: '#fff' }}>
 
-                                    {/* CONDITIONAL SIDEBAR CONTENT */}
-                                    {isActive && tab.id === 'bulk' && (
-                                        <div className={styles.compactCard} style={{ marginTop: '0.5rem', marginLeft: '0.5rem', borderLeft: '3px solid var(--color-primary)', paddingLeft: '1rem' }}>
-                                            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748b', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
-                                                Costes Granel
-                                            </div>
-
-                                            {/* Total Granel on one line */}
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.5rem' }}>
-                                                <div className={styles.metricLabel} style={{ marginBottom: 0 }}>Total Granel (ud)</div>
-                                                <div className={styles.metricValue} style={{ fontSize: '1rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                                                    {formatCurrency(derivedUnits > 0 ? liveResults.totalBulkCost / derivedUnits : 0)} €
+                                    {/* RICH GLOBAL CONFIG WIDGET */}
+                                    <div style={{ display: 'flex', gap: '2rem', marginRight: '1.5rem', borderRight: '1px solid #e2e8f0', paddingRight: '1.5rem' }}>
+                                        {/* GROUP 1: MFG */}
+                                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#475569', letterSpacing: '0.05em', marginBottom: '2px' }}>FABRICACIÓN PRINCIPAL <span style={{ color: '#ef4444' }}>*</span></div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <input
+                                                        type="number"
+                                                        step="0.1"
+                                                        {...register('totalBatchKg', { required: true })}
+                                                        style={{ width: '80px', padding: '4px 6px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '0.9rem', fontWeight: '600', color: '#1e293b' }}
+                                                        disabled={isReadOnly}
+                                                    />
+                                                    <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>Kgs Totales</span>
                                                 </div>
-                                            </div>
-
-                                            <div style={{ marginTop: '0.5rem', paddingTop: '0.5rem', borderTop: '1px dashed #e2e8f0' }}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.2rem' }}>
-                                                    <span>Materiales</span>
-                                                    <span style={{ fontWeight: 600 }}>{formatCurrency(derivedUnits > 0 ? (liveResults.details?.totalMaterialCost || 0) / derivedUnits : 0)} €</span>
-                                                </div>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.2rem' }}>
-                                                    <span>Operaciones</span>
-                                                    <span style={{ fontWeight: 600 }}>{formatCurrency(derivedUnits > 0 ? (liveResults.details?.mfgCost || 0) / derivedUnits : 0)} €</span>
-                                                </div>
-                                                {(liveResults.details?.totalImputedSurplus || 0) > 0 && (
-                                                    <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#c2410c' }}>
-                                                        <span>Sobrantes</span>
-                                                        <span style={{ fontWeight: 600 }}>{formatCurrency(derivedUnits > 0 ? (liveResults.details?.totalImputedSurplus || 0) / derivedUnits : 0)} €</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
-                                    )}
-
-                                    {isActive && tab.id === 'packaging' && (
-                                        <div className={styles.compactCard} style={{ marginTop: '0.5rem', marginLeft: '0.5rem', borderLeft: '3px solid var(--color-primary)', paddingLeft: '1rem' }}>
-                                            <div style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748b', marginBottom: '0.5rem', textTransform: 'uppercase' }}>
-                                                Costes Envasado
-                                            </div>
-
-                                            {/* Total Envasado on one line */}
-                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.5rem' }}>
-                                                <div className={styles.metricLabel} style={{ marginBottom: 0 }}>Total Envasado (ud)</div>
-                                                <div className={styles.metricValue} style={{ fontSize: '1rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                                                    {formatCurrency(liveResults.packingCostUnit + liveResults.processCostUnit)} €
-                                                </div>
-                                            </div>
-
-                                            <div style={{ marginTop: '0.5rem', paddingTop: '0.5rem', borderTop: '1px dashed #e2e8f0' }}>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: '0.2rem' }}>
-                                                    <span>Materiales</span>
-                                                    <span style={{ fontWeight: 600 }}>{formatCurrency(derivedUnits > 0 ? (liveResults.details?.packagingMaterialCost || 0) / derivedUnits : 0)} €</span>
-                                                </div>
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem' }}>
-                                                    <span>Operaciones</span>
-                                                    <span style={{ fontWeight: 600 }}>{formatCurrency(derivedUnits > 0 ? (liveResults.details?.packagingFillingCost || 0) / derivedUnits : 0)} €</span>
+                                                <div style={{ fontSize: '0.9rem', color: '#1e293b', fontWeight: 600, display: 'flex', flexDirection: 'column', paddingTop: '2px' }}>
+                                                    {isFinite(derivedUnits) ? formatNumber(derivedUnits, 0) : '-'}
+                                                    <span style={{ fontSize: '0.65rem', color: '#64748b', fontWeight: 400 }}>Uds (Calc)</span>
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
+
+                                        {/* GROUP 2: PACKAGING */}
+                                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                                            <div style={{ fontSize: '0.65rem', fontWeight: 700, color: '#475569', letterSpacing: '0.05em', marginBottom: '2px' }}>ENVASE <span style={{ color: '#ef4444' }}>*</span></div>
+                                            <div style={{ display: 'flex', gap: '8px' }}>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <input
+                                                        type="number"
+                                                        {...register('unitSize', { required: true })}
+                                                        style={{ width: '90px', padding: '4px 6px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '0.9rem' }}
+                                                        placeholder="100"
+                                                        disabled={isReadOnly}
+                                                    />
+                                                    <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>Capacidad (ml)</span>
+                                                </div>
+                                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                    <input
+                                                        type="number"
+                                                        step="0.01"
+                                                        {...register('density', { required: true })}
+                                                        style={{ width: '60px', padding: '4px 6px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '0.9rem' }}
+                                                        placeholder="1"
+                                                        disabled={isReadOnly}
+                                                    />
+                                                    <span style={{ fontSize: '0.65rem', color: '#94a3b8' }}>Densidad</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* TABS moved to Header */}
+                                    <div style={{ display: 'flex', gap: '0.25rem', background: '#f1f5f9', padding: '4px', borderRadius: '8px', marginRight: '1rem' }}>
+                                        {tabs.map(tab => (
+                                            <button
+                                                key={tab.id}
+                                                type="button"
+                                                onClick={() => setActiveTab(tab.id)}
+                                                style={{
+                                                    display: 'flex', alignItems: 'center', gap: '6px',
+                                                    padding: '6px 12px',
+                                                    borderRadius: '6px',
+                                                    border: 'none',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: 600,
+                                                    cursor: 'pointer',
+                                                    background: activeTab === tab.id ? 'white' : 'transparent',
+                                                    color: activeTab === tab.id ? 'var(--color-primary)' : '#64748b',
+                                                    boxShadow: activeTab === tab.id ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
+                                                    transition: 'all 0.2s'
+                                                }}
+                                            >
+                                                <tab.icon size={16} />
+                                                <span>{tab.label.split('. ')[1]}</span>
+                                            </button>
+                                        ))}
+
+                                        {/* Live Cost Widget inside same container for flow */}
+                                        <div style={{ borderLeft: '1px solid #cbd5e1', paddingLeft: '0.5rem', marginLeft: '0.5rem', display: 'flex', alignItems: 'center' }}>
+                                            <TabCostWidget tab={activeTab} result={liveResults} units={liveValues.units} />
+                                        </div>
+                                    </div>
+
+
+                                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                    </div>
                                 </div>
-                            )
-                        })}
 
-                        <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #e2e8f0' }}>
-                            <button
-                                type="button"
-                                disabled={!isValid || isReadOnly}
-                                onClick={() => !isReadOnly && setDocModalOpen(true)}
-                                className={styles.tabButton}
-                                style={{
-                                    color: isValid && !isReadOnly ? '#0f766e' : '#94a3b8',
-                                    marginTop: '0.5rem',
-                                    cursor: isValid && !isReadOnly ? 'pointer' : 'not-allowed',
-                                    justifyContent: 'flex-start',
-                                    background: isValid && !isReadOnly ? '#f0fdf4' : 'transparent',
-                                    border: isValid && !isReadOnly ? '1px solid #bbf7d0' : 'none'
-                                }}
-                                title={isValid ? "Configurar y Descargar Documentación" : "Completa todos los campos requeridos"}
-                            >
-                                <FileText size={20} />
-                                Documentación
-                            </button>
-                        </div>
-                    </div>
+                                {/* Persistent Data Bar */}
 
-                    {/* Tab Content (Scrollable) */}
-                    <div className={styles.contentArea} style={{ flex: 1, overflowY: 'auto', paddingBottom: '2rem' }}>
-                        <div className={styles.contentContainer}>
-                            <div style={{ display: activeTab === 'bulk' ? 'block' : 'none' }}>
-                                <TabBulk control={control} register={register} watch={watch} setValue={setValue} config={effectiveConfig} calculatedUnits={derivedUnits} errors={errors} />
-                            </div>
-                            <div style={{ display: activeTab === 'packaging' ? 'block' : 'none' }}>
-                                <TabPackaging control={control} register={register} watch={watch} setValue={setValue} config={effectiveConfig} />
-                            </div>
-                            <div style={{ display: activeTab === 'extras' ? 'block' : 'none' }}>
-                                <TabExtras control={control} register={register} watch={watch} config={effectiveConfig} setValue={setValue} />
-                            </div>
-                            <div style={{ display: activeTab === 'summary' ? 'block' : 'none' }}>
-                                <TabSummary control={control} register={register} watch={watch} setValue={setValue} config={effectiveConfig} calculatedUnits={derivedUnits} offerCosts={liveResults} />
-                            </div>
-                        </div>
-                    </div>
+                                {/* Tabs & Content layout (Reuse existing logic) */}
+                                {/* Tabs & Content layout (Simplified - No Sidebar) */}
+                                <div className={styles.mainLayout} style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+
+                                    {/* Tab Content - Full Width */}
+                                    <div className={styles.contentArea} style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+                                        <div style={{ display: activeTab === 'bulk' ? 'block' : 'none' }}>
+                                            <TabBulk control={control} register={register} watch={watch} setValue={setValue} config={effectiveConfig} calculatedUnits={derivedUnits} errors={errors} />
+                                        </div>
+                                        <div style={{ display: activeTab === 'packaging' ? 'block' : 'none' }}>
+                                            <TabPackaging control={control} register={register} watch={watch} setValue={setValue} config={effectiveConfig} />
+                                        </div>
+                                        <div style={{ display: activeTab === 'extras' ? 'block' : 'none' }}>
+                                            <TabExtras control={control} register={register} watch={watch} config={effectiveConfig} setValue={setValue} />
+                                        </div>
+                                        <div style={{ display: activeTab === 'summary' ? 'block' : 'none' }}>
+                                            <TabSummary control={control} register={register} watch={watch} setValue={setValue} config={effectiveConfig} calculatedUnits={derivedUnits} offerCosts={liveResults} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        )
+                    )}
                 </div>
-                {toast && (
-                    <Toast
-                        message={toast.message}
-                        type={toast.type}
-                        onClose={() => setToast(null)}
-                    />
-                )
-                }
+            </div>
 
-                <ConfirmationModal
-                    isOpen={modalConfig.isOpen}
-                    title={modalConfig.title}
-                    message={modalConfig.message}
-                    isDangerous={modalConfig.isDangerous}
-                    onConfirm={modalConfig.onConfirm}
-                    onCancel={() => setModalConfig(prev => ({ ...prev, isOpen: false }))}
-                />
 
-                <DocumentConfigModal
-                    isOpen={docModalOpen}
-                    onClose={() => setDocModalOpen(false)}
-                    initialConfig={defaultDocumentConfig}
-                    offerStatus={initialData?.status || 'Borrador'}
-                    onGenerate={handleDocAction}
-                />
-            </fieldset>
-        </form >
+            {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+
+
+            <DocumentConfigModal
+                isOpen={docModalOpen}
+                onClose={() => setDocModalOpen(false)}
+                initialConfig={defaultDocumentConfig}
+                offerStatus={initialData?.status || 'Borrador'}
+                onGenerate={handleDocAction}
+            />
+        </div >
     );
 }
+

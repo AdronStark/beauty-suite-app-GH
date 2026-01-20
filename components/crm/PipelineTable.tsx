@@ -106,7 +106,7 @@ export default function PipelineTable({ offers }: PipelineTableProps) {
                     <Search size={18} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                     <input
                         type="text"
-                        placeholder="Buscar por cliente, producto..."
+                        placeholder="Buscar por cliente, proyecto..."
                         value={filterText}
                         onChange={(e) => setFilterText(e.target.value)}
                         style={{
@@ -142,7 +142,7 @@ export default function PipelineTable({ offers }: PipelineTableProps) {
                         <tr>
                             <Th label="Código" sortKey="code" />
                             <Th label="Cliente" sortKey="client" />
-                            <Th label="Producto" sortKey="product" />
+                            <Th label="Proyecto" sortKey="product" />
                             <Th label="Valor" sortKey="value" />
                             <Th label="Probabilidad" sortKey="probability" />
                             <Th label="Estado" sortKey="status" />

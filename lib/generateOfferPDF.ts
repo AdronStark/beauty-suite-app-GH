@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
+import { calculateOfferCosts, calculateScenarioResults } from '@/lib/offerCalculations';
 
-export const generateOfferPDF = async (data: any, results: any) => {
+export const generateOfferPDF = async (offerData: any, items: any[]) => {
     // 1. Setup Document (A4)
     const doc = new jsPDF({
         orientation: 'portrait',
@@ -8,7 +9,7 @@ export const generateOfferPDF = async (data: any, results: any) => {
         format: 'a4'
     });
 
-    const config = data.documentConfig || {};
+    const config = offerData.documentConfig || {};
 
     const pageHeight = doc.internal.pageSize.height;
     const pageWidth = doc.internal.pageSize.width;
@@ -59,8 +60,8 @@ export const generateOfferPDF = async (data: any, results: any) => {
     y = 50;
     const addressX = pageWidth / 2 + 10;
 
-    const clientName = config.clientName || data.client || "CLIENTE";
-    const contactName = config.contactName || data.responsableComercial || "Responsable";
+    const clientName = config.clientName || offerData.client || "CLIENTE";
+    const contactName = config.contactName || offerData.responsableComercial || "Responsable";
     const addressStr = config.clientAddress || "Dirección Cliente (Simulada)\nCP Ciudad, Provincia";
     const vat = config.clientVat ? `NIF: ${config.clientVat}` : "";
 
@@ -73,8 +74,8 @@ export const generateOfferPDF = async (data: any, results: any) => {
     const leftX = margin;
     let leftY = y;
 
-    const offerCode = data.code || 'BORRADOR';
-    const offerRev = data.revision ?? data.version ?? 1;
+    const offerCode = offerData.code || 'BORRADOR';
+    const offerRev = offerData.revision ?? offerData.version ?? 1;
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(10);
@@ -111,175 +112,205 @@ export const generateOfferPDF = async (data: any, results: any) => {
     y += (splitIntro.length * 5) + 10;
 
     // --- TITLE ---
-    const title = `${(data.product || "PRODUCTO").toUpperCase()} (- ${data.code || "N/A"})`;
+    const title = `${(offerData.description || "OFERTA").toUpperCase()} (- ${offerData.code || "N/A"})`;
     text(title, margin, y, 14, 'left', true);
     y += 10;
 
-    // --- 1. ELABORACIÓN ---
-    text("1. Elaboración del producto.", margin, y, 11, 'left', true);
-    y += 6;
+    // --- PRODUCTS LOOP ---
+    items.forEach((item, index) => {
+        const data = item.inputData || {};
+        const productConfig = data.snapshotConfig || {};
+        const results = calculateOfferCosts(data, productConfig);
 
-    doc.setFontSize(11);
-    doc.setFont("helvetica", "bold");
-    doc.text("Materias primas: ", margin + 10, y);
-    doc.setFont("helvetica", "normal");
-    doc.text("Aportadas por Laboratorios Coper.", margin + 45, y);
-    y += 10;
-
-    const col1 = margin + 10;
-    const col2 = col1 + 80;
-    const col3 = col2 + 40;
-
-    text("Concepto", col1, y, 10, 'left', true);
-    text(`Cantidad (${data.totalBatchKg} Kg)`, col2, y, 10, 'left', true);
-    text("Precio por Kg", col3, y, 10, 'left', true);
-    y += 6;
-
-    text("Coste Fórmula", col1, y, 10);
-    text(`${data.totalBatchKg} Kg`, col2, y, 10);
-    text(fmt(results.bulkCostUnit), col3, y, 10);
-    y += 10;
-
-    if (config.notesBulk) {
-        const splitRef = doc.splitTextToSize(config.notesBulk, pageWidth - col1 - margin);
-        doc.setFont("helvetica", "italic");
-        doc.text(splitRef, col1, y);
-        doc.setFont("helvetica", "normal");
-        y += (splitRef.length * 5) + 5;
-    }
-
-
-    // --- 2. PRESENTACIÓN ---
-    text("2. Presentación posible incluida:", margin, y, 11, 'left', true);
-    y += 6;
-
-    if (data.packaging && Array.isArray(data.packaging)) {
-        data.packaging.forEach((p: any) => {
-            text(`• ${p.name || "Componente"}`, margin + 10, y, 11);
-            y += 5;
-        });
-    }
-    y += 5;
-
-    text("Cantidad:", col1, y, 10, 'left', true);
-    text(`${results.derivedUnits?.toFixed(0)} unid.`, col2, y, 10, 'left', true);
-    y += 6;
-    text("Precio por millar (Materiales):", col1, y, 10, 'left', true);
-    text(fmtThousand(results.packingCostUnit), col2, y, 10);
-    y += 10;
-
-    if (config.notesPacking) {
-        const splitRef = doc.splitTextToSize(config.notesPacking, pageWidth - col1 - margin);
-        doc.setFont("helvetica", "italic");
-        doc.text(splitRef, col1, y);
-        doc.setFont("helvetica", "normal");
-        y += (splitRef.length * 5) + 5;
-    }
-
-
-    // --- 3. ENVASADO ---
-    text(`3. Envasado en ${data.unitSize}ml.`, margin, y, 11, 'left', true);
-    y += 6;
-
-    const ops = ["Envasar producto.", "Colocar sistema de cierre.", "Etiquetar.", "Codificar lote.", "Embalar."];
-    ops.forEach(op => {
-        text(`• ${op}`, margin + 10, y, 11);
-        y += 5;
-    });
-    y += 5;
-
-    text("Cantidad a envasar:", col1, y, 10, 'left', true);
-    text(`${results.derivedUnits?.toFixed(0)} unid.`, col2, y, 10, 'left', true);
-    y += 6;
-    text("Precio envasado:", col1, y, 10, 'left', true);
-    text(fmtThousand(results.processCostUnit), col2, y, 10);
-    y += 10;
-
-    if (config.notesExtras) {
-        const splitRef = doc.splitTextToSize(config.notesExtras, pageWidth - col1 - margin);
-        doc.setFont("helvetica", "italic");
-        doc.text(splitRef, col1, y);
-        doc.setFont("helvetica", "normal");
-        y += (splitRef.length * 5) + 5;
-    }
-
-
-    // --- SUMMARY ---
-    y += 10;
-    text(`Precio por unidad de ${data.unitSize}ml`, col1, y, 12, 'left', true);
-    text(fmt(results.salePrice), col2, y, 12, 'left', true); // PVP
-    y += 6;
-    text(`(Coste Directo: ${fmt(results.directCost)})`, col1, y, 10);
-    y += 15;
-
-
-    // --- 8.5 SCENARIOS (ESCALADO) ---
-    // Check if scenarios exist
-    const scenarios = data.scenarios || [];
-    if (scenarios.length > 0) {
-        // Dynamically import helper
-        const { calculateScenarioResults } = await import('@/lib/offerCalculations');
-
-        if (y > pageHeight - 60) {
+        // Check page break before starting product (approx header size)
+        if (y > pageHeight - 50) {
             doc.addPage();
             y = 30;
         }
 
-        text("4. Escalado de Precios (Opciones):", margin, y, 11, 'left', true);
+        // Product Header
+        doc.setDrawColor(200, 200, 200);
+        doc.line(margin, y - 2, pageWidth - margin, y - 2);
+
+        doc.setTextColor(0, 0, 255); // Blue
+        text(`${index + 1}. ${item.productName || data.product || 'Producto ' + (index + 1)}`, margin, y, 12, 'left', true);
+        doc.setTextColor(0, 0, 0); // Reset
+        y += 10;
+
+        // --- 1. ELABORACIÓN ---
+        text("1. Elaboración del producto.", margin, y, 11, 'left', true);
         y += 6;
 
-        // Table Header
+        doc.setFontSize(11);
+        doc.setFont("helvetica", "bold");
+        doc.text("Materias primas: ", margin + 10, y);
+        doc.setFont("helvetica", "normal");
+        doc.text("Aportadas por Laboratorios Coper.", margin + 45, y);
+        y += 10;
+
         const col1 = margin + 10;
         const col2 = col1 + 80;
+        const col3 = col2 + 40;
 
-        text("Cantidad", col1, y, 10, 'left', true);
-        text("P. Venta Unit.", col2, y, 10, 'left', true);
+        text("Concepto", col1, y, 10, 'left', true);
+        text(`Cantidad (${data.totalBatchKg} Kg)`, col2, y, 10, 'left', true);
+        text("Precio por Kg", col3, y, 10, 'left', true);
         y += 6;
 
-        // Main Scenario
-        const mainScenario = {
-            qty: results.derivedUnits,
-            mode: 'UNITS',
-            margin: data.marginPercent,
-            label: "Lote Principal"
-        };
+        text("Coste Fórmula", col1, y, 10);
+        text(`${data.totalBatchKg} Kg`, col2, y, 10);
+        text(fmt(results.bulkCostUnit), col3, y, 10);
+        y += 10;
 
-        const allScenarios = [
-            { ...mainScenario, isMain: true },
-            ...scenarios.map((s: any) => ({ ...s, isMain: false }))
-        ].sort((a, b) => {
-            const getUnits = (s: any) => s.isMain ? s.qty : (s.mode === 'UNITS' ? s.qty : s.qty * 1000);
-            return getUnits(a) - getUnits(b);
+        if (config.notesBulk) {
+            const splitRef = doc.splitTextToSize(config.notesBulk, pageWidth - col1 - margin);
+            doc.setFont("helvetica", "italic");
+            doc.text(splitRef, col1, y);
+            doc.setFont("helvetica", "normal");
+            y += (splitRef.length * 5) + 5;
+        }
+
+        // Check Page break
+        if (y > pageHeight - 50) {
+            doc.addPage();
+            y = 30;
+        }
+
+        // --- 2. PRESENTACIÓN ---
+        text("2. Presentación posible incluida:", margin, y, 11, 'left', true);
+        y += 6;
+
+        if (data.packaging && Array.isArray(data.packaging)) {
+            data.packaging.forEach((p: any) => {
+                text(`• ${p.name || "Componente"}`, margin + 10, y, 11);
+                y += 5;
+            });
+        }
+        y += 5;
+
+        text("Cantidad:", col1, y, 10, 'left', true);
+        text(`${results.derivedUnits?.toFixed(0)} unid.`, col2, y, 10, 'left', true);
+        y += 6;
+        text("Precio por millar (Materiales):", col1, y, 10, 'left', true);
+        text(fmtThousand(results.packingCostUnit), col2, y, 10);
+        y += 10;
+
+        if (config.notesPacking) {
+            const splitRef = doc.splitTextToSize(config.notesPacking, pageWidth - col1 - margin);
+            doc.setFont("helvetica", "italic");
+            doc.text(splitRef, col1, y);
+            doc.setFont("helvetica", "normal");
+            y += (splitRef.length * 5) + 5;
+        }
+
+        // Check Page break
+        if (y > pageHeight - 50) {
+            doc.addPage();
+            y = 30;
+        }
+
+        // --- 3. ENVASADO ---
+        text(`3. Envasado en ${data.unitSize}ml.`, margin, y, 11, 'left', true);
+        y += 6;
+
+        const ops = ["Envasar producto.", "Colocar sistema de cierre.", "Etiquetar.", "Codificar lote.", "Embalar."];
+        ops.forEach(op => {
+            text(`• ${op}`, margin + 10, y, 11);
+            y += 5;
         });
+        y += 5;
 
-        allScenarios.forEach((sc: any) => {
-            let scResult;
-            if (sc.isMain) {
-                scResult = results;
-            } else {
-                // Ensure qty is a number before calculation
-                const safeSc = { ...sc, qty: parseFloat(sc.qty) || 0 };
-                // USE PASSED CONFIG
-                const docConfig = data.snapshotConfig || {};
-                scResult = calculateScenarioResults(safeSc, data, docConfig);
+        text("Cantidad a envasar:", col1, y, 10, 'left', true);
+        text(`${results.derivedUnits?.toFixed(0)} unid.`, col2, y, 10, 'left', true);
+        y += 6;
+        text("Precio envasado:", col1, y, 10, 'left', true);
+        text(fmtThousand(results.processCostUnit), col2, y, 10);
+        y += 10;
+
+        if (config.notesExtras) {
+            const splitRef = doc.splitTextToSize(config.notesExtras, pageWidth - col1 - margin);
+            doc.setFont("helvetica", "italic");
+            doc.text(splitRef, col1, y);
+            doc.setFont("helvetica", "normal");
+            y += (splitRef.length * 5) + 5;
+        }
+
+        // --- SUMMARY OR SCENARIOS ---
+
+        // Check if scenarios exist
+        const scenarios = data.scenarios || [];
+
+        // Always show main summary first or merge? 
+        // Logic: If scenarios, show table. If no scenarios, show simple summary.
+        // Wait, loop logic above in Word showed table if scenarios, simple if not.
+
+        if (scenarios.length > 0) {
+
+            if (y > pageHeight - 60) {
+                doc.addPage();
+                y = 30;
             }
 
-            // Display Logic
-            const qtyVal = parseFloat(sc.qty) || 0;
-            let qtyDisplay = `${qtyVal.toLocaleString('es-ES')} `;
-            if (sc.mode === 'KG') qtyDisplay += "Kg";
-            else qtyDisplay += "uds";
-
-            if (sc.isMain) qtyDisplay += " (Principal)";
-            else if (sc.mode === 'KG') qtyDisplay += ` (~${scResult.derivedUnits?.toFixed(0)} uds)`;
-
-            text(qtyDisplay, col1, y, 10);
-            text(fmt(scResult.salePrice), col2, y, 10);
+            text("4. Escalado de Precios (Opciones):", margin, y, 11, 'left', true);
             y += 6;
-        });
 
-        y += 10;
-    }
+            // Table Header
+            text("Cantidad", col1, y, 10, 'left', true);
+            text("P. Venta Unit.", col2, y, 10, 'left', true);
+            y += 6;
+
+            // Main Scenario
+            const mainScenario = {
+                qty: results.derivedUnits,
+                mode: 'UNITS',
+                margin: data.marginPercent,
+                label: "Lote Principal"
+            };
+
+            const allScenarios = [
+                { ...mainScenario, isMain: true },
+                ...scenarios.map((s: any) => ({ ...s, isMain: false }))
+            ].sort((a, b) => {
+                const getUnits = (s: any) => s.isMain ? s.qty : (s.mode === 'UNITS' ? s.qty : s.qty * 1000);
+                return getUnits(a) - getUnits(b);
+            });
+
+            allScenarios.forEach((sc: any) => {
+                let scResult;
+                if (sc.isMain) {
+                    scResult = results;
+                } else {
+                    const safeSc = { ...sc, qty: parseFloat(sc.qty) || 0 };
+                    const docConfig = data.snapshotConfig || {};
+                    scResult = calculateScenarioResults(safeSc, data, docConfig);
+                }
+
+                const qtyVal = parseFloat(sc.qty) || 0;
+                let qtyDisplay = `${qtyVal.toLocaleString('es-ES')} `;
+                if (sc.mode === 'KG') qtyDisplay += "Kg";
+                else qtyDisplay += "uds";
+
+                if (sc.isMain) qtyDisplay += " (Principal)";
+                else if (sc.mode === 'KG') qtyDisplay += ` (~${scResult.derivedUnits?.toFixed(0)} uds)`;
+
+                text(qtyDisplay, col1, y, 10);
+                text(fmt(scResult.salePrice), col2, y, 10);
+                y += 6;
+            });
+            y += 10;
+
+        } else {
+            // Simple Summary
+            y += 5;
+            text(`Precio por unidad de ${data.unitSize}ml`, col1, y, 12, 'left', true);
+            text(fmt(results.salePrice), col2, y, 12, 'left', true); // PVP
+            y += 6;
+            text(`(Coste Directo: ${fmt(results.directCost)})`, col1, y, 10);
+            y += 15;
+        }
+
+        y += 10; // Space between products
+    });
 
 
     // --- 9. CONDITIONS & FOOTER ---

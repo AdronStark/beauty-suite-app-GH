@@ -9,7 +9,7 @@ import { getStatusColor } from '@/lib/statusColors';
 import styles from '@/app/(main)/ofertas/page.module.css';
 import { formatCurrency } from '@/lib/formatters';
 
-type SortKey = 'code' | 'client' | 'product' | 'status' | 'date';
+type SortKey = 'code' | 'client' | 'description' | 'status' | 'date';
 type SortDirection = 'asc' | 'desc';
 
 interface OfferTableProps {
@@ -200,13 +200,15 @@ export default function OfferTable({ offers }: OfferTableProps) {
             <tr key={o.id} style={rowStyle}>
                 <td style={{ fontWeight: isChild ? 'normal' : 'bold', color: 'var(--color-primary-dark)', ...cellStyle }}>
                     {isChild && <span style={{ marginRight: '10px', color: '#94a3b8' }}>↳</span>}
-                    {o.code || '-'}
+                    <Link href={`/ofertas/editor/${o.id}`} className="hover:underline" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        {o.code || '-'}
+                    </Link>
                     {(o.revision !== null && o.revision !== undefined) && <span style={{ fontSize: '0.8em', color: '#64748b', marginLeft: '5px' }}> (Rev {o.revision})</span>}
                 </td>
                 <td style={{ opacity: isChild ? 0.8 : 1 }}>{o.client}</td>
                 <td style={{ opacity: isChild ? 0.8 : 1 }}>
                     <div>
-                        {o.product}
+                        {o.description}
                         {!isChild && o.briefing?.code && (
                             <div style={{ fontSize: '0.75em', color: '#94a3b8', marginTop: '2px' }}>
                                 Ref: {o.briefing.code}
@@ -339,8 +341,8 @@ export default function OfferTable({ offers }: OfferTableProps) {
                             </div>
                         </th>
 
-                        {/* PRODUCT - Normal */}
-                        <th>Producto</th>
+                        {/* OFFER NAME - Normal */}
+                        <th>Nombre Oferta</th>
 
                         {/* RESPONSIBLES */}
                         <th>Comercial</th>
@@ -449,14 +451,16 @@ export default function OfferTable({ offers }: OfferTableProps) {
                                             )}
                                             {!hasHistory && <div style={{ width: '24px' }}></div>}
 
-                                            {latest.code || '-'}
+                                            <Link href={`/ofertas/editor/${latest.id}`} className="hover:underline" style={{ color: 'inherit', textDecoration: 'none' }} onClick={(e) => e.stopPropagation()}>
+                                                {latest.code || '-'}
+                                            </Link>
                                             {(latest.revision !== null && latest.revision !== undefined) && <span style={{ fontSize: '0.8em', color: '#64748b', marginLeft: '5px' }}> (Rev {latest.revision})</span>}
                                         </div>
                                     </td>
                                     <td>{latest.client}</td>
                                     <td>
                                         <div>
-                                            {latest.product}
+                                            {latest.description}
                                             {latest.briefing?.code && (
                                                 <div style={{ fontSize: '0.75em', marginTop: '2px' }}>
                                                     <Link
@@ -501,7 +505,6 @@ export default function OfferTable({ offers }: OfferTableProps) {
                                     <td>{new Date(latest.createdAt).toLocaleDateString()}</td>
                                     <td>
                                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                                            <Link href={`/ofertas/editor/${latest.id}`} className={styles.linkAction}>Editar</Link>
                                             <OfferActions id={latest.id} />
                                         </div>
                                     </td>

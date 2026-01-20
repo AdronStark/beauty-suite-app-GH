@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useRouter } from 'next/navigation';
-import { User, Sparkles, ArrowLeft, Factory, Briefcase } from 'lucide-react';
+import { User, ArrowLeft, Factory, Briefcase } from 'lucide-react';
+
+
 
 type LoginMode = 'SELECTION' | 'WORKER' | 'CLIENT';
 
@@ -12,6 +14,10 @@ export default function LoginPage() {
     const [errorMessage, setErrorMessage] = useState<string | undefined>();
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
+
+
+    // Cleaned up particle system logic
+
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -45,19 +51,17 @@ export default function LoginPage() {
         ? { background: 'var(--color-bg)', color: 'var(--color-text)' }
         : { background: 'var(--color-bg)', color: 'var(--color-text)' };
 
-    // Card
+    // Card - Glassmorphism Update
     const cardStyle: React.CSSProperties = isClient
         ? {
-            background: 'white',
-            border: '1px solid var(--color-border)',
-            boxShadow: 'var(--shadow-xl)',
+            background: 'rgba(255, 255, 255, 0.6)', // High transparency
+            backdropFilter: 'blur(16px)', // Frost effect
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
             color: 'var(--color-text)'
         }
-        : {
-            background: 'white',
-            border: '1px solid var(--color-border)',
-            boxShadow: 'var(--shadow-lg)'
-        };
+        : { background: 'white' }; // simplified server fallback
 
     // Primary Color (Button / Accents)
     const accentColor = 'var(--color-primary)';
@@ -71,14 +75,23 @@ export default function LoginPage() {
             justifyContent: 'center',
             fontFamily: isClient ? '"Outfit", sans-serif' : 'var(--font-primary)',
             transition: 'background 0.5s ease',
+            position: 'relative',
+            overflow: 'hidden',
             ...bgStyle
         }}>
+            {/* Static Elegant Background */}
+            <div style={{
+                position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0,
+                background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', // "Cloudy Knoxville" subtle gradient
+                opacity: 0.8
+            }} />
             <div style={{
                 padding: '3rem',
                 borderRadius: '24px',
                 width: '100%',
                 maxWidth: '420px',
                 position: 'relative',
+                zIndex: 10,
                 transition: 'all 0.5s ease',
                 ...cardStyle
             }}>

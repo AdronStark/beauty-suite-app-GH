@@ -112,8 +112,8 @@ export default function TabBulk({ control, register, watch, setValue, config, ca
             const ingredients = JSON.parse(formula.ingredients);
             const mapped = ingredients.map((ing: any) => ({
                 name: ing.name,
-                percentage: parseFloat((ing.percentage || 0).toFixed(3)),
-                costPerKg: parseFloat((ing.cost || 0).toFixed(3)), // Assuming cost is in ingredient object
+                percentage: parseFloat(Number(ing.percentage || 0).toFixed(3)),
+                costPerKg: parseFloat(Number(ing.cost || 0).toFixed(3)), // Assuming cost is in ingredient object
                 clientSupplied: false,
                 minPurchase: 0,
                 imputeSurplus: false
@@ -140,40 +140,72 @@ export default function TabBulk({ control, register, watch, setValue, config, ca
     return (
         <div className={styles.tabContent}>
             {/* 1. Manufacturing & Rates (Moved to Top) */}
-            <div className={styles.sectionTitle} style={{ marginTop: 0 }}>Fabricación y Tasas (Configuración Principal)</div>
-            <div className={styles.grid3} style={{ marginBottom: '2rem' }}>
-                <div className={styles.infoBox} style={{ marginTop: 0, borderColor: 'var(--color-primary-light)', background: 'var(--color-bg)' }}>
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--color-primary-dark)' }}>
-                        Tiempo Fabricación <span style={{ color: 'var(--color-error)' }}>*</span>
+            {/* 1. Manufacturing & Rates (Simplified) */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '2rem', padding: '1rem', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+
+                {/* Input Block */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <label style={{ fontWeight: 600, color: '#334155', fontSize: '0.95rem' }}>
+                        Tiempo Fabricación
+                        <span style={{ color: 'var(--color-error)', marginLeft: '4px' }}>*</span>
                     </label>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                    <div style={{ position: 'relative' }}>
                         <input
                             type="number"
                             {...register('manufacturingTime', { required: true, valueAsNumber: true })}
                             style={{
-                                width: '80px',
-                                padding: '0.25rem',
-                                borderRadius: '4px',
+                                width: '100px',
+                                padding: '0.5rem',
+                                paddingRight: '2.5rem', // Space for suffix
+                                borderRadius: '6px',
                                 border: '1px solid',
-                                borderColor: errors.manufacturingTime ? 'var(--color-error)' : 'var(--color-primary-light)',
-                                fontWeight: 'bold'
+                                borderColor: errors.manufacturingTime ? 'var(--color-error)' : '#cbd5e1',
+                                fontWeight: 600,
+                                textAlign: 'right', // Align numbers right
+                                outline: 'none'
                             }}
                         />
-                        <span style={{ fontSize: '0.9rem' }}>minutos</span>
+                        <span style={{
+                            position: 'absolute',
+                            right: '10px',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            color: '#94a3b8',
+                            fontSize: '0.8rem',
+                            pointerEvents: 'none',
+                            fontWeight: 500
+                        }}>min</span>
                     </div>
                 </div>
-                <div className={styles.infoBox} style={{ marginTop: 0, borderColor: 'var(--color-success)', background: 'var(--color-success-bg)' }}>
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--color-success)' }}>Tasa Horaria (Auto)</label>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-success)' }}>{formatCurrency(hourlyRate, 2)} €/h</div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--color-success)', marginTop: '0.25rem' }}>
-                        {rateFound ? `Según Coste MP: ${formatCurrency(materialCostKg)} €` : 'Tasa por defecto (no hallada)'}
-                    </p>
+
+                {/* Divider */}
+                <div style={{ width: '1px', height: '24px', background: '#cbd5e1' }}></div>
+
+                {/* Info Block 1: Mfg Cost (Rate as info) */}
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Coste Fabr. / Unidad</span>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                        <span style={{ fontWeight: 700, color: '#334155', fontSize: '1.1rem' }}>{derivedUnits > 0 ? formatCurrency(mfgCost / derivedUnits, 4) : '—'} €</span>
+                        <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                            ({formatCurrency(hourlyRate, 2)} €/h)
+                        </span>
+                    </div>
                 </div>
-                <div className={styles.infoBox} style={{ marginTop: 0, borderColor: 'var(--color-warning)', background: 'var(--color-warning-bg)' }}>
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: 'var(--color-warning)' }}>Merma Granel</label>
-                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-warning)' }}>{formatNumber(bulkWastePercent, 1)}%</div>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--color-warning)', marginTop: '0.25rem' }}>Lote: {formatNumber(batchSizeKg, 1)} Kg</p>
+
+                {/* Divider */}
+                <div style={{ width: '1px', height: '24px', background: '#cbd5e1' }}></div>
+
+                {/* Info Block 2: Waste */}
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Merma Granel</span>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                        <span style={{ fontWeight: 600, color: '#334155' }}>{formatNumber(bulkWastePercent, 1)}%</span>
+                        <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>
+                            (Lote: {formatNumber(batchSizeKg, 1)} Kg)
+                        </span>
+                    </div>
                 </div>
+
             </div>
 
             <div className={styles.separator} />

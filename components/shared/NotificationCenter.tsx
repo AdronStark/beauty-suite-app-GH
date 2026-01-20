@@ -45,8 +45,8 @@ export default function NotificationCenter() {
         if (session?.user?.name) {
             fetchNotifications();
 
-            // Poll every 30 seconds
-            const interval = setInterval(fetchNotifications, 30000);
+            // Poll every 5 minutes (300000ms) to reduce dev noise
+            const interval = setInterval(fetchNotifications, 300000);
             return () => clearInterval(interval);
         }
     }, [session?.user?.name]);

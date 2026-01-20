@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
 import { auth } from '@/auth';
+import { handleApiError } from '@/lib/api-auth';
 
 export async function POST(req: NextRequest) {
     const session = await auth();
-    if (!session) {
+    if (!session?.user) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Role check - only ADMIN or MANAGER can bulk delete
+    // @ts-ignore
+    const userRole = session.user.role;
+    if (!['ADMIN', 'MANAGER'].includes(userRole)) {
+        return NextResponse.json({ error: 'Forbidden: Only ADMIN or MANAGER can delete formulas' }, { status: 403 });
     }
 
     try {
@@ -34,10 +42,11 @@ export async function POST(req: NextRequest) {
             });
         });
 
+        console.log(`[AUDIT] ${ids.length} formulas deleted by user: ${session.user.name}`);
         return NextResponse.json({ success: true });
 
     } catch (error) {
-        console.error('Error deleting formulas:', error);
-        return NextResponse.json({ error: 'Failed to delete formulas' }, { status: 500 });
+        return handleApiError(error, 'Bulk Delete Formulas');
     }
 }
+

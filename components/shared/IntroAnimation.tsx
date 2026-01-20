@@ -1,42 +1,63 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { createTimeline } from 'animejs';
 import { useSession } from 'next-auth/react';
 
 export default function IntroAnimation() {
     const { data: session } = useSession();
-    const [show, setShow] = useState(false);
-    const [step, setStep] = useState(0); // 0: Init, 1: LogoIn, 2: TextIn, 3: FadeOut
+    const [visible, setVisible] = useState(true);
+
+    // Refs for animation targets
+    const containerRef = useRef<HTMLDivElement>(null);
+    const logoRef = useRef<HTMLDivElement>(null);
+    const textRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        // Only run if user is logged in
+        // Quick check for session storage to avoid flash if possible (though visible=true handles the initial block)
+        const hasShown = sessionStorage.getItem('intro_shown');
+        if (hasShown) {
+            setVisible(false);
+            return;
+        }
+
         if (!session?.user) return;
 
-        // Check if intro has been shown this session
-        const hasShown = sessionStorage.getItem('intro_shown');
-        if (hasShown) return;
+        // Ensure elements are ready
+        if (!containerRef.current || !logoRef.current || !textRef.current) return;
 
-        // Start Animation Sequence
-        setShow(true);
+        // Init Sequence
+        const tl = createTimeline({
+            defaults: { ease: 'outExpo' },
+            onComplete: () => {
+                setVisible(false);
+                sessionStorage.setItem('intro_shown', 'true');
+                window.dispatchEvent(new Event('intro-complete'));
+            }
+        });
 
-        // Step 1: Logo Zoom In (Immediate)
-        setTimeout(() => setStep(1), 100);
-
-        // Step 2: Text Fade In
-        setTimeout(() => setStep(2), 800);
-
-        // Step 3: Fade Out All
-        setTimeout(() => setStep(3), 2500);
-
-        // Step 4: Remove from DOM and Mark as Shown
-        setTimeout(() => {
-            setShow(false);
-            sessionStorage.setItem('intro_shown', 'true');
-        }, 3200); // 2500 + 700ms transition
+        tl
+            .add(logoRef.current!, {
+                scale: [0.5, 1],
+                opacity: [0, 1],
+                duration: 1000,
+                delay: 100
+            })
+            .add(textRef.current!, {
+                translateY: [20, 0],
+                opacity: [0, 1],
+                duration: 800,
+            }, '-=600') // Overlap
+            .add(containerRef.current!, {
+                opacity: [1, 0],
+                duration: 800,
+                delay: 1500, // Wait time before exit
+                ease: 'inOutQuad'
+            });
 
     }, [session]);
 
-    if (!show) return null;
+    if (!visible) return null;
 
     // Get user name for greeting
     // @ts-ignore
@@ -44,6 +65,7 @@ export default function IntroAnimation() {
 
     return (
         <div
+            ref={containerRef}
             style={{
                 position: 'fixed',
                 top: 0,
@@ -56,20 +78,21 @@ export default function IntroAnimation() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                transition: 'opacity 0.7s ease-in-out',
-                opacity: step === 3 ? 0 : 1,
-                pointerEvents: step === 3 ? 'none' : 'auto'
+                opacity: 1,
+                overflow: 'hidden'
             }}
         >
             {/* Logo Container */}
-            <div style={{
-                width: '180px',
-                height: '180px',
-                marginBottom: '24px',
-                transition: 'all 1s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                transform: step >= 1 ? 'scale(1)' : 'scale(0.5)',
-                opacity: step >= 1 ? 1 : 0
-            }}>
+            <div
+                ref={logoRef}
+                style={{
+                    width: '180px',
+                    height: '180px',
+                    marginBottom: '24px',
+                    opacity: 0, // Handled by anime
+                    transform: 'scale(0.5)' // Handled by anime
+                }}
+            >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src="/labery-full-logo.png"
@@ -83,12 +106,14 @@ export default function IntroAnimation() {
             </div>
 
             {/* Greeting */}
-            <div style={{
-                textAlign: 'center',
-                transition: 'all 0.8s ease-out',
-                transform: step >= 2 ? 'translateY(0)' : 'translateY(20px)',
-                opacity: step >= 2 ? 1 : 0
-            }}>
+            <div
+                ref={textRef}
+                style={{
+                    textAlign: 'center',
+                    opacity: 0, // Handled by anime
+                    transform: 'translateY(20px)' // Handled by anime
+                }}
+            >
                 <h1 style={{
                     fontSize: '2rem',
                     fontWeight: 300,

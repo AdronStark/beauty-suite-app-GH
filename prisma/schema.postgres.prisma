@@ -146,6 +146,30 @@ model Offer {
   wonAt           DateTime? // When status changed to Adjudicada/Aceptada
   lostAt          DateTime? // When status changed to Rechazada/Perdida
   statusHistory   String?   @default("[]") // JSON: [{ status, date, user }]
+
+  // Multi-product support
+  items           OfferItem[]
+}
+
+model OfferItem {
+  id              String   @id @default(cuid())
+  offerId         String
+  offer           Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  productName     String
+  inputData       String   @default("{}") // Specific configuration for this product
+  resultsSummary  String?  @default("{}") // Specific results for this product
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model OfferTemplate {
+  id              String   @id @default(cuid())
+  name            String   @unique
+  category        String?
+  inputData       String   @default("{}") // Full JSON configuration (Bulk, Pack, Extras)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 // --- P6: PLANIFICADOR ---
@@ -335,6 +359,7 @@ model RawMaterialOrder {
   
   // Logic
   isCompleted     Boolean  @default(false) // If missing from new open orders import -> true
+  isHighRotation  Boolean  @default(false) // If true, material is for general stock/rotation, not specific OF
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

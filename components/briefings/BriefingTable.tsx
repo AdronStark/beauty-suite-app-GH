@@ -3,6 +3,7 @@
 import { useState, useMemo, Fragment, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { ArrowUpDown, ArrowUp, ArrowDown, Trash2, Copy, FileText, ChevronRight, ChevronDown, Filter, X } from 'lucide-react';
 import { getStatusColor } from '@/lib/statusColors';
 import styles from '@/app/(main)/ofertas/page.module.css';
@@ -19,6 +20,11 @@ interface BriefingTableProps {
 
 export default function BriefingTable({ briefings }: BriefingTableProps) {
     const router = useRouter();
+    const { data: session } = useSession();
+    // @ts-ignore
+    const role = session?.user?.role;
+    const canDelete = role === 'ADMIN' || role === 'MANAGER';
+
     const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>({ key: 'code', direction: 'desc' });
     const [isDeleting, setIsDeleting] = useState<string | null>(null);
     const [isCloning, setIsCloning] = useState<string | null>(null);
@@ -255,7 +261,9 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                         </button>
                     )}
                     {isChild && <span style={{ marginRight: '10px', color: '#94a3b8' }}>↳</span>}
-                    {b.code || '-'}
+                    <Link href={`/briefings/wizard?id=${b.id}`} className="hover:underline" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        {b.code || '-'}
+                    </Link>
                     {(b.revision !== null && b.revision !== undefined) && (
                         <span style={{ fontSize: '0.8em', color: '#64748b', marginLeft: '5px' }}>(Rev {b.revision})</span>
                     )}
@@ -292,13 +300,14 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                         <Link href={`/ofertas/new?briefingId=${b.id}`} className={styles.linkAction} title="Generar Oferta">
                             <FileText size={16} />
                         </Link>
-                        <Link href={`/briefings/wizard?id=${b.id}`} className={styles.linkAction}>Editar</Link>
                         <button onClick={() => handleClone(b.id, b.productName)} style={{ background: 'none', border: 'none', color: '#3b82f6', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }} disabled={isCloning === b.id} title="Duplicar">
                             <Copy size={16} />
                         </button>
-                        <button onClick={() => handleDelete(b.id, b.code)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }} disabled={isDeleting === b.id} title="Eliminar">
-                            <Trash2 size={16} />
-                        </button>
+                        {canDelete && (
+                            <button onClick={() => handleDelete(b.id, b.code)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }} disabled={isDeleting === b.id} title="Eliminar">
+                                <Trash2 size={16} />
+                            </button>
+                        )}
                     </div>
                 </td>
             </tr>
@@ -313,7 +322,7 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
     return (
         <div className={styles.tableCard} ref={filterRef}>
             {/* Bulk Actions Header */}
-            {selectedIds.size > 0 && (
+            {selectedIds.size > 0 && canDelete && (
                 <div style={{
                     padding: '0.75rem 1rem', background: '#fef2f2', borderBottom: '1px solid #fee2e2',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#991b1b'

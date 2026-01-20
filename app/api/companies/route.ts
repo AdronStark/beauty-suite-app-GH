@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
+import { withAuth, handleApiError } from '@/lib/api-auth';
 
-export async function GET() {
+export const GET = withAuth(async (req, ctx, session) => {
     try {
         const companies = await prisma.company.findMany({
             where: { isActive: true },
@@ -9,6 +10,7 @@ export async function GET() {
         });
         return NextResponse.json(companies);
     } catch (e) {
-        return NextResponse.json({ error: 'Failed to fetch companies' }, { status: 500 });
+        return handleApiError(e, 'Fetch Companies');
     }
-}
+});
+

@@ -1,9 +1,11 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { PrismaClient } from '@prisma/client';
+import { rateLimit } from '@/lib/rate-limit';
 
 const prisma = new PrismaClient();
 const API_KEY = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+const limiter = rateLimit({ interval: 60000, uniqueTokenPerInterval: 500 });
 
 // --- HELPER FUNCTIONS (REAL DB) ---
 async function getOrders(clientName: string) {
@@ -31,7 +33,7 @@ async function getProjects(clientName: string) {
     });
 
     if (activeProjects.length === 0) return "No active projects found.";
-    return activeProjects.map(p => `Project: ${p.product} (Status: ${p.status})`).join('\n');
+    return activeProjects.map(p => `Project: ${p.description} (Status: ${p.status})`).join('\n');
 }
 
 // --- REST API TOOLS DEFINITION ---
@@ -68,6 +70,13 @@ export async function POST(req: Request) {
         const session = await auth();
         if (!session || !session.user) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
+        // Rate limiting - 15 requests per minute for client portal
+        const response = new NextResponse();
+        const userId = session.user.email || session.user.name || 'anonymous';
+        if (limiter.check(response, 15, userId)) {
+            return NextResponse.json({ error: 'Rate limit exceeded. Please wait a moment.' }, { status: 429 });
         }
 
         const clientName = session.user.connectedClientName;

@@ -17,6 +17,9 @@ export default async function PortalLayout({
     const userName = session?.user?.name || session?.user?.email || 'Usuario';
     const userInitial = clientName.charAt(0).toUpperCase();
 
+    // Check if client is Niche (for raw materials section)
+    const isNicheClient = clientName.toUpperCase().includes('NICHE');
+
     return (
         <div className={styles.portalContainer}>
             {/* --- TOP BAR --- */}
@@ -51,6 +54,7 @@ export default async function PortalLayout({
                     <NavLink href="/portal/dashboard" label="Inicio" />
                     <NavLink href="/portal/projects" label="Proyectos" />
                     <NavLink href="/portal/orders" label="Producción" />
+                    {isNicheClient && <NavLink href="/portal/raw-materials" label="Materias Primas" />}
                 </div>
 
                 {/* PROFILE */}

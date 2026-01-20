@@ -1,18 +1,18 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
+import { withAuth, handleApiError } from '@/lib/api-auth';
 
-export async function POST(request: Request) {
+export const POST = withAuth(async (req, ctx, session) => {
     try {
         const result = await prisma.productionBlock.deleteMany({
-            where: {
-                status: 'PENDING'
-            }
+            where: { status: 'PENDING' }
         });
 
+        console.log(`[AUDIT] ${result.count} pending blocks deleted by user: ${session.user?.name || 'unknown'}`);
         return NextResponse.json({ success: true, count: result.count });
 
-    } catch (error: any) {
-        console.error('Clear Pending Error:', error);
-        return NextResponse.json({ error: error.message || 'Failed to clear pending tasks' }, { status: 500 });
+    } catch (error) {
+        return handleApiError(error, 'Clear Pending Blocks');
     }
-}
+}, { roles: ['ADMIN', 'MANAGER'] });
+

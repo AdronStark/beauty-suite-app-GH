@@ -25,98 +25,73 @@ const ICON_MAP: Record<string, any> = {
 
 
 import RecentActivity from '@/components/home/RecentActivity';
+import { animate, stagger } from 'animejs';
 
 export default function HomePageClient({ user }: { user?: User }) {
     const iconSize = 28;
-    const [introState, setIntroState] = useState<'hidden' | 'zoom' | 'intro' | 'dropping' | 'rippling'>('hidden');
+    // Old intro state removed as it is replaced by IntroAnimation.tsx
+    // const [introState, setIntroState] = useState<'hidden' | 'zoom' | 'intro' | 'dropping' | 'rippling'>('hidden');
     const { selectedCompanyId: selectedCompany } = useCompany();
     const { apps, checkAccess } = useAppConfig();
-
-    useEffect(() => {
-        // Animation disabled by user request
-        setIntroState('hidden');
-    }, []);
-
-    const startIntro = () => {
-        setIntroState('zoom');
-
-        setTimeout(() => {
-            setIntroState('intro');
-        }, 1500);
-
-        setTimeout(() => {
-            setIntroState('dropping');
-        }, 2000);
-
-        setTimeout(() => {
-            setIntroState('rippling');
-
-            try {
-                const audio = new Audio('/intro.mp3');
-                audio.volume = 0.5;
-                audio.play().catch(e => {
-                    // Auto-play might be blocked, which is fine
-                    console.log("Audio auto-play blocked");
-                });
-            } catch (e) {
-                console.error("Audio setup failed:", e);
-            }
-        }, 2500);
-
-        setTimeout(() => {
-            setIntroState('hidden');
-        }, 4500);
-    };
 
     const sortApps = (a: any, b: any) => {
         // Active first
         if (a.status === 'active' && b.status !== 'active') return -1;
         if (a.status !== 'active' && b.status === 'active') return 1;
-        // Then by original order (implicitly stable sort usually, but let's rely on array order)
         return 0;
     };
+
+    // AnimeJS Integration
+    const [auditRender, setAuditRender] = useState(false);
+    const [startAnimation, setStartAnimation] = useState(false);
+
+    useEffect(() => {
+        setAuditRender(true);
+
+        // Check if intro is already done or skipped
+        if (typeof window !== 'undefined') {
+            const hasShown = sessionStorage.getItem('intro_shown');
+            if (hasShown) {
+                setStartAnimation(true);
+            }
+        }
+
+        const handleIntroComplete = () => {
+            setStartAnimation(true);
+        };
+
+        window.addEventListener('intro-complete', handleIntroComplete);
+        return () => window.removeEventListener('intro-complete', handleIntroComplete);
+    }, []);
+
+    useEffect(() => {
+        console.log("AnimeJS useEffect triggered. auditRender:", auditRender, "apps.length:", apps.length);
+        if (!auditRender || !startAnimation) return;
+
+        const targets = document.querySelectorAll('.app-card-item');
+        console.log("AnimeJS: Triggering animation on", targets.length, "cards");
+
+        if (targets.length === 0) return;
+
+        // Animate cards entry
+        animate('.app-card-item', {
+            translateY: [20, 0],
+            opacity: [0, 1],
+            delay: stagger(100),
+            ease: 'outExpo',
+            duration: 800
+        });
+
+    }, [auditRender, startAnimation, apps]); // Run when apps or render readiness changes
 
     return (
         <div className={styles.homeContainer}>
 
             {/* INTRO OVERLAY */}
-            {introState !== 'hidden' && (
-                <>
-                    <div
-                        className={`${styles.introOverlay} ${introState === 'rippling' ? styles.bgFadeOut : ''}`}
-                        style={{ background: 'white', display: 'flex' }}
-                    />
-
-                    {introState === 'dropping' && <div className={styles.dropPerspective} />}
-
-                    {introState === 'rippling' && (
-                        <>
-                            <div className={styles.rippleRing} style={{ animationDelay: '0s' }} />
-                            <div className={styles.rippleRing} style={{ animationDelay: '0.2s' }} />
-                            <div className={styles.rippleRing} style={{ animationDelay: '0.4s' }} />
-                        </>
-                    )}
-
-                    <div
-                        className={`
-              ${styles.introTextContainer}
-              ${introState === 'zoom' ? styles.zoomingIn : ''}
-              ${introState === 'rippling' ? styles.textRippleExit : ''}
-            `}
-                        style={{ zIndex: 10000 }}
-                    >
-                        <h1 className={styles.titleAnimated} style={{ fontSize: '3rem', marginBottom: '0.5rem' }}>
-                            Labery Beauty App Suite
-                        </h1>
-                        <p className={styles.subtitle} style={{ fontSize: '1.2rem', opacity: 0.8 }}>
-                            Innovación y Excelencia en Cosmética
-                        </p>
-                    </div>
-                </>
-            )}
+            {/* INTRO OVERLAY REMOVED - Handled by IntroAnimation.tsx */}
 
             {/* MAIN CONTENT WRAPPER */}
-            <div className={styles.dashboardWrapper} style={{ opacity: introState === 'hidden' ? 1 : 0, transition: 'opacity 1s ease-in-out', transitionDelay: '0.2s' }}>
+            <div className={styles.dashboardWrapper} style={{ opacity: 1 }}>
 
                 {/* LEFT COLUMN: APPS */}
                 <div className={styles.mainContent}>
@@ -132,7 +107,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                     .map(app => {
                                         const Icon = ICON_MAP[app.iconName] || FileText;
                                         return (
-                                            <Link key={app.id} href={app.path} className={styles.cardLink}>
+                                            <Link key={app.id} href={app.path} className={`${styles.cardLink} app-card-item`} style={{ opacity: 0 }}>
                                                 <div className={styles.appCard} style={{ border: '2px solid var(--color-primary)', background: 'linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%)' }}>
                                                     <Icon size={iconSize} className={styles.icon} style={{ color: 'var(--color-primary)' }} />
                                                     <h3>{app.title}</h3>
@@ -158,7 +133,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                         const Icon = ICON_MAP[app.iconName] || FileText;
                                         return (
                                             app.status === 'active' ? (
-                                                <Link key={app.id} href={app.path} className={styles.cardLink}>
+                                                <Link key={app.id} href={app.path} className={`${styles.cardLink} app-card-item`} style={{ opacity: 0 }}>
                                                     <div className={styles.appCard}>
                                                         <Icon size={iconSize} className={styles.icon} />
                                                         <h3>{app.title}</h3>
@@ -166,7 +141,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                                     </div>
                                                 </Link>
                                             ) : (
-                                                <div key={app.id} className={`${styles.appCard} ${styles.comingSoonCard}`}>
+                                                <div key={app.id} className={`${styles.appCard} ${styles.comingSoonCard} app-card-item`} style={{ opacity: 0 }}>
                                                     <div className={styles.badge}>PRÓXIMAMENTE</div>
                                                     <Icon size={iconSize} className={styles.icon} />
                                                     <h3>{app.title}</h3>
@@ -192,7 +167,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                         const Icon = ICON_MAP[app.iconName] || FileText;
                                         return (
                                             app.status === 'active' ? (
-                                                <Link key={app.id} href={app.path} className={styles.cardLink}>
+                                                <Link key={app.id} href={app.path} className={`${styles.cardLink} app-card-item`} style={{ opacity: 0 }}>
                                                     <div className={styles.appCard}>
                                                         <Icon size={iconSize} className={styles.icon} />
                                                         <h3>{app.title}</h3>
@@ -200,7 +175,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                                     </div>
                                                 </Link>
                                             ) : (
-                                                <div key={app.id} className={`${styles.appCard} ${styles.comingSoonCard}`}>
+                                                <div key={app.id} className={`${styles.appCard} ${styles.comingSoonCard} app-card-item`} style={{ opacity: 0 }}>
                                                     <div className={styles.badge}>PRÓXIMAMENTE</div>
                                                     <Icon size={iconSize} className={styles.icon} />
                                                     <h3>{app.title}</h3>
@@ -226,7 +201,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                         const Icon = ICON_MAP[app.iconName] || FileText;
                                         return (
                                             app.status === 'active' ? (
-                                                <Link key={app.id} href={app.path} className={styles.cardLink}>
+                                                <Link key={app.id} href={app.path} className={`${styles.cardLink} app-card-item`} style={{ opacity: 0 }}>
                                                     <div className={styles.appCard}>
                                                         <div className={styles.iconContainer}>
                                                             <Icon size={iconSize} className={styles.icon} />
@@ -240,7 +215,7 @@ export default function HomePageClient({ user }: { user?: User }) {
                                                     </div>
                                                 </Link>
                                             ) : (
-                                                <div key={app.id} className={`${styles.appCard} ${styles.comingSoonCard}`}>
+                                                <div key={app.id} className={`${styles.appCard} ${styles.comingSoonCard} app-card-item`} style={{ opacity: 0 }}>
                                                     <div className={styles.badge}>PRÓXIMAMENTE</div>
                                                     <div className={styles.iconContainer}>
                                                         <Icon size={iconSize} className={styles.icon} />

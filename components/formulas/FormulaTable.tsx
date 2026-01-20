@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { ArrowUpDown, ArrowUp, ArrowDown, Search, Trash2, Edit, X, Filter } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -30,6 +31,11 @@ interface FormulaTableProps {
 
 export default function FormulaTable({ formulas }: FormulaTableProps) {
     const router = useRouter();
+    const { data: session } = useSession();
+    // @ts-ignore
+    const role = session?.user?.role;
+    const canDelete = role === 'ADMIN' || role === 'MANAGER';
+
     const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>({ key: 'createdAt', direction: 'desc' });
     const [filterQuery, setFilterQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
@@ -196,7 +202,7 @@ export default function FormulaTable({ formulas }: FormulaTableProps) {
             </div>
 
             {/* Bulk Actions Header */}
-            {selectedIds.size > 0 && (
+            {selectedIds.size > 0 && canDelete && (
                 <div style={{
                     padding: '0.75rem 1rem', background: '#fef2f2', borderBottom: '1px solid #fee2e2',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: '#991b1b'
@@ -272,7 +278,9 @@ export default function FormulaTable({ formulas }: FormulaTableProps) {
                                             />
                                         </td>
                                         <td style={{ padding: '0.75rem 1rem', fontWeight: 600, color: '#334155' }}>
-                                            {formula.code}
+                                            <Link href={`/formulas/${formula.id}`} className="hover:underline" style={{ color: 'inherit', textDecoration: 'none' }}>
+                                                {formula.code}
+                                            </Link>
                                             <span style={{ marginLeft: '4px', fontSize: '0.8em', color: '#94a3b8' }}>REV{formula.revision}</span>
                                         </td>
                                         <td style={{ padding: '0.75rem 1rem' }}>
@@ -310,28 +318,20 @@ export default function FormulaTable({ formulas }: FormulaTableProps) {
                                         </td>
                                         <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                                                <Link
-                                                    href={`/formulas/${formula.id}`}
-                                                    style={{
-                                                        padding: '6px', borderRadius: '6px', color: '#3b82f6',
-                                                        background: '#eff6ff', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center'
-                                                    }}
-                                                    title="Editar"
-                                                >
-                                                    <Edit size={16} />
-                                                </Link>
-                                                <button
-                                                    onClick={() => handleDelete(formula.id)}
-                                                    disabled={isDeleting === formula.id}
-                                                    style={{
-                                                        padding: '6px', borderRadius: '6px', color: '#ef4444',
-                                                        background: '#fef2f2', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center',
-                                                        opacity: isDeleting === formula.id ? 0.5 : 1
-                                                    }}
-                                                    title="Eliminar"
-                                                >
-                                                    <Trash2 size={16} />
-                                                </button>
+                                                {canDelete && (
+                                                    <button
+                                                        onClick={() => handleDelete(formula.id)}
+                                                        disabled={isDeleting === formula.id}
+                                                        style={{
+                                                            padding: '6px', borderRadius: '6px', color: '#ef4444',
+                                                            background: '#fef2f2', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center',
+                                                            opacity: isDeleting === formula.id ? 0.5 : 1
+                                                        }}
+                                                        title="Eliminar"
+                                                    >
+                                                        <Trash2 size={16} />
+                                                    </button>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
