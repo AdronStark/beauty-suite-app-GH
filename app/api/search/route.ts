@@ -35,14 +35,14 @@ export async function GET(request: Request) {
         const offers = await prisma.offer.findMany({
             where: {
                 OR: [
-                    { product: { contains: q } },
+                    { description: { contains: q } },
                     { client: { contains: q } },
                     { code: { contains: q } }
                 ]
             },
             take: 5,
             orderBy: { updatedAt: 'desc' },
-            select: { id: true, code: true, product: true, client: true, status: true }
+            select: { id: true, code: true, description: true, client: true, status: true }
         });
 
         // 3. Search Production Blocks (Planner)
@@ -72,7 +72,7 @@ export async function GET(request: Request) {
             ...offers.map(o => ({
                 type: 'OFFER',
                 id: o.id,
-                title: o.product,
+                title: o.description,
                 subtitle: `${o.code || 'Borrador'} - ${o.client} (${o.status})`,
                 data: o
             })),

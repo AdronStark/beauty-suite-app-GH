@@ -120,7 +120,7 @@ async function main() {
         await prisma.offer.create({
             data: {
                 client: client,
-                product: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
+                description: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
                 status: (i === 4 || i === 8) ? "Rechazada" : status,
                 code: code,
                 revision: 0,
@@ -142,7 +142,7 @@ async function main() {
             await prisma.offer.create({
                 data: {
                     client: client,
-                    product: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
+                    description: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
                     code: code, revision: 1, status: "Rechazada",
                     inputData: JSON.stringify(inputRev1), resultsSummary: JSON.stringify(results),
                     responsableComercial: responsable, responsableTecnico: "Departamento I+D",
@@ -161,7 +161,7 @@ async function main() {
             await prisma.offer.create({
                 data: {
                     client: client,
-                    product: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
+                    description: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
                     code: code, revision: 2, status: "Adjudicada",
                     inputData: JSON.stringify(inputRev2), resultsSummary: JSON.stringify(results),
                     responsableComercial: responsable, responsableTecnico: "Departamento I+D",
@@ -177,7 +177,7 @@ async function main() {
             await prisma.offer.create({
                 data: {
                     client: client,
-                    product: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
+                    description: `${template.productBase} ${template.type === 'MASS' ? 'Basic' : 'Pro'} V${i}`,
                     code: code, revision: 1, status: "Enviada",
                     inputData: JSON.stringify(inputRev1), resultsSummary: JSON.stringify(results),
                     responsableComercial: responsable, responsableTecnico: "Departamento I+D",

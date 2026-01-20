@@ -20,7 +20,7 @@ export default async function ClientPage({ params }: { params: Promise<{ name: s
             id: true,
             code: true,
             client: true,
-            product: true,
+            description: true, // Used to be product
             status: true,
             createdAt: true,
             updatedAt: true,
@@ -126,6 +126,7 @@ export default async function ClientPage({ params }: { params: Promise<{ name: s
                         {offers.map(offer => {
                             const serializedOffer = {
                                 ...offer,
+                                product: offer.description, // Map description to product
                                 updatedAt: offer.updatedAt.toISOString(),
                                 createdAt: offer.createdAt.toISOString(),
                             };

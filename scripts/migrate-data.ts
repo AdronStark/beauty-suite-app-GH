@@ -70,7 +70,7 @@ async function main() {
                     data: {
                         id: offer.id,
                         client: offer.client,
-                        product: offer.product,
+                        description: offer.product || 'Sin Producto', // Fixed field name
                         status: offer.status,
                         inputData: JSON.stringify(offer.input_data || {}),
                         resultsSummary: JSON.stringify(offer.results_summary || {}),

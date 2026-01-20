@@ -185,7 +185,8 @@ export async function POST(req: NextRequest) {
             const CREATE_CHUNK = 100;
             for (let i = 0; i < toCreate.length; i += CREATE_CHUNK) {
                 const chunk = toCreate.slice(i, i + CREATE_CHUNK);
-                await prisma.rawMaterialOrder.createMany({
+                // @ts-ignore - createMany is not available in SQLite (local) but works in Postgres (Vercel)
+                await (prisma.rawMaterialOrder as any).createMany({
                     data: chunk
                 });
             }

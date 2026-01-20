@@ -345,7 +345,7 @@ async function main() {
                 code,
                 revision: 0,
                 client,
-                product: `${template.productBase} - ${client}`,
+                description: `${template.productBase} - ${client}`,
                 status,
                 responsableComercial: pick(USERS_COMMERCIAL),
                 responsableTecnico: pick(USERS_TECHNICAL),

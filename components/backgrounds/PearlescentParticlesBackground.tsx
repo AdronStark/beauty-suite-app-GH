@@ -243,21 +243,15 @@ function Particles() {
             <bufferGeometry>
                 <bufferAttribute
                     attach="attributes-position"
-                    count={positions.length / 3}
-                    array={positions}
-                    itemSize={3}
+                    args={[positions, 3]}
                 />
                 <bufferAttribute
                     attach="attributes-aScale"
-                    count={scales.length}
-                    array={scales}
-                    itemSize={1}
+                    args={[scales, 1]}
                 />
                 <bufferAttribute
                     attach="attributes-aRandomness"
-                    count={randomness.length / 3}
-                    array={randomness}
-                    itemSize={3}
+                    args={[randomness, 3]}
                 />
             </bufferGeometry>
             <shaderMaterial
@@ -295,7 +289,7 @@ export default function PearlescentParticlesBackground() {
 
                 <Particles />
 
-                <EffectComposer disableNormalPass>
+                <EffectComposer enableNormalPass={false}>
                     <Bloom
                         intensity={0.4} // Reduced bloom intensity
                         luminanceThreshold={0.6}

@@ -32,6 +32,7 @@ export async function POST(req: Request) {
         const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-flash",
+            // @ts-ignore
             tools: toolsDefinition,
             systemInstruction: `Eres un asistente experto en la aplicación "Beauty App Suite" (Gestión de laboratorio cosmético).
             
@@ -68,6 +69,7 @@ export async function POST(req: Request) {
         const response = result.response;
 
         // 4. Handle Tool Calls
+        // @ts-ignore
         const call = response.functionCalls();
         if (call && call.length > 0) {
             // Execute the function

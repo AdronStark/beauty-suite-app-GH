@@ -44,7 +44,7 @@ export async function POST(request: Request) {
         const newOffer = await prisma.offer.create({
             data: {
                 client: sourceOffer.client,
-                product: sourceOffer.product,
+                description: sourceOffer.description,
                 status: 'Borrador', // Always start as Draft
                 code: sourceOffer.code, // Same code
                 revision: nextRev,      // Increment revision
