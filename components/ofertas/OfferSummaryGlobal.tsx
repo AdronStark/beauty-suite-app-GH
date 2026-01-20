@@ -60,9 +60,13 @@ export default function OfferSummaryGlobal({ items }: { items: EncodedItem[] }) 
 
     // 2. Aggregate Totals
     const totals = normalizedItems.reduce((acc, item) => {
-        const units = item.resultsSummary.units;
-        const totalCost = item.resultsSummary.directCost * units;
-        const totalSales = item.resultsSummary.salePrice * units;
+        // DYNAMIC CALCULATION: Recalculate using inputData to match the rows (live data)
+        const mainConfig = item.inputData.snapshotConfig || {};
+        const mainResults = calculateOfferCosts(item.inputData, mainConfig);
+
+        const units = mainResults.derivedUnits;
+        const totalCost = mainResults.directCost * units;
+        const totalSales = mainResults.salePrice * units;
 
         return {
             units: acc.units + units,

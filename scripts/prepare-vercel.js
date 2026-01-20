@@ -11,6 +11,11 @@ if (process.env.VERCEL) {
 
         // --- PROACTIVE ENV DETECTION ---
         const potentialKeys = ['POSTGRES_PRISMA_URL', 'POSTGRES_URL', 'DATABASE_URL'];
+
+        // DEBUG: List available keys to debug missing vars
+        const allKeys = Object.keys(process.env).filter(k => k.includes('URL') || k.includes('POSTGRES') || k.includes('DB'));
+        console.log('🔍 Available Env Keys (Partial):', allKeys.join(', '));
+
         let foundUrl = null;
 
         for (const key of potentialKeys) {

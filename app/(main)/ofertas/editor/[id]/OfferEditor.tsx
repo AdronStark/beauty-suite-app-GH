@@ -306,8 +306,8 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
 
     // --- SAVE LOGIC ---
     const onSubmit = async (currentFormData: any, overrides?: any) => {
-        // 1. Update current item in items array with form data
-        const updatedItems = items.map(i => {
+        // 1. Capture current form data for the ACTIVE item
+        const itemsWithActiveArg = items.map(i => {
             if (i.id === activeItemId) {
                 // Merge current Document Config if not provided in overrides
                 const existingDocConfig = (i.inputData as any)?.documentConfig || {};
@@ -318,25 +318,47 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
                     productName: currentFormData.product,
                     inputData: {
                         ...currentFormData,
-                        units: derivedUnits,
+                        units: derivedUnits, // Use the live derived units
                         snapshotConfig: effectiveConfig,
-                        documentConfig: docConfigToSave, // PERSIST HERE
+                        documentConfig: docConfigToSave,
                         ...(overrides || {})
-                    },
-                    resultsSummary: {
-                        total_cost_unit: liveResults.salePrice,
-                        directCost: liveResults.directCost,
-                        salePrice: liveResults.salePrice,
-                        profit: liveResults.profit,
-                        units: derivedUnits,
-                        totalValue: liveResults.salePrice * derivedUnits
                     }
+                    // We don't set resultsSummary here yet, we do it for ALL items below
                 };
             }
             return i;
         });
 
+        // 2. RECALCULATE RESULTS FOR ALL ITEMS
+        // This ensures inactive items have fresh resultsSummary if their inputData was changed but not saved
+        const updatedItems = itemsWithActiveArg.map(item => {
+            // Determine config to use (snapshot or global effective)
+            const itemConfig = item.inputData.snapshotConfig || effectiveConfig;
+
+            // Recalculate
+            const results = calculateOfferCosts(item.inputData, itemConfig);
+
+            return {
+                ...item,
+                resultsSummary: {
+                    total_cost_unit: results.salePrice,
+                    directCost: results.directCost,
+                    salePrice: results.salePrice,
+                    profit: results.profit,
+                    units: results.derivedUnits,
+                    totalValue: results.salePrice * results.derivedUnits
+                }
+            };
+        });
+
         setItems(updatedItems); // Optimistic UI update
+
+        // NEW: Calculate Global Totals for Root Offer Record
+        const globalTotalValue = updatedItems.reduce((acc, item) => {
+            const itemUnits = item.resultsSummary?.units || 0;
+            const itemPrice = item.resultsSummary?.salePrice || 0;
+            return acc + (itemUnits * itemPrice);
+        }, 0);
 
         const method = offerId ? 'PUT' : 'POST';
         const url = offerId ? `/api/ofertas/${offerId}` : '/api/ofertas';
@@ -347,6 +369,11 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
             // Offer Description (Main Name)
             description: offerDescription || 'Nueva Oferta',
             status: currentStatus,
+
+            // SAVE GLOBAL SUMMARY TO ROOT
+            resultsSummary: {
+                totalValue: globalTotalValue
+            },
 
             // Send ALL items
             items: updatedItems.map((i, idx) => ({
@@ -386,21 +413,26 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
                     }));
 
                     // We need to preserve the "active" selection.
-                    // Since specific IDs might have changed (temp_ -> real), we rely on INDEX.
-                    // Find the index of the currently active item.
-                    const activeIndex = items.findIndex(i => i.id === activeItemId);
-                    const newActiveIndex = activeIndex >= 0 ? activeIndex : 0;
+                    // If we are in SUMMARY, stay there.
+                    if (activeItemId === 'SUMMARY') {
+                        setItems(newEditorItems);
+                        // No need to reset form or change active ID
+                    } else {
+                        // Since specific IDs might have changed (temp_ -> real), we rely on INDEX.
+                        const activeIndex = items.findIndex(i => i.id === activeItemId);
+                        const newActiveIndex = activeIndex >= 0 ? activeIndex : 0;
 
-                    setItems(newEditorItems);
+                        setItems(newEditorItems);
 
-                    // Update active ID to the new real ID
-                    if (newEditorItems[newActiveIndex]) {
-                        const newActiveId = newEditorItems[newActiveIndex].id;
-                        setActiveItemId(newActiveId);
-                        prevItemIdRef.current = newActiveId; // Sync ref !
+                        // Update active ID to the new real ID
+                        if (newEditorItems[newActiveIndex]) {
+                            const newActiveId = newEditorItems[newActiveIndex].id;
+                            setActiveItemId(newActiveId);
+                            prevItemIdRef.current = newActiveId; // Sync ref !
 
-                        // Also reset the form with the new "clean" values from server to avoid dirty states mismatch
-                        reset(getDefaultValues(newEditorItems[newActiveIndex]));
+                            // Also reset the form with the new "clean" values from server to avoid dirty states mismatch
+                            reset(getDefaultValues(newEditorItems[newActiveIndex]));
+                        }
                     }
                 }
 
@@ -702,7 +734,7 @@ export default function OfferEditor({ initialData, offerId, config }: { initialD
                     </button>
 
                     {!isReadOnly && (
-                        <button onClick={handleSubmit(onSubmit)} className={styles.primaryButton}>
+                        <button onClick={handleSubmit((data) => onSubmit(data))} className={styles.primaryButton}>
                             <Save size={16} /> Guardar Oferta
                         </button>
                     )}

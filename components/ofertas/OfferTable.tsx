@@ -246,7 +246,6 @@ export default function OfferTable({ offers }: OfferTableProps) {
                         {o.status}
                     </span>
                 </td>
-                <td style={{ whiteSpace: 'nowrap' }}>{price} €</td>
                 <td style={{ fontWeight: 'bold', color: '#059669', whiteSpace: 'nowrap' }}>{total !== '-' ? `${total} €` : '-'}</td>
                 <td>{new Date(o.createdAt).toLocaleDateString()}</td>
                 <td>
@@ -399,7 +398,6 @@ export default function OfferTable({ offers }: OfferTableProps) {
                         </th>
 
                         {/* PRICES - Normal */}
-                        <th>Precio (€/ud)</th>
                         <th>Total (€)</th>
 
                         {/* DATE - Keep Sorting */}
@@ -500,7 +498,6 @@ export default function OfferTable({ offers }: OfferTableProps) {
                                             {latest.status}
                                         </span>
                                     </td>
-                                    <td style={{ whiteSpace: 'nowrap' }}>{price} €</td>
                                     <td style={{ fontWeight: 'bold', color: 'var(--color-primary)', whiteSpace: 'nowrap' }}>{total !== '-' ? `${total} €` : '-'}</td>
                                     <td>{new Date(latest.createdAt).toLocaleDateString()}</td>
                                     <td>
