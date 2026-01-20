@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Upload, FileSpreadsheet, CheckCircle, Loader2, AlertCircle, Trash2, UserX } from 'lucide-react';
+import { Upload, FileSpreadsheet, CheckCircle, Loader2, AlertCircle, Trash2, UserX, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function ConfigTabs() {
@@ -57,7 +57,26 @@ function ImportPanel() {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState(false);
     const [result, setResult] = useState<any>(null);
+    const [lastImportDate, setLastImportDate] = useState<string | null>(null);
     const router = useRouter();
+
+    const fetchConfig = async () => {
+        try {
+            const res = await fetch('/api/configuration');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.LAST_RAW_MATERIALS_IMPORT) {
+                    setLastImportDate(data.LAST_RAW_MATERIALS_IMPORT);
+                }
+            }
+        } catch (e) {
+            console.error('Failed to fetch config');
+        }
+    };
+
+    useEffect(() => {
+        fetchConfig();
+    }, []);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -83,6 +102,7 @@ function ImportPanel() {
             if (res.ok) {
                 setResult(data);
                 setFile(null); // Clear file input after success
+                fetchConfig(); // Refresh last date
                 router.refresh();
             } else {
                 alert('Error al importar: ' + data.error);
@@ -98,9 +118,22 @@ function ImportPanel() {
     return (
         <div style={{ maxWidth: '600px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '16px', color: '#1e293b' }}>Importar Pedidos ERP</h3>
-            <p style={{ color: '#64748b', marginBottom: '24px', fontSize: '0.9rem', lineHeight: '1.5' }}>
+            <p style={{ color: '#64748b', marginBottom: '16px', fontSize: '0.9rem', lineHeight: '1.5' }}>
                 Sube el archivo Excel ("Bruto MP") exportado desde el ERP. El sistema actualizará las líneas existentes, creará las nuevas y cerrará aquellas que ya no aparezcan en el listado activo.
             </p>
+
+            {lastImportDate && (
+                <div style={{
+                    marginBottom: '24px', padding: '8px 12px', background: '#eff6ff',
+                    border: '1px solid #bfdbfe', borderRadius: '8px', display: 'flex',
+                    alignItems: 'center', gap: '8px', color: '#1e40af', fontSize: '0.85rem'
+                }}>
+                    <Clock size={16} />
+                    <span>
+                        Última actualización: <strong>{new Date(lastImportDate).toLocaleString()}</strong>
+                    </span>
+                </div>
+            )}
 
             {!result ? (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
