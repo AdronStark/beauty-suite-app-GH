@@ -82,16 +82,18 @@ export default function DocumentConfigModal({ isOpen, onClose, initialConfig, of
 
     return (
         <div style={{
-            position: 'fixed', inset: 0, zIndex: 50,
+            position: 'fixed', inset: 0, zIndex: 2000,
             background: 'rgba(0,0,0,0.5)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
+            display: 'flex', overflowY: 'auto', padding: '1rem'
         }}>
             <div style={{
+                margin: 'auto',
                 background: 'white',
                 borderRadius: '8px',
                 width: '900px',
-                maxWidth: '95vw',
+                maxWidth: '100%',
                 height: '85vh',
+                maxHeight: 'calc(100vh - 2rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)'

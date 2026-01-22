@@ -30,20 +30,20 @@ export async function POST(req: Request) {
 
       Structure:
       {
-        "clientName": "string (Infer from context or default to 'Client')",
-        "productName": "string (Creative name)",
-        "category": "string (Facial, Corporal, Capilar, Solar, Higiene, Perfumería)",
-        "unitsPerYear": "string (number)",
-        "targetPrice": "string (number)",
+        "clientName": "string",
+        "productName": "string",
+        "category": "string",
+        "unitsPerYear": "string",
+        "targetPrice": "string",
         "distributionChannels": ["string"],
         "launchDate": "YYYY-MM-DD",
         "targetAudience": "string",
-        "claims": "string (Marketing claims)",
+        "claims": "string",
         "benchmarkProduct": "string",
         "benchmarkUrl": "string",
         "formulaOwnership": "new",
-        "targetBulkCost": "string (number)",
-        "pao": "string (e.g. 12M)",
+        "targetBulkCost": "string",
+        "pao": "string",
         "texture": "string",
         "color": "string",
         "fragrance": "string",
@@ -55,27 +55,36 @@ export async function POST(req: Request) {
           }
         ],
         "forbiddenIngredients": "string",
-        "qualityTests": ["string (Select IDs from: stability, compatibility, challenge, clinical, dermatological, ophthalmological)"],
-        "packagingType": "string (Select from: Jar, Bottle, Tube, Airless, Dropper)",
+        "qualityTests": ["string"],
+        "packagingType": "string",
         "capacity": "string",
         "primaryMaterial": "string",
         "decoration": "string",
         "targetPricePrimary": "string",
         "supplierPrimary": "string",
-        "secondaryPackaging": ["string (Select IDs from: FoldingBox, RigidBox, Cello, Spatula, Leaflet, SecurityLabel)"],
+        "secondaryPackaging": ["string"],
         "unitsPerBox": "string",
-        "palletType": "string"
+        "palletType": "string",
+        "aiReasoning": {
+           "formula_source": "string (Brief explanation of why these ingredients were chosen)",
+           "cost_sources": ["string (LIST SPECIFIC FULL HTTP URLs found in search. Example: 'https://www.alibaba.com/product...'. Do not just say 'Alibaba'.)"],
+           "visual_analysis": "string (What did you see in the image?)",
+           "confidence_score": 85
+        }
       }
       
       IMPORTANT Instructions for "formula":
       - Act as a Senior Formulator.
       - Generate a REALISTIC, COMPLETE qualitative formula (INCI list).
       - Include water (Aqua), functional ingredients (emulsifiers, preservatives), and ACTIVE ingredients.
-      - Percentages must sum precisely to 100%. Use realistic ranges (e.g., Aqua ~60-80%, Preservatives <1%).
-      - ESTIMATE the market cost (€/kg) for each raw material based on standard cosmetic industry bulk prices.
+      - Percentages must sum precisely to 100%. Use realistic ranges.
+      - ESTIMATE the market cost (€/kg) for each raw material.
       
-      IMPORTANT Instructions for "qualityTests" and "secondaryPackaging":
-      - ONLY use the provided IDs (e.g., "stability", "FoldingBox"). Do not invent new keys.
+      IMPORTANT Instructions for "aiReasoning":
+      - You MUST justify your cost estimates. 
+      - CITE SPECIFIC WEBSITES (FULL URLs) you are using as reference. 
+      - If you cannot find a specific URL, mention the Supplier Name clearly.
+      - Be transparent if you are guessing.
 
       User Context: ${context}
     `;
@@ -97,7 +106,7 @@ export async function POST(req: Request) {
             ],
             generationConfig: {
                 temperature: 0.4,
-                maxOutputTokens: 8192, // Increased to prevent JSON truncation
+                maxOutputTokens: 8192,
                 responseMimeType: "application/json"
             }
         };
@@ -123,21 +132,25 @@ export async function POST(req: Request) {
             throw new Error("No content generated");
         }
 
-        // console.log("AI Raw Response:", generatedText.substring(0, 500) + "..."); // Log first 500 chars for debug
-
-        // Clean markdown if present: extract JSON component
-
-        // Clean markdown if present: extract JSON component
+        // Clean markdown if present
         let jsonStr = generatedText.replace(/```json/g, '').replace(/```/g, '').trim();
+
+        // Find the outer-most braces
         const start = jsonStr.indexOf('{');
         const end = jsonStr.lastIndexOf('}');
+
         if (start !== -1 && end !== -1) {
             jsonStr = jsonStr.substring(start, end + 1);
         }
 
-        const result = JSON.parse(jsonStr);
-
-        return NextResponse.json(result);
+        try {
+            const result = JSON.parse(jsonStr);
+            return NextResponse.json(result);
+        } catch (parseError: any) {
+            console.error("JSON Parsing failed. Raw text:", jsonStr); // Log the actual string for debug
+            // Attempt to recover if it's a simple case (optional, but for now just fail with clear error)
+            throw new Error(`Failed to parse AI response: ${parseError.message}`);
+        }
 
     } catch (error: any) {
         console.error('Analysis failed:', error);

@@ -13,6 +13,7 @@ import { formatCurrency } from '@/lib/formatters';
 import SampleRegistrationModal from '@/components/briefings/SampleRegistrationModal';
 import ClientSelect from '@/components/clients/ClientSelect';
 import { ProtectedField } from '@/components/ui/ProtectedField';
+import AIAnalysisResultModal from '@/components/briefings/AIAnalysisResultModal';
 
 type FormulaIngredient = {
     name: string;
@@ -61,6 +62,9 @@ type FormData = {
     secondaryPackaging: string[];
     unitsPerBox: string;
     palletType: string;
+
+    // AI Log
+    aiReasoning?: any;
 };
 
 const STEPS = [
@@ -123,6 +127,8 @@ export default function WizardClient({ initialData, initialMode }: { initialData
     const [saveToGallery, setSaveToGallery] = useState(true);
     const [statusDropdownOpen, setStatusDropdownOpen] = useState(false);
     const [isSampleModalOpen, setIsSampleModalOpen] = useState(false);
+    const [aiResultModalOpen, setAiResultModalOpen] = useState(false);
+    const [aiResultData, setAiResultData] = useState<any>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
 
@@ -220,20 +226,9 @@ export default function WizardClient({ initialData, initialMode }: { initialData
 
             const aiResult = await res.json();
 
-            // Populate Form - Merge with existing basic info
-            const currentValues = watch();
-            reset({
-                ...currentValues,
-                ...aiResult,
-                // PERSIST CRITICAL IDENTIFIERS: Ensure these are NOT overwritten by AI hallucinations
-                clientName: currentValues.clientName || aiResult.clientName,
-                productName: currentValues.productName || aiResult.productName,
-                // Also preserve category if already selected and meaningful
-                category: (currentValues.category && currentValues.category !== '') ? currentValues.category : aiResult.category
-            });
-
-            setEntryMode('manual');
-            setStep(1);
+            setAiResultData(aiResult);
+            setAiResultModalOpen(true);
+            // reset() and navigation deferred to handleConfirmAI
 
         } catch (error: any) {
             clearInterval(interval);
@@ -246,6 +241,26 @@ export default function WizardClient({ initialData, initialMode }: { initialData
                 setProgress(0);
             }, 500);
         }
+    };
+
+    const handleConfirmAI = () => {
+        if (!aiResultData) return;
+
+        const currentValues = watch();
+        // Merge AI data but protect critical user-entered fields
+        const mergedData = {
+            ...currentValues,
+            ...aiResultData,
+            clientName: currentValues.clientName || aiResultData.clientName,
+            productName: currentValues.productName || aiResultData.productName,
+            category: (currentValues.category && currentValues.category !== '') ? currentValues.category : aiResultData.category
+            // aiReasoning is implicitly included in aiResultData, so it gets saved to form state (and eventually formData)
+        };
+
+        reset(mergedData);
+        setEntryMode('manual');
+        setStep(1);
+        setAiResultModalOpen(false);
     };
 
     if (isAnalyzing) {
@@ -276,47 +291,51 @@ export default function WizardClient({ initialData, initialMode }: { initialData
         const productVal = watch('productName');
 
         return (
-            <div className={styles.container} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <h1 style={{ textAlign: 'center', marginBottom: '0.5rem', fontSize: '2rem', color: '#1e293b' }}>Completar Definición</h1>
+            <div className={styles.container} style={{ overflowY: 'auto' }}>
+                <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem' }}>
+                    <div style={{ margin: 'auto', width: '100%', maxWidth: '900px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <h1 style={{ textAlign: 'center', marginBottom: '0.5rem', fontSize: '2rem', color: '#1e293b' }}>Completar Definición</h1>
 
-                <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', width: '100%', maxWidth: '600px', justifyContent: 'center' }}>
-                    <div style={{ flex: 1 }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', color: '#64748b', marginBottom: '4px' }}>Cliente</label>
-                        <Controller
-                            control={control}
-                            name="clientName"
-                            render={({ field }) => (
-                                <ClientSelect
-                                    value={field.value}
-                                    onChange={field.onChange}
-                                    placeholder="Seleccionar Cliente"
+                        <div style={{ display: 'flex', gap: '1rem', marginBottom: '3rem', width: '100%', maxWidth: '600px', justifyContent: 'center' }}>
+                            <div style={{ flex: 1 }}>
+                                <label style={{ display: 'block', fontSize: '0.8rem', color: '#64748b', marginBottom: '4px' }}>Cliente</label>
+                                <Controller
+                                    control={control}
+                                    name="clientName"
+                                    render={({ field }) => (
+                                        <ClientSelect
+                                            value={field.value}
+                                            onChange={field.onChange}
+                                            placeholder="Seleccionar Cliente"
+                                        />
+                                    )}
                                 />
-                            )}
-                        />
-                    </div>
-                    <div style={{ flex: 1 }}>
-                        <label style={{ display: 'block', fontSize: '0.8rem', color: '#64748b', marginBottom: '4px' }}>Proyecto / Producto</label>
-                        <input
-                            {...register('productName')}
-                            placeholder="Nombre del proyecto"
-                            style={{ width: '100%', padding: '0.5rem', border: 'none', borderBottom: '1px solid #e2e8f0', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
-                        />
-                    </div>
-                </div>
+                            </div>
+                            <div style={{ flex: 1 }}>
+                                <label style={{ display: 'block', fontSize: '0.8rem', color: '#64748b', marginBottom: '4px' }}>Proyecto / Producto</label>
+                                <input
+                                    {...register('productName')}
+                                    placeholder="Nombre del proyecto"
+                                    style={{ width: '100%', padding: '0.5rem', border: 'none', borderBottom: '1px solid #e2e8f0', fontSize: '0.95rem', fontWeight: 600, outline: 'none' }}
+                                />
+                            </div>
+                        </div>
 
-                <div className={styles.modeSelection}>
-                    <div className={styles.modeCard} onClick={() => setEntryMode('manual')}>
-                        <div className={styles.modeIcon}><Plus size={32} /></div>
-                        <h3 className={styles.modeTitle}>Rellenar Manualmente</h3>
-                        <p className={styles.modeDesc}>Introduce los detalles técnicos paso a paso.</p>
-                        <button className={styles.secondaryButton} style={{ marginTop: 'auto', width: '100%' }}>Manual</button>
-                    </div>
+                        <div className={styles.modeSelection}>
+                            <div className={styles.modeCard} onClick={() => setEntryMode('manual')}>
+                                <div className={styles.modeIcon}><Plus size={32} /></div>
+                                <h3 className={styles.modeTitle}>Rellenar Manualmente</h3>
+                                <p className={styles.modeDesc}>Introduce los detalles técnicos paso a paso.</p>
+                                <button className={styles.secondaryButton} style={{ marginTop: 'auto', width: '100%' }}>Manual</button>
+                            </div>
 
-                    <div className={styles.modeCard} onClick={() => setEntryMode('smart')}>
-                        <div className={styles.modeIcon} style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%)', color: '#2563eb' }}><Sparkles size={32} /></div>
-                        <h3 className={styles.modeTitle}>Smart Briefing AI</h3>
-                        <p className={styles.modeDesc}>Sube referencias y deja que la IA rellene los detalles.</p>
-                        <button className={styles.primaryButton} style={{ marginTop: 'auto', width: '100%', background: '#2563eb', justifyContent: 'center' }}>Usar IA <Sparkles size={16} /></button>
+                            <div className={styles.modeCard} onClick={() => setEntryMode('smart')}>
+                                <div className={styles.modeIcon} style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%)', color: '#2563eb' }}><Sparkles size={32} /></div>
+                                <h3 className={styles.modeTitle}>Smart Briefing AI</h3>
+                                <p className={styles.modeDesc}>Sube referencias y deja que la IA rellene los detalles.</p>
+                                <button className={styles.primaryButton} style={{ marginTop: 'auto', width: '100%', background: '#2563eb', justifyContent: 'center' }}>Usar IA <Sparkles size={16} /></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 {toast && (
@@ -346,57 +365,59 @@ export default function WizardClient({ initialData, initialMode }: { initialData
         const currentProduct = watch('productName');
 
         return (
-            <div className={styles.container} style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <div style={{ background: 'white', padding: '3rem', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', maxWidth: '800px', width: '100%' }}>
-                    <button onClick={() => setEntryMode('selection')} style={{ background: 'none', border: 'none', cursor: 'pointer', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748b' }}>
-                        <ChevronLeft size={16} /> Volver
-                    </button>
+            <div className={styles.container} style={{ overflowY: 'auto' }}>
+                <div style={{ minHeight: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '2rem' }}>
+                    <div style={{ background: 'white', padding: '3rem', borderRadius: '1rem', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)', maxWidth: '800px', width: '100%', margin: 'auto' }}>
+                        <button onClick={() => setEntryMode('selection')} style={{ background: 'none', border: 'none', cursor: 'pointer', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#64748b' }}>
+                            <ChevronLeft size={16} /> Volver
+                        </button>
 
-                    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                        <div style={{
-                            background: '#f1f5f9',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '20px',
-                            display: 'inline-block',
-                            marginBottom: '1.5rem',
-                            border: '1px solid #e2e8f0'
-                        }}>
-                            <span style={{ color: '#64748b', fontWeight: 500 }}>Cliente: </span>
-                            <span style={{ color: '#0f172a', fontWeight: 700, marginRight: '1rem' }}>{currentClient || 'Sin Cliente'}</span>
-                            <span style={{ color: '#cbd5e1' }}>|</span>
-                            <span style={{ color: '#64748b', fontWeight: 500, marginLeft: '1rem' }}>Proyecto: </span>
-                            <span style={{ color: '#0f172a', fontWeight: 700 }}>{currentProduct || 'Sin Nombre'}</span>
+                        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                            <div style={{
+                                background: '#f1f5f9',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '20px',
+                                display: 'inline-block',
+                                marginBottom: '1.5rem',
+                                border: '1px solid #e2e8f0'
+                            }}>
+                                <span style={{ color: '#64748b', fontWeight: 500 }}>Cliente: </span>
+                                <span style={{ color: '#0f172a', fontWeight: 700, marginRight: '1rem' }}>{currentClient || 'Sin Cliente'}</span>
+                                <span style={{ color: '#cbd5e1' }}>|</span>
+                                <span style={{ color: '#64748b', fontWeight: 500, marginLeft: '1rem' }}>Proyecto: </span>
+                                <span style={{ color: '#0f172a', fontWeight: 700 }}>{currentProduct || 'Sin Nombre'}</span>
+                            </div>
+
+                            <div className={styles.modeIcon} style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%)', color: '#2563eb', margin: '0 auto 1rem auto' }}><Sparkles size={32} /></div>
+                            <h2 className={styles.stepTitle}>Smart Briefing</h2>
+                            <p className={styles.stepSubtitle}>Aportanos contexto y la IA hará el trabajo pesado.</p>
                         </div>
 
-                        <div className={styles.modeIcon} style={{ background: 'linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%)', color: '#2563eb', margin: '0 auto 1rem auto' }}><Sparkles size={32} /></div>
-                        <h2 className={styles.stepTitle}>Smart Briefing</h2>
-                        <p className={styles.stepSubtitle}>Aportanos contexto y la IA hará el trabajo pesado.</p>
+                        <div
+                            style={{ border: '2px dashed #cbd5e1', borderRadius: '0.75rem', padding: '2rem', textAlign: 'center', marginBottom: '2rem', cursor: 'pointer', background: '#f8fafc' }}
+                            onClick={() => fileInputRef.current?.click()}
+                            onDragOver={handleDragOver}
+                            onDrop={handleDrop}
+                        >
+                            <input type="file" ref={fileInputRef} style={{ display: 'none' }} multiple accept="image/*,.pdf" onChange={onFileChange} />
+                            <Upload size={48} style={{ color: files.length > 0 ? '#2563eb' : '#94a3b8', marginBottom: '1rem', margin: '0 auto' }} />
+                            <p style={{ fontWeight: 600, color: '#1e293b' }}>
+                                {files.length > 0 ? `${files.length} archivo(s) seleccionado(s)` : 'Arrastra fotos de referencia aquí'}
+                            </p>
+                        </div>
+
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Contexto / Instrucciones</label>
+                        <textarea
+                            className={styles.input}
+                            rows={4}
+                            placeholder="Ej. Quiero una crema antiedad parecida a la de La Mer..."
+                            style={{ marginBottom: '1.5rem' }}
+                        />
+
+                        <button className={styles.primaryButton} style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', background: '#2563eb', justifyContent: 'center' }} onClick={handleAnalyze}>
+                            <Sparkles size={20} /> Generar Briefing con IA
+                        </button>
                     </div>
-
-                    <div
-                        style={{ border: '2px dashed #cbd5e1', borderRadius: '0.75rem', padding: '2rem', textAlign: 'center', marginBottom: '2rem', cursor: 'pointer', background: '#f8fafc' }}
-                        onClick={() => fileInputRef.current?.click()}
-                        onDragOver={handleDragOver}
-                        onDrop={handleDrop}
-                    >
-                        <input type="file" ref={fileInputRef} style={{ display: 'none' }} multiple accept="image/*,.pdf" onChange={onFileChange} />
-                        <Upload size={48} style={{ color: files.length > 0 ? '#2563eb' : '#94a3b8', marginBottom: '1rem', margin: '0 auto' }} />
-                        <p style={{ fontWeight: 600, color: '#1e293b' }}>
-                            {files.length > 0 ? `${files.length} archivo(s) seleccionado(s)` : 'Arrastra fotos de referencia aquí'}
-                        </p>
-                    </div>
-
-                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Contexto / Instrucciones</label>
-                    <textarea
-                        className={styles.input}
-                        rows={4}
-                        placeholder="Ej. Quiero una crema antiedad parecida a la de La Mer..."
-                        style={{ marginBottom: '1.5rem' }}
-                    />
-
-                    <button className={styles.primaryButton} style={{ width: '100%', padding: '1rem', fontSize: '1.1rem', background: '#2563eb', justifyContent: 'center' }} onClick={handleAnalyze}>
-                        <Sparkles size={20} /> Generar Briefing con IA
-                    </button>
                 </div>
                 {toast && (
                     <Toast
@@ -405,6 +426,13 @@ export default function WizardClient({ initialData, initialMode }: { initialData
                         onClose={() => setToast(null)}
                     />
                 )}
+
+                <AIAnalysisResultModal
+                    isOpen={aiResultModalOpen}
+                    onClose={() => setAiResultModalOpen(false)}
+                    onConfirm={handleConfirmAI}
+                    data={aiResultData || {}}
+                />
             </div>
         );
     }
@@ -649,6 +677,27 @@ export default function WizardClient({ initialData, initialMode }: { initialData
                     >
                         <Package size={14} /> Enviar Muestra
                     </button>
+
+                    {/* AI Log Button */}
+                    {watch('aiReasoning') && (
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.preventDefault(); // Prevent accidental submission
+                                e.stopPropagation();
+                                const reasoning = watch('aiReasoning');
+                                console.log("🔘 Info IA Clicked. Data:", reasoning);
+                                if (reasoning) {
+                                    setAiResultData({ aiReasoning: reasoning });
+                                    setAiResultModalOpen(true);
+                                }
+                            }}
+                            title="Ver Análisis IA"
+                            style={{ background: '#f0f9ff', border: '1px solid #bae6fd', color: '#0369a1', fontSize: '0.8rem', padding: '0.25rem 0.75rem', borderRadius: '0.375rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}
+                        >
+                            <Sparkles size={14} /> Info IA
+                        </button>
+                    )}
                 </div>
 
                 {/* Center/Spacer Section: Client & Product Inputs */}
@@ -1079,6 +1128,14 @@ export default function WizardClient({ initialData, initialMode }: { initialData
                     onClose={() => setToast(null)}
                 />
             )}
+            {/* AI Result Modal - Available in Manual Mode too */}
+            <AIAnalysisResultModal
+                isOpen={aiResultModalOpen}
+                onClose={() => setAiResultModalOpen(false)}
+                onConfirm={handleConfirmAI}
+                data={aiResultData || {}}
+            />
+
         </div>
     );
 }

@@ -57,3 +57,5 @@ prisma/*.db-wal
 data/*.json
 **/data/*.json
 
+
+debug_output.txt
