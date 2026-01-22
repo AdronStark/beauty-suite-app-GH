@@ -70,7 +70,7 @@ export const authConfig = {
                 if (userRole !== 'CLIENT') {
                     return Response.redirect(new URL('/', nextUrl));
                 }
-            } else if (userRole === 'CLIENT' && !nextUrl.pathname.startsWith('/api')) {
+            } else if (userRole === 'CLIENT' && !nextUrl.pathname.startsWith('/api') && !nextUrl.pathname.startsWith('/_next')) {
                 return Response.redirect(new URL('/portal/dashboard', nextUrl));
             }
 
