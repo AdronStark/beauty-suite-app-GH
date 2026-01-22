@@ -71,6 +71,10 @@ export function CompanyProvider({ children, allowedCompanyIds }: { children: Rea
         // If no selection and multiple options, redirect to selection page
         // But delay slightly or ensure we are mounted to avoid hydration mismatch?
         // Effect runs on client so it's fine.
+
+        // Fix for Portal Users: Do not enforce company selection if we are deeper in the portal
+        if (pathname?.startsWith('/portal')) return;
+
         if (availableCompanies.length > 1 && !selectedCompanyId && !saved && pathname !== '/select-company') {
             router.push('/select-company');
         }
