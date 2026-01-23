@@ -430,7 +430,8 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
 
                                                     {row.notes && row.notes.split(/\n\n+/).filter((n: string) => n.trim()).map((note: string, idx: number) => {
                                                         // Worker side logic: I am "Laboratorios Coper"
-                                                        const isMyNote = note.startsWith('[Laboratorios Coper');
+                                                        // ALSO OWNER if it's a legacy note (no signature)
+                                                        const isMyNote = note.startsWith('[Laboratorios Coper') || !note.trim().match(/^\[.*?\]:\s*/);
                                                         const isEditing = editingNote === note;
 
                                                         return (
