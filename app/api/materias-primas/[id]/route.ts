@@ -113,6 +113,49 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
             }
         }
 
+        // --- 4. EDIT COMMENT LOGIC ---
+        if (body.editComment) {
+            const { oldNote, newText } = body.editComment;
+            if (oldNote && newText !== undefined) {
+                const user = session.user;
+                const noteToEdit = oldNote.trim();
+                const newContent = newText.trim();
+
+                // Security: Verify ownership
+                let isOwner = false;
+                if (user.role === 'CLIENT') {
+                    const clientSig = `[${user.connectedClientName || user.name || "Cliente"}`;
+                    if (noteToEdit.startsWith(clientSig)) isOwner = true;
+                } else {
+                    if (noteToEdit.startsWith('[Laboratorios Coper')) isOwner = true;
+                }
+
+                if (isOwner) {
+                    // Fetch current notes
+                    const currentOrder = await prisma.rawMaterialOrder.findUnique({
+                        where: { id },
+                        select: { notes: true }
+                    });
+
+                    let notes = currentOrder?.notes || '';
+
+                    if (notes.includes(noteToEdit)) {
+                        // Extract Header (Signature + Date)
+                        const headerMatch = noteToEdit.match(/^(\[.*?\]:\s*)/);
+
+                        if (headerMatch) {
+                            const header = headerMatch[1];
+                            const newFullNote = `${header}${newContent}`;
+
+                            // Perform replacement
+                            notes = notes.replace(noteToEdit, newFullNote);
+                            dataToUpdate.notes = notes;
+                        }
+                    }
+                }
+            }
+        }
+
         const updated = await prisma.rawMaterialOrder.update({
             where: { id },
             data: dataToUpdate

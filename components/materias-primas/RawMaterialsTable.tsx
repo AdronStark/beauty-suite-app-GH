@@ -1,5 +1,5 @@
 import { useState, Fragment } from 'react';
-import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown, Box, MessageSquare, Send, ChevronDown, ChevronUp } from 'lucide-react';
+import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown, Box, MessageSquare, Send, ChevronDown, ChevronUp, Trash2, Pencil, Check, X } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -17,6 +17,10 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
     const [commentInput, setCommentInput] = useState('');
     const [isSendingComment, setIsSendingComment] = useState(false);
     const router = useRouter();
+
+    // NEW STATE FOR EDITING
+    const [editingNote, setEditingNote] = useState<string | null>(null);
+    const [editText, setEditText] = useState('');
 
     // 1. Filter
     const filteredData = data.filter(item => {
@@ -79,9 +83,11 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
         if (expandedRowId === id) {
             setExpandedRowId(null);
             setCommentInput('');
+            setEditingNote(null);
         } else {
             setExpandedRowId(id);
             setCommentInput('');
+            setEditingNote(null);
         }
     };
 
@@ -425,6 +431,7 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
                                                     {row.notes && row.notes.split(/\n\n+/).filter((n: string) => n.trim()).map((note: string, idx: number) => {
                                                         // Worker side logic: I am "Laboratorios Coper"
                                                         const isMyNote = note.startsWith('[Laboratorios Coper');
+                                                        const isEditing = editingNote === note;
 
                                                         return (
                                                             <div key={idx} style={{
@@ -433,49 +440,112 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
                                                                 borderRadius: '8px',
                                                                 borderLeft: isMyNote ? '3px solid #3E6AD8' : '3px solid #64748b',
                                                                 boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-                                                                position: 'relative'
+                                                                position: 'relative',
+                                                                minHeight: '40px'
                                                             }}>
-                                                                <div style={{ whiteSpace: 'pre-wrap' }}>{note}</div>
-                                                                {isMyNote && (
-                                                                    <button
-                                                                        onClick={async (e) => {
-                                                                            e.stopPropagation();
-                                                                            if (!confirm('¿Eliminar esta nota?')) return;
+                                                                {isEditing ? (
+                                                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                                        <textarea
+                                                                            value={editText}
+                                                                            onChange={(e) => setEditText(e.target.value)}
+                                                                            style={{
+                                                                                width: '100%',
+                                                                                padding: '8px',
+                                                                                borderRadius: '4px',
+                                                                                border: '1px solid #3E6AD8',
+                                                                                fontSize: '0.85rem',
+                                                                                minHeight: '60px',
+                                                                                resize: 'vertical'
+                                                                            }}
+                                                                            onClick={e => e.stopPropagation()}
+                                                                        />
+                                                                        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                                                                            <button
+                                                                                onClick={async (e) => {
+                                                                                    e.stopPropagation();
+                                                                                    try {
+                                                                                        const res = await fetch(`/api/materias-primas/${row.id}`, {
+                                                                                            method: 'PATCH',
+                                                                                            headers: { 'Content-Type': 'application/json' },
+                                                                                            body: JSON.stringify({ editComment: { oldNote: note, newText: editText } })
+                                                                                        });
+                                                                                        if (res.ok) {
+                                                                                            toast.success('Nota editada');
+                                                                                            setEditingNote(null);
+                                                                                            router.refresh();
+                                                                                        } else {
+                                                                                            toast.error('Error al editar');
+                                                                                        }
+                                                                                    } catch (err) { console.error(err); toast.error('Error de conexión'); }
+                                                                                }}
+                                                                                style={{ background: '#3E6AD8', color: 'white', border: 'none', borderRadius: '4px', padding: '4px 8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                                                                            >
+                                                                                <Check size={14} /> Guardar
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={(e) => { e.stopPropagation(); setEditingNote(null); }}
+                                                                                style={{ background: '#cbd5e1', color: '#475569', border: 'none', borderRadius: '4px', padding: '4px 8px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                                                                            >
+                                                                                <X size={14} /> Cancelar
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    <>
+                                                                        <div style={{ whiteSpace: 'pre-wrap' }}>{note}</div>
+                                                                        {isMyNote && (
+                                                                            <div style={{ position: 'absolute', top: '4px', right: '4px', display: 'flex', gap: '4px' }}>
+                                                                                {/* EDIT BUTTON */}
+                                                                                <button
+                                                                                    onClick={(e) => {
+                                                                                        e.stopPropagation();
+                                                                                        // Clean signature for editing view
+                                                                                        const rawText = note.replace(/^\[.*?\]:\s*/, '');
+                                                                                        setEditText(rawText);
+                                                                                        setEditingNote(note);
+                                                                                    }}
+                                                                                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px', color: '#64748b' }}
+                                                                                    title="Editar"
+                                                                                >
+                                                                                    <Pencil size={14} />
+                                                                                </button>
 
-                                                                            try {
-                                                                                const res = await fetch(`/api/materias-primas/${row.id}`, {
-                                                                                    method: 'PATCH',
-                                                                                    headers: { 'Content-Type': 'application/json' },
-                                                                                    body: JSON.stringify({ deleteComment: note })
-                                                                                });
-                                                                                if (res.ok) {
-                                                                                    toast.success('Nota eliminada');
-                                                                                    router.refresh();
-                                                                                } else {
-                                                                                    toast.error('No se pudo eliminar');
-                                                                                }
-                                                                            } catch (err) {
-                                                                                console.error(err);
-                                                                                toast.error('Error de conexión');
-                                                                            }
-                                                                        }}
-                                                                        style={{
-                                                                            position: 'absolute',
-                                                                            top: '4px',
-                                                                            right: '4px',
-                                                                            background: 'transparent',
-                                                                            border: 'none',
-                                                                            cursor: 'pointer',
-                                                                            padding: '4px',
-                                                                            color: '#ef4444',
-                                                                            opacity: 0.6
-                                                                        }}
-                                                                        title="Eliminar nota"
-                                                                        onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-                                                                        onMouseLeave={e => e.currentTarget.style.opacity = '0.6'}
-                                                                    >
-                                                                        <span style={{ fontSize: '14px', fontWeight: 'bold' }}>✕</span>
-                                                                    </button>
+                                                                                <button
+                                                                                    onClick={async (e) => {
+                                                                                        e.stopPropagation();
+                                                                                        if (!confirm('¿Eliminar esta nota?')) return;
+
+                                                                                        try {
+                                                                                            const res = await fetch(`/api/materias-primas/${row.id}`, {
+                                                                                                method: 'PATCH',
+                                                                                                headers: { 'Content-Type': 'application/json' },
+                                                                                                body: JSON.stringify({ deleteComment: note })
+                                                                                            });
+                                                                                            if (res.ok) {
+                                                                                                toast.success('Nota eliminada');
+                                                                                                router.refresh();
+                                                                                            } else {
+                                                                                                toast.error('No se pudo eliminar');
+                                                                                            }
+                                                                                        } catch (err) {
+                                                                                            console.error(err);
+                                                                                            toast.error('Error de conexión');
+                                                                                        }
+                                                                                    }}
+                                                                                    style={{
+                                                                                        background: 'transparent',
+                                                                                        border: 'none',
+                                                                                        cursor: 'pointer',
+                                                                                        padding: '4px',
+                                                                                        color: '#ef4444',
+                                                                                    }}
+                                                                                    title="Eliminar nota"
+                                                                                >
+                                                                                    <Trash2 size={14} />
+                                                                                </button>
+                                                                            </div>
+                                                                        )}
+                                                                    </>
                                                                 )}
                                                             </div>
                                                         );
