@@ -393,7 +393,10 @@ export default function PortalRawMaterialsTable({ data }: PortalRawMaterialsTabl
                                                 textOverflow: 'ellipsis',
                                                 maxWidth: '100px'
                                             }}>
-                                                {row.notes ? row.notes.split('\n').pop() : '-'}
+                                                {row.notes ? (
+                                                    // Get first note, strip signature [Name]:
+                                                    row.notes.split(/\n\n+/).filter((n: string) => n.trim())[0]?.replace(/^\[.*?\]:\s*/, '') || '-'
+                                                ) : '-'}
                                             </span>
                                             {expandedRowId === row.id ?
                                                 <ChevronUp size={16} color="#3E6AD8" /> :
