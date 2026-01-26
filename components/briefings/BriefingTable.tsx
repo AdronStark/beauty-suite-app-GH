@@ -350,7 +350,11 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                 <thead>
                     <tr>
                         {/* Checkbox Header */}
-                        <th style={{ width: '40px', textAlign: 'center' }}>
+                        <th style={{
+                            width: '40px', textAlign: 'center',
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>
                             <input
                                 type="checkbox"
                                 checked={visibleIds.length > 0 && selectedIds.size === visibleIds.length}
@@ -359,7 +363,10 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                             />
                         </th>
                         {/* CODE - Sortable + Search */}
-                        <th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>
                             <div className={styles.filterHeaderContainer}>
                                 <div onClick={() => handleSort('code')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, userSelect: 'none' }}>
                                     Nº Briefing <SortIcon column="code" />
@@ -376,7 +383,10 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                         </th>
 
                         {/* CLIENT - Sortable + Multi-select Filter */}
-                        <th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>
                             <div className={styles.filterContainer} style={{ gap: '8px' }}>
                                 <div onClick={() => handleSort('clientName')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', userSelect: 'none' }}>
                                     Cliente <SortIcon column="clientName" />
@@ -402,16 +412,29 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                         </th>
 
                         {/* PRODUCT */}
-                        <th onClick={() => handleSort('productName')} style={{ cursor: 'pointer' }}>
+                        <th onClick={() => handleSort('productName')} style={{
+                            cursor: 'pointer',
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>Producto <SortIcon column="productName" /></div>
                         </th>
 
                         {/* RESPONSIBLES */}
-                        <th>Comercial</th>
-                        <th>Técnico</th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>Comercial</th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>Técnico</th>
 
                         {/* STATUS - Sortable + Multi-select Filter */}
-                        <th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>
                             <div className={styles.filterContainer} style={{ gap: '8px' }}>
                                 <div onClick={() => handleSort('status')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', userSelect: 'none' }}>
                                     Estado <SortIcon column="status" />
@@ -436,13 +459,23 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                             </div>
                         </th>
 
-                        <th>Target (€)</th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>Target (€)</th>
 
-                        <th onClick={() => handleSort('createdAt')} style={{ cursor: 'pointer' }}>
+                        <th onClick={() => handleSort('createdAt')} style={{
+                            cursor: 'pointer',
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>Fecha Creación <SortIcon column="createdAt" /></div>
                         </th>
 
-                        <th>Acciones</th>
+                        <th style={{
+                            position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc',
+                            boxShadow: '0 1px 0 #e2e8f0'
+                        }}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

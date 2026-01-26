@@ -45,43 +45,47 @@ export default async function OfertasPage() {
     const approved = offers.filter(o => o.status === 'Aprobada').length;
 
     return (
-        <div className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-            <div className={styles.header}>
-                <h1 className={styles.title}>Ofertas Beauty</h1>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    {isAdmin && (
-                        <Link href="/ofertas/config" className={styles.newButton} style={{ background: 'white', color: '#64748b', border: '1px solid #cbd5e1' }}>
-                            <Settings size={20} />
-                            Configuración
-                        </Link>
-                    )}
-                    <Link href="/ofertas/new" className={styles.newButton}>
-                        <Plus size={20} />
-                        Nueva Oferta
-                    </Link>
+        <div className={styles.pageContainer}>
+            <div className={styles.scrollableContent}>
+                <div className={`${styles.contentWrapper} container`} style={{ padding: '2rem', paddingBottom: '4rem' }}>
+                    <div className={styles.header}>
+                        <h1 className={styles.title}>Ofertas Beauty</h1>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            {isAdmin && (
+                                <Link href="/ofertas/config" className={styles.newButton} style={{ background: 'white', color: '#64748b', border: '1px solid #cbd5e1' }}>
+                                    <Settings size={20} />
+                                    Configuración
+                                </Link>
+                            )}
+                            <Link href="/ofertas/new" className={styles.newButton}>
+                                <Plus size={20} />
+                                Nueva Oferta
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className={styles.statsRow}>
+                        <div className={styles.statCard}>
+                            <h3>Total</h3>
+                            <p>{total}</p>
+                        </div>
+                        <div className={styles.statCard}>
+                            <h3>Borradores</h3>
+                            <p>{drafts}</p>
+                        </div>
+                        <div className={styles.statCard}>
+                            <h3>Enviadas</h3>
+                            <p>{sent}</p>
+                        </div>
+                        <div className={styles.statCard}>
+                            <h3>Aprobadas</h3>
+                            <p>{approved}</p>
+                        </div>
+                    </div>
+
+                    <OfferTable offers={serializedOffers} />
                 </div>
             </div>
-
-            <div className={styles.statsRow}>
-                <div className={styles.statCard}>
-                    <h3>Total</h3>
-                    <p>{total}</p>
-                </div>
-                <div className={styles.statCard}>
-                    <h3>Borradores</h3>
-                    <p>{drafts}</p>
-                </div>
-                <div className={styles.statCard}>
-                    <h3>Enviadas</h3>
-                    <p>{sent}</p>
-                </div>
-                <div className={styles.statCard}>
-                    <h3>Aprobadas</h3>
-                    <p>{approved}</p>
-                </div>
-            </div>
-
-            <OfferTable offers={serializedOffers} />
         </div>
     );
 }

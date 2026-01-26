@@ -171,7 +171,7 @@ export default function FormulaTable({ formulas }: FormulaTableProps) {
     const visibleIds = sortedFormulas.map(f => f.id);
 
     return (
-        <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+        <div style={{ background: 'white', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', overflow: 'visible' }}>
             {/* Toolbar */}
             <div style={{ padding: '1rem', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div style={{ position: 'relative', width: '300px' }}>
@@ -227,11 +227,11 @@ export default function FormulaTable({ formulas }: FormulaTableProps) {
             )}
 
             {/* Table */}
-            <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
+            <div>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: '0.9rem' }}>
                     <thead style={{ background: '#f8fafc', color: '#475569', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: 600 }}>
                         <tr>
-                            <th style={{ width: '40px', textAlign: 'center', padding: '0.75rem 1rem' }}>
+                            <th style={{ width: '40px', textAlign: 'center', padding: '0.75rem 1rem', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                                 <input
                                     type="checkbox"
                                     checked={visibleIds.length > 0 && selectedIds.size === visibleIds.length}
@@ -239,20 +239,20 @@ export default function FormulaTable({ formulas }: FormulaTableProps) {
                                     style={{ cursor: 'pointer' }}
                                 />
                             </th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', cursor: 'pointer' }} onClick={() => handleSort('code')}>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', cursor: 'pointer', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }} onClick={() => handleSort('code')}>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>Código <SortIcon column="code" /></div>
                             </th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', cursor: 'pointer' }} onClick={() => handleSort('name')}>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', cursor: 'pointer', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }} onClick={() => handleSort('name')}>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>Nombre <SortIcon column="name" /></div>
                             </th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'center', whiteSpace: 'nowrap' }}>Revisiones</th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'center' }}>Ingredientes</th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left' }}>Cliente</th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'center' }}>Propiedad</th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', cursor: 'pointer' }} onClick={() => handleSort('createdAt')}>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'center', whiteSpace: 'nowrap', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>Revisiones</th>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'center', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>Ingredientes</th>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>Cliente</th>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'center', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>Propiedad</th>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'left', cursor: 'pointer', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }} onClick={() => handleSort('createdAt')}>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>Creado <SortIcon column="createdAt" /></div>
                             </th>
-                            <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Acciones</th>
+                            <th style={{ padding: '0.75rem 1rem', textAlign: 'right', position: 'sticky', top: 0, zIndex: 20, background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -84,7 +84,12 @@ export default function PipelineTable({ offers }: PipelineTableProps) {
                 textTransform: 'uppercase',
                 cursor: sortKey ? 'pointer' : 'default',
                 width: width,
-                userSelect: 'none'
+                userSelect: 'none',
+                position: 'sticky',
+                top: 0,
+                zIndex: 20,
+                background: '#f8fafc',
+                borderBottom: '1px solid #e2e8f0'
             }}
             onClick={() => sortKey && handleSort(sortKey)}
         >
@@ -136,8 +141,8 @@ export default function PipelineTable({ offers }: PipelineTableProps) {
             </div>
 
             {/* Table */}
-            <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', overflow: 'visible', border: '1px solid #e2e8f0' }}>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, textAlign: 'left' }}>
                     <thead style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
                         <tr>
                             <Th label="Código" sortKey="code" />

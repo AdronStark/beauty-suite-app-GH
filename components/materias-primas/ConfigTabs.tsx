@@ -270,18 +270,27 @@ function RulesPanel() {
     const [field, setField] = useState('CODE'); // CODE | NAME
     const [matchType, setMatchType] = useState('CONTAINS'); // CONTAINS | EXACT
 
+    // Alert Config State
+    const [alertDays, setAlertDays] = useState(7);
+    const [savingAlert, setSavingAlert] = useState(false);
+
     const fetchData = async () => {
         setLoading(true);
         try {
-            const [excludedRes, availableRes, termsRes] = await Promise.all([
+            const [excludedRes, availableRes, termsRes, alertsRes] = await Promise.all([
                 fetch('/api/materias-primas/config/excluded-suppliers'),
                 fetch('/api/materias-primas/suppliers'),
-                fetch('/api/materias-primas/config/excluded-terms')
+                fetch('/api/materias-primas/config/excluded-terms'),
+                fetch('/api/materias-primas/config/alerts')
             ]);
 
             if (excludedRes.ok) setExcludedSuppliers(await excludedRes.json());
             if (availableRes.ok) setAvailableSuppliers(await availableRes.json());
             if (termsRes.ok) setExcludedTerms(await termsRes.json());
+            if (alertsRes.ok) {
+                const data = await alertsRes.json();
+                setAlertDays(data.days);
+            }
         } catch (error) {
             console.error(error);
             toast.error('Error al cargar datos');
@@ -397,9 +406,71 @@ function RulesPanel() {
         }
     };
 
+    const handleSaveAlert = async () => {
+        setSavingAlert(true);
+        try {
+            const res = await fetch('/api/materias-primas/config/alerts', {
+                method: 'POST',
+                body: JSON.stringify({ days: alertDays })
+            });
+
+            if (res.ok) {
+                toast.success('Configuración de alertas guardada');
+            } else {
+                toast.error('Error al guardar configuración');
+            }
+        } catch (e) {
+            toast.error('Error de conexión');
+        } finally {
+            setSavingAlert(false);
+        }
+    };
+
     return (
         <div style={{ maxWidth: '800px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '24px', color: '#1e293b' }}>Reglas de Importación</h3>
+
+            {/* Alert Configuration Card */}
+            <div style={{ background: '#fff7ed', border: '1px solid #fed7aa', borderRadius: '12px', padding: '24px', marginBottom: '24px' }}>
+                <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+                    <div style={{ background: 'white', padding: '12px', borderRadius: '50%', height: 'fit-content' }}>
+                        <Clock size={24} color="#ea580c" />
+                    </div>
+                    <div>
+                        <h4 style={{ fontWeight: 600, color: '#c2410c', fontSize: '1rem', marginBottom: '4px' }}>Configuración de Alertas</h4>
+                        <p style={{ fontSize: '0.9rem', color: '#9a3412' }}>Define cuándo marcar un pedido como "retrasado" si falta la fecha estimada.</p>
+                    </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '52px' }}>
+                    <span style={{ fontSize: '0.9rem', color: '#431407', fontWeight: 500 }}>
+                        Marcar en naranja si el pedido tiene más de
+                    </span>
+                    <input
+                        type="number"
+                        min="1"
+                        value={alertDays}
+                        onChange={(e) => setAlertDays(parseInt(e.target.value) || 0)}
+                        style={{ width: '60px', padding: '8px', borderRadius: '6px', border: '1px solid #fdba74', textAlign: 'center', fontWeight: 'bold' }}
+                    />
+                    <span style={{ fontSize: '0.9rem', color: '#431407', fontWeight: 500 }}>
+                        días y sin fecha estimada.
+                    </span>
+
+                    <button
+                        onClick={handleSaveAlert}
+                        disabled={savingAlert}
+                        style={{
+                            marginLeft: 'auto',
+                            padding: '8px 16px', borderRadius: '6px', border: 'none',
+                            background: '#ea580c', color: 'white', fontWeight: 600,
+                            cursor: 'pointer', opacity: savingAlert ? 0.7 : 1
+                        }}
+                    >
+                        {savingAlert ? 'Guardando...' : 'Guardar'}
+                    </button>
+                </div>
+            </div>
 
             {/* Exclusion Card */}
             <div style={{ background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: '12px', padding: '24px' }}>

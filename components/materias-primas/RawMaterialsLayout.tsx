@@ -8,9 +8,10 @@ import styles from '@/app/(main)/materias-primas/page.module.css';
 
 interface RawMaterialsLayoutProps {
     initialOrders: any[];
+    alertDays?: number;
 }
 
-export default function RawMaterialsLayout({ initialOrders }: RawMaterialsLayoutProps) {
+export default function RawMaterialsLayout({ initialOrders, alertDays = 7 }: RawMaterialsLayoutProps) {
     const [activeTab, setActiveTab] = useState<'list' | 'config'>('list');
 
     return (
@@ -54,7 +55,7 @@ export default function RawMaterialsLayout({ initialOrders }: RawMaterialsLayout
             <div className={styles.content}>
                 {activeTab === 'list' && (
                     <div className={styles.scrollableContent}>
-                        <RawMaterialsTable data={initialOrders} />
+                        <RawMaterialsTable data={initialOrders} alertDays={alertDays} />
                     </div>
                 )}
 

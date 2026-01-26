@@ -361,6 +361,7 @@ model RawMaterialOrder {
   // Logic
   isCompleted     Boolean  @default(false) // If missing from new open orders import -> true
   isHighRotation  Boolean  @default(false) // If true, material is for general stock/rotation, not specific OF
+  isFlagged       Boolean  @default(false) // Visual flag for issues/attention
   
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt

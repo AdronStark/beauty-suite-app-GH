@@ -1,3 +1,24 @@
+.pageContainer {
+    height: calc(100vh - var(--header-height));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Prevent body scroll triggers */
+}
+
+.scrollableContent {
+    flex: 1;
+    overflow: auto;
+    /* This handles both X and Y now */
+}
+
+.contentWrapper {
+    padding: 2rem;
+    padding-bottom: 4rem;
+    min-width: min-content;
+    /* Ensure padding doesn't get squished if table is huge? */
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -74,6 +95,12 @@
     color: var(--color-text-muted);
     font-weight: 600;
     font-size: 0.9rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    /* Ensure solid background so content doesn't show through */
+    box-shadow: 0 1px 0 var(--color-border);
+    /* Optional: visual separation */
 }
 
 .table td {

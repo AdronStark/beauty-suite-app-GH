@@ -1,14 +1,15 @@
 import { useState, Fragment } from 'react';
-import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown, Box, MessageSquare, Send, ChevronDown, ChevronUp, Trash2, Pencil, Check, X } from 'lucide-react';
+import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown, Box, MessageSquare, Send, ChevronDown, ChevronUp, Trash2, Pencil, Check, X, Flag } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 
 interface RawMaterialsTableProps {
     data: any[];
+    alertDays?: number;
 }
 
-export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
+export default function RawMaterialsTable({ data, alertDays = 7 }: RawMaterialsTableProps) {
     const [searchTerm, setSearchTerm] = useState('');
     const [showCompleted, setShowCompleted] = useState(false);
     const [hideRotation, setHideRotation] = useState(false);
@@ -136,9 +137,18 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
         }
     };
 
-    const getStatusColor = (status: string, date: Date | null) => {
-        if (status === 'COMPLETADO (100% ERP)') return '#f0fdf4';
-        if (date && new Date(date) < new Date()) return '#fef2f2';
+    const getStatusColor = (row: any) => {
+        if (row.isFlagged) return '#fef2f2'; // Priority 1: Flagged (Light Red)
+        if (row.status === 'COMPLETADO (100% ERP)') return '#f0fdf4';
+
+        // New Rule: Order > X days old AND no estimated date (Manual field)
+        if (row.orderDate && !row.estimatedDate) {
+            const daysSinceOrder = (new Date().getTime() - new Date(row.orderDate).getTime()) / (1000 * 3600 * 24);
+            if (daysSinceOrder > alertDays) {
+                return '#fff7ed'; // Light yellow-orange (Orange-50)
+            }
+        }
+
         return 'white';
     };
 
@@ -159,7 +169,12 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
         <th
             style={{
                 padding: '12px 16px', fontWeight: 600, textAlign: align, cursor: sortKey ? 'pointer' : 'default',
-                userSelect: 'none'
+                userSelect: 'none',
+                position: 'sticky',
+                top: 0,
+                zIndex: 20,
+                background: '#f1f5f9', // Ensure opacity over content
+                borderBottom: '1px solid #cbd5e1'
             }}
             onClick={() => sortKey && handleSort(sortKey)}
         >
@@ -171,7 +186,7 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
     );
 
     return (
-        <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', overflow: 'hidden' }}>
+        <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
             {/* Toolbar */}
             <div style={{ padding: '16px', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '16px', alignItems: 'center', background: '#f8fafc' }}>
                 <div style={{ position: 'relative', flex: 1, maxWidth: '400px' }}>
@@ -213,8 +228,9 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
             </div>
 
             {/* Table */}
-            <div style={{ overflowX: 'auto' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+            {/* Removed inner overflow-x: auto to allow parent container to handle scrolling */}
+            <div>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: '0.85rem' }}>
                     <thead>
                         <tr style={{ background: '#f1f5f9', color: '#475569', textAlign: 'left' }}>
                             <Th label="OF (Asoc.)" sortKey="associatedOE" />
@@ -233,7 +249,7 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
                                 <tr
                                     style={{
                                         borderBottom: '1px solid #e2e8f0',
-                                        background: expandedRowId === row.id ? '#f1f5f9' : getStatusColor(row.status || '', row.expectedDate),
+                                        background: expandedRowId === row.id ? '#f1f5f9' : getStatusColor(row),
                                         cursor: 'pointer'
                                     }}
                                     onClick={() => toggleRow(row.id)}
@@ -284,8 +300,30 @@ export default function RawMaterialsTable({ data }: RawMaterialsTableProps) {
                                         </div>
                                     </td>
                                     <td style={{ padding: '12px 16px' }}>
-                                        <div style={{ fontWeight: 600, color: '#334155' }}>{row.orderNumber}</div>
-                                        <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{row.orderDate ? format(new Date(row.orderDate), 'dd/MM/yyyy') : '-'}</div>
+                                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                                            <div>
+                                                <div style={{ fontWeight: 600, color: '#334155' }}>{row.orderNumber}</div>
+                                                <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>{row.orderDate ? format(new Date(row.orderDate), 'dd/MM/yyyy') : '-'}</div>
+                                            </div>
+                                            <button
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleUpdate(row.id, 'isFlagged', !row.isFlagged);
+                                                }}
+                                                style={{
+                                                    background: 'transparent',
+                                                    border: 'none',
+                                                    cursor: 'pointer',
+                                                    padding: '4px',
+                                                    color: row.isFlagged ? '#ef4444' : '#cbd5e1',
+                                                    transition: 'all 0.2s'
+                                                }}
+                                                className="hover:text-red-500 hover:bg-red-50 rounded-full"
+                                                title={row.isFlagged ? "Quitar marca" : "Marcar incidencia"}
+                                            >
+                                                <Flag size={16} fill={row.isFlagged ? "currentColor" : "none"} />
+                                            </button>
+                                        </div>
                                     </td>
                                     <td style={{ padding: '12px 16px' }}>
                                         <div style={{ fontWeight: 600, color: '#1e293b' }}>{row.articleName}</div>

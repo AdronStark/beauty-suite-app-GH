@@ -43,6 +43,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
             if (notes !== undefined) dataToUpdate.notes = notes; // Direct override
             if (associatedOE !== undefined) dataToUpdate.associatedOE = associatedOE;
             if (isHighRotation !== undefined) dataToUpdate.isHighRotation = isHighRotation;
+            if (body.isFlagged !== undefined) dataToUpdate.isFlagged = body.isFlagged;
         }
 
         // --- 2. SHARED NOTES APPEND LOGIC (Available to ALL users) ---
