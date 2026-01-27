@@ -22,8 +22,17 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
     const router = useRouter();
     const { data: session } = useSession();
     // @ts-ignore
-    const role = session?.user?.role;
-    const canDelete = role === 'ADMIN' || role === 'MANAGER';
+    const user = session?.user;
+    // @ts-ignore
+    const appRoles = user?.appRoles || [];
+    // @ts-ignore
+    const appRole = appRoles.find((r: any) => r.appId === 'briefings')?.role;
+    // @ts-ignore
+    const isGlobalAdmin = user?.role === 'ADMIN';
+
+    // Permissions
+    const canWrite = isGlobalAdmin || appRole === 'EDITOR' || appRole === 'ADMIN';
+    const canDelete = isGlobalAdmin || appRole === 'ADMIN';
 
     const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection } | null>({ key: 'code', direction: 'desc' });
     const [isDeleting, setIsDeleting] = useState<string | null>(null);
@@ -277,6 +286,7 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                         initialValue={b.responsableComercial}
                         users={users}
                         apiPath="/api/briefings"
+                        readOnly={!canWrite}
                     />
                 </td>
                 <td>
@@ -286,6 +296,7 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                         initialValue={b.responsableTecnico}
                         users={users}
                         apiPath="/api/briefings"
+                        readOnly={!canWrite}
                     />
                 </td>
                 <td>
@@ -297,12 +308,16 @@ export default function BriefingTable({ briefings }: BriefingTableProps) {
                 <td>{new Date(b.createdAt).toLocaleDateString()}</td>
                 <td>
                     <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                        <Link href={`/ofertas/new?briefingId=${b.id}`} className={styles.linkAction} title="Generar Oferta">
-                            <FileText size={16} />
-                        </Link>
-                        <button onClick={() => handleClone(b.id, b.productName)} style={{ background: 'none', border: 'none', color: '#3b82f6', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }} disabled={isCloning === b.id} title="Duplicar">
-                            <Copy size={16} />
-                        </button>
+                        {canWrite && (
+                            <>
+                                <Link href={`/ofertas/new?briefingId=${b.id}`} className={styles.linkAction} title="Generar Oferta">
+                                    <FileText size={16} />
+                                </Link>
+                                <button onClick={() => handleClone(b.id, b.productName)} style={{ background: 'none', border: 'none', color: '#3b82f6', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }} disabled={isCloning === b.id} title="Duplicar">
+                                    <Copy size={16} />
+                                </button>
+                            </>
+                        )}
                         {canDelete && (
                             <button onClick={() => handleDelete(b.id, b.code)} style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', padding: '4px', display: 'flex', alignItems: 'center' }} disabled={isDeleting === b.id} title="Eliminar">
                                 <Trash2 size={16} />

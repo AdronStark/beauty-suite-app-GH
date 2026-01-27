@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
 import { auth } from '@/auth';
+import { withAuth } from '@/lib/api-auth';
 
 export async function GET(
     request: Request,
@@ -30,13 +31,7 @@ export async function GET(
     }
 }
 
-export async function PUT(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
-    const session = await auth();
-    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
+export const PUT = withAuth(async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
     try {
         const { id } = await params;
         const body = await request.json();
@@ -46,25 +41,6 @@ export async function PUT(
         delete body.createdAt;
         delete body.updatedAt;
         delete body.code; // Prevent changing the code
-
-        // Ensure actives are stored as JSON compatible object/array if needed, 
-        // but since we are using a JSON column 'formData' effectively (or individual fields), 
-        // we need to map based on schema. 
-        // Assuming schema matches body keys largely, but let's check schema first to be safe? 
-        // Actually, looking at the POST route, it maps fields directly. 
-        // Wait, the POST route in previous turn showed mapping:
-        /*
-          data: {
-              code: newCode,
-              clientName: body.clientName,
-              productName: body.productName,
-              category: body.category || 'General',
-              status: 'Borrador',
-              formData: JSON.stringify(body) // It seems it stores everything else in formData?
-          }
-        */
-
-        // We should replicate that behavior. Update core fields and formData.
 
         const updateData: any = {
             clientName: body.clientName,
@@ -92,23 +68,10 @@ export async function PUT(
             { status: 500 }
         );
     }
-}
+}, { appId: 'briefings', appRoles: ['EDITOR', 'ADMIN'] });
 
 
-export async function DELETE(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
-    const session = await auth();
-    if (!session?.user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
-    // Role check - only ADMIN or MANAGER can delete
-    // @ts-ignore
-    const userRole = session.user.role;
-    if (!['ADMIN', 'MANAGER'].includes(userRole)) {
-        return NextResponse.json({ error: 'Forbidden: Only ADMIN or MANAGER can delete briefings' }, { status: 403 });
-    }
-
+export const DELETE = withAuth(async (request: Request, { params }: { params: Promise<{ id: string }> }, session: any) => {
     try {
         const { id } = await params;
 
@@ -128,15 +91,9 @@ export async function DELETE(
             { status: 500 }
         );
     }
-}
+}, { appId: 'briefings', appRoles: ['ADMIN'] });
 
-export async function PATCH(
-    request: Request,
-    { params }: { params: Promise<{ id: string }> }
-) {
-    const session = await auth();
-    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-
+export const PATCH = withAuth(async (request: Request, { params }: { params: Promise<{ id: string }> }) => {
     try {
         const { id } = await params;
         const body = await request.json();
@@ -178,4 +135,4 @@ export async function PATCH(
             { status: 500 }
         );
     }
-}
+}, { appId: 'briefings', appRoles: ['EDITOR', 'ADMIN'] });

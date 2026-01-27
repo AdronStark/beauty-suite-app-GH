@@ -23,9 +23,10 @@ interface ResponsibleCellProps {
     initialValue?: string | null;
     users: UserOption[];
     apiPath?: string; // e.g. /api/ofertas (default) or /api/briefings
+    readOnly?: boolean;
 }
 
-export default function ResponsibleCell({ id, field, initialValue, users, apiPath = '/api/ofertas' }: ResponsibleCellProps) {
+export default function ResponsibleCell({ id, field, initialValue, users, apiPath = '/api/ofertas', readOnly = false }: ResponsibleCellProps) {
     const [isEditing, setIsEditing] = useState(false);
     const [value, setValue] = useState(initialValue || '');
     const [saving, setSaving] = useState(false);
@@ -108,6 +109,10 @@ export default function ResponsibleCell({ id, field, initialValue, users, apiPat
                 </button>
             </div>
         );
+    }
+
+    if (readOnly) {
+        return <div style={{ minHeight: '20px' }}>{displayValue}</div>;
     }
 
     return (

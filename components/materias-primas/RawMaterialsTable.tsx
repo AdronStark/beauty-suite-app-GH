@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { Search, Calendar, AlertCircle, ArrowUp, ArrowDown, Box, MessageSquare, Send, ChevronDown, ChevronUp, Trash2, Pencil, Check, X, Flag } from 'lucide-react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
@@ -23,8 +23,16 @@ export default function RawMaterialsTable({ data, alertDays = 7 }: RawMaterialsT
     const [editingNote, setEditingNote] = useState<string | null>(null);
     const [editText, setEditText] = useState('');
 
+    // NEW: Local state to prevent jumps and layout shifts
+    const [localData, setLocalData] = useState(data);
+
+    useEffect(() => {
+        setLocalData(data);
+    }, [data]);
+
     // 1. Filter
-    const filteredData = data.filter(item => {
+    // 1. Filter
+    const filteredData = localData.filter(item => {
         // Text Search
         const matchesSearch =
             item.articleName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -119,6 +127,17 @@ export default function RawMaterialsTable({ data, alertDays = 7 }: RawMaterialsT
     };
 
     const handleUpdate = async (id: string, field: string, value: any) => {
+        // Optimistic update for non-date fields to keep UI snappy without full reload.
+        // For DATES ('estimatedDate', 'manualReceptionDate'), we DO NOT update local state immediately.
+        // This prevents the row from re-sorting and jumping to a new position while the user is editing sequentially.
+        const isDate = field === 'estimatedDate' || field === 'manualReceptionDate';
+
+        if (!isDate) {
+            setLocalData(prev => prev.map(item =>
+                item.id === id ? { ...item, [field]: value } : item
+            ));
+        }
+
         try {
             const res = await fetch(`/api/materias-primas/${id}`, {
                 method: 'PATCH',
@@ -127,13 +146,15 @@ export default function RawMaterialsTable({ data, alertDays = 7 }: RawMaterialsT
             });
             if (res.ok) {
                 toast.success('Guardado');
-                router.refresh();
+                // We do NOT router.refresh() here to avoid resetting the scroll position/focus
             } else {
                 toast.error('Error al guardar');
+                if (!isDate) router.refresh(); // Revert on error
             }
         } catch (e) {
             console.error(e);
             toast.error('Error de conexión');
+            if (!isDate) router.refresh();
         }
     };
 
@@ -171,7 +192,7 @@ export default function RawMaterialsTable({ data, alertDays = 7 }: RawMaterialsT
                 padding: '12px 16px', fontWeight: 600, textAlign: align, cursor: sortKey ? 'pointer' : 'default',
                 userSelect: 'none',
                 position: 'sticky',
-                top: 0,
+                top: '73px', // Height of the sticky toolbar
                 zIndex: 20,
                 background: '#f1f5f9', // Ensure opacity over content
                 borderBottom: '1px solid #cbd5e1'
@@ -188,7 +209,17 @@ export default function RawMaterialsTable({ data, alertDays = 7 }: RawMaterialsT
     return (
         <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
             {/* Toolbar */}
-            <div style={{ padding: '16px', borderBottom: '1px solid #e2e8f0', display: 'flex', gap: '16px', alignItems: 'center', background: '#f8fafc' }}>
+            <div style={{
+                padding: '16px',
+                borderBottom: '1px solid #e2e8f0',
+                display: 'flex',
+                gap: '16px',
+                alignItems: 'center',
+                background: '#f8fafc',
+                position: 'sticky',
+                top: 0,
+                zIndex: 30
+            }}>
                 <div style={{ position: 'relative', flex: 1, maxWidth: '400px' }}>
                     <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                     <input
