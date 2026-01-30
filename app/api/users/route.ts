@@ -8,9 +8,8 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
     const session = await auth();
-    // @ts-ignore
-    if (session?.user?.role !== 'ADMIN') {
-        return new NextResponse("Unauthorized", { status: 403 });
+    if (!session?.user) {
+        return new NextResponse("Unauthorized", { status: 401 });
     }
 
     try {
