@@ -56,7 +56,7 @@ export const OfferCreateSchema = z.object({
     description: z.string().max(1000).optional(),
     responsableComercial: z.string().max(200).optional(),
     responsableTecnico: z.string().max(200).optional(),
-    fechaEntrega: z.string().datetime().optional().nullable(),
+    fechaEntrega: z.string().optional().nullable(),
     briefingId: z.string().optional().nullable(),
     inputData: z.union([z.string(), z.object({}).passthrough()]).optional(),
     resultsSummary: z.union([z.string(), z.object({}).passthrough()]).optional(),

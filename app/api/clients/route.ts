@@ -11,9 +11,9 @@ export const GET = withAuth(async (req, ctx, session) => {
 
         if (search) {
             where.OR = [
-                { name: { contains: search } },
-                { erpId: { contains: search } },
-                { businessName: { contains: search } }
+                { name: { contains: search, mode: 'insensitive' } },
+                { erpId: { contains: search, mode: 'insensitive' } },
+                { businessName: { contains: search, mode: 'insensitive' } }
             ];
         }
 
